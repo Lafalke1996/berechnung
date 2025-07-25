@@ -1,0 +1,2536 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartKidsInvest - Professionelle Investmentberatung</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.herokuapp.com/dist/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 100%);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+        
+        .container-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-main {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+        }
+        
+        .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-left: 1rem;
+            letter-spacing: -0.025em;
+        }
+        
+        .logo-smart {
+            color: #f59e0b;
+        }
+        
+        .logo-kids {
+            color: #f59e0b;
+        }
+        
+        .logo-invest {
+            color: #1e3a8a;
+        }
+        
+        .logo-subtitle {
+            font-size: 0.875rem;
+            color: #475569;
+            margin-top: 0.25rem;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+        
+        .nav-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-tab {
+            flex: 1;
+            min-width: 140px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-bottom: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+        
+        .nav-tab:hover {
+            color: #fbbf24;
+            transform: translateY(-2px);
+        }
+        
+        .nav-tab:hover::before {
+            opacity: 1;
+        }
+        
+        .nav-tab.active {
+            color: #fbbf24;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.15) 100%);
+            border-bottom-color: #fbbf24;
+            transform: translateY(-2px);
+        }
+        
+        .nav-step {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            color: #475569;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-tab.active .nav-step {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            transform: scale(1.1);
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
+        }
+        
+        .page-content {
+            padding: 3rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+            letter-spacing: -0.025em;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.025em;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            font-weight: 500;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1);
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1);
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .checkbox-container:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .checkbox-container.active {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-color: #fbbf24;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.2);
+        }
+        
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            accent-color: #fbbf24;
+            cursor: pointer;
+        }
+        
+        .checkbox-label {
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+            letter-spacing: 0.025em;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: #475569;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-card {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            border: 2px solid;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, currentColor 0%, currentColor 100%);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .result-card.primary {
+            border-color: #1e40af;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
+        }
+        
+        .result-card.success {
+            border-color: #059669;
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+        }
+        
+        .result-card.warning {
+            border-color: #d97706;
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+        }
+        
+        .result-card.neutral {
+            border-color: #64748b;
+            background: linear-gradient(135deg, rgba(100, 116, 139, 0.05) 0%, rgba(148, 163, 184, 0.05) 100%);
+        }
+        
+        .result-value {
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin: 1rem 0;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            word-break: break-word;
+        }
+        
+        .result-card.primary .result-value {
+            color: #1e40af;
+        }
+        
+        .result-card.success .result-value {
+            color: #059669;
+        }
+        
+        .result-card.warning .result-value {
+            color: #d97706;
+        }
+        
+        .result-card.neutral .result-value {
+            color: #64748b;
+        }
+        
+        .advantage-highlight {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+            color: #ffffff;
+            padding: 4rem;
+            border-radius: 24px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .advantage-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        }
+        
+        .advantage-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .advantage-box:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tab {
+                min-width: 120px;
+                font-size: 0.75rem;
+                padding: 0.75rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .result-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        
+        .mb-8 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-4 {
+            margin-top: 1rem;
+        }
+        
+        .mt-6 {
+            margin-top: 1.5rem;
+        }
+        
+        .mt-8 {
+            margin-top: 2rem;
+        }
+        
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #e2e8f0 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
+        }
+        
+        .page-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+        
+        .page-header p {
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.025em;
+        }
+        
+        .summary-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 2px solid #e2e8f0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+        
+        .summary-item:hover {
+            background: rgba(251, 191, 36, 0.05);
+            margin: 0 -1rem;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .summary-label {
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .summary-value {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.95rem;
+        }
+        
+        .insurance-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .insurance-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #64748b 0%, #94a3b8 100%);
+        }
+        
+        .insurance-header {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e2e8f0;
+            letter-spacing: -0.025em;
+        }
+        
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 2px solid #fbbf24;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recommendation-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+        }
+        
+        .recommendation-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.025em;
+        }
+        
+        /* Print styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            #page-zusammenfassung, #page-zusammenfassung * {
+                visibility: visible;
+            }
+            
+            #page-zusammenfassung {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            
+            .nav-container, .btn-primary, .btn-secondary {
+                display: none !important;
+            }
+            
+            .page-content {
+                padding: 0;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #e5e7eb;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-main">
+        <div class="container-main">
+            <div class="logo-container">
+                <div style="display: flex; align-items: center;">
+                    <div class="logo-placeholder">
+                        SK
+                    </div>
+                    <div>
+                        <div class="logo-text">
+                            <span class="logo-smart">Smart</span><span class="logo-kids">Kids</span><span class="logo-invest">Invest</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="logo-subtitle">Professionelle Investmentberatung für Kinder</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="container-main">
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="showPage('kundendaten')">
+                    <span class="nav-step">1</span>
+                    <div class="nav-label">Kundendaten</div>
+                </div>
+                <div class="nav-tab" onclick="showPage('berechnung')">
+                    <span class="nav-step">2</span>
+                    <div class="nav-label">Berechnung</div>
+                </div>
+                <div class="nav-tab" onclick="showPage('gesellschaft')">
+                    <span class="nav-step">3</span>
+                    <div class="nav-label">Gesellschaft</div>
+                </div>
+                <div class="nav-tab" onclick="showPage('vorteile')">
+                    <span class="nav-step">4</span>
+                    <div class="nav-label">Vorteile</div>
+                </div>
+                <div class="nav-tab" onclick="showPage('zusatzabsicherungen')">
+                    <span class="nav-step">5</span>
+                    <div class="nav-label">Absicherungen</div>
+                </div>
+                <div class="nav-tab" onclick="showPage('zusammenfassung')">
+                    <span class="nav-step">6</span>
+                    <div class="nav-label">Zusammenfassung</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container-main">
+        <!-- Page 1: Kundendaten -->
+        <div id="page-kundendaten" class="page-content">
+            <div class="page-header">
+                <h1>Willkommen bei SmartKidsInvest</h1>
+                <p>Der beste Start in die finanzielle Zukunft Ihres Kindes</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h2 class="card-title">Ihre Familie</h2>
+                    <div class="form-group">
+                        <label class="form-label">Ihr Name</label>
+                        <input type="text" id="customerName" class="form-input" placeholder="Max und Maria Mustermann">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Beratungsdatum</label>
+                        <input type="date" id="consultationDate" class="form-input">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">Ihr Berater</h2>
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" id="advisorName" class="form-input" placeholder="Sarah Schmidt">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-Mail</label>
+                        <input type="email" id="advisorEmail" class="form-input" placeholder="sarah.schmidt@smartkidsinvest.de">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Telefon</label>
+                        <input type="tel" id="advisorPhone" class="form-input" placeholder="+49 123 456 789">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showPage('berechnung')" class="btn-primary">
+                    Weiter zur Berechnung
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 2: Berechnung & Ergebnisse -->
+        <div id="page-berechnung" class="page-content hidden">
+            <div class="page-header">
+                <h1>Ihre Anlagestrategie</h1>
+                <p>Gemeinsam finden wir die perfekte Lösung für Ihr Kind</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card">
+                    <h2 class="card-title">Ihr Kind</h2>
+                    <div class="form-group">
+                        <label class="form-label">Name Ihres Kindes</label>
+                        <input type="text" id="childName" class="form-input" placeholder="Anna Mustermann">
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Aktuelles Alter</label>
+                            <input type="number" id="childAge" min="0" max="18" class="form-input" placeholder="5" value="5" onchange="updateLivePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Endalter</label>
+                            <input type="number" id="endAge" min="18" max="80" class="form-input" placeholder="67" value="67" onchange="updateLivePreview()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Monatlicher Sparbeitrag (€)</label>
+                        <input type="number" id="monthlyAmount" min="25" step="25" class="form-input" placeholder="100" value="100" onchange="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Startkapital (€)</label>
+                        <input type="number" id="startCapital" min="0" step="100" class="form-input" placeholder="5000" value="5000" onchange="updateLivePreview()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Effektivkosten SmartKidsInvest (% p.a.)</label>
+                        <input type="number" id="effectiveCosts" step="0.1" min="0" max="5" class="form-input" placeholder="0.6" value="0.6" onchange="updateLivePreview()">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Gesellschaft</label>
+                        <select id="company" class="form-select" onchange="updateLivePreview()">
+                            <option value="baloise">Baloise Lebensversicherung</option>
+                            <option value="alte-leipziger">Alte-Leipziger Lebensversicherung</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Endergebnis SmartKidsInvest (€)</label>
+                        <input type="text" id="smartKidsTarget" class="form-input" placeholder="250.000" value="250.000" onchange="formatTargetAmount(); updateLivePreview()">
+                        <p style="font-size: 0.75rem; color: #6b7280; margin-top: 0.5rem;">Zielwert für SmartKidsInvest-Konzept</p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card">
+                        <h2 class="card-title">Kostenübersicht</h2>
+                        <div class="summary-section">
+                            <div class="summary-item">
+                                <span class="summary-label">Laufzeit:</span>
+                                <span class="summary-value" id="previewDuration">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Beitragssumme:</span>
+                                <span class="summary-value" id="previewTotal">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Abschlusskosten:</span>
+                                <span class="summary-value" id="previewClosingCosts">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Gesamteffektivkosten:</span>
+                                <span class="summary-value" id="previewEffectiveCosts">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Endergebnis SmartKidsInvest:</span>
+                                <span class="summary-value" id="previewSmartKidsTarget">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2 class="card-title">Produktvergleich</h2>
+                        <div style="margin-bottom: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 8px; border: 2px solid #3b82f6;">
+                            <h3 style="font-weight: 700; color: #1e40af; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <div style="width: 32px; height: 32px; background: #e5e7eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #6b7280; font-weight: 600;">LOGO</div>
+                                SmartKidsInvest
+                            </h3>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Effektivkosten: <span id="displayEffectiveCosts">0,6%</span> p.a.</p>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Abschlusskosten: 2,5% auf Beitragssumme</p>
+                        </div>
+                        <div style="margin-bottom: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 8px; border: 2px solid #10b981;">
+                            <h3 style="font-weight: 700; color: #059669; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="#059669">
+                                    <path d="M12,3A4,4 0 0,1 16,7A4,4 0 0,1 12,11A4,4 0 0,1 8,7A4,4 0 0,1 12,3M12,14.2C13.5,14.2 15.3,14.9 16.4,15.5C17.5,16.1 18,16.5 18,17V20H6V17C6,16.5 6.5,16.1 7.6,15.5C8.7,14.9 10.5,14.2 12,14.2Z"/>
+                                    <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="#059669" stroke-width="1.5"/>
+                                    <path d="M2,8 L22,8" stroke="#059669" stroke-width="1.5"/>
+                                </svg>
+                                Sparbuch
+                            </h3>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 0,5% p.a.</p>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Kosten: Keine</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-radius: 8px; border: 2px solid #f59e0b;">
+                            <h3 style="font-weight: 700; color: #d97706; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="#d97706">
+                                    <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
+                                    <circle cx="12" cy="8" r="2" fill="#f59e0b"/>
+                                    <path d="M8,16 L16,16" stroke="#d97706" stroke-width="1.5"/>
+                                    <path d="M8,18 L16,18" stroke="#d97706" stroke-width="1.5"/>
+                                </svg>
+                                Bausparvertrag
+                            </h3>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 1,0% p.a.</p>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Abschlussgebühr: 1,0% der Bausparsumme</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section (initially hidden) -->
+            <div id="resultsSection" class="hidden mt-8">
+                <div class="page-header">
+                    <h1>Ihre Ergebnisse</h1>
+                    <p>📊 So entwickelt sich das Vermögen Ihres Kindes bis zum <span id="resultEndAge">67</span>. Lebensjahr</p>
+                </div>
+                
+                <div class="grid-4 mb-8">
+                    <div class="result-card neutral">
+                        <h3 style="font-weight: 700; margin-bottom: 1rem; font-size: 1rem;">Ihre Einzahlungen</h3>
+                        <div class="result-value" id="resultContributions">-</div>
+                        <p style="font-size: 0.875rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
+                    </div>
+                    
+                    <div class="result-card primary">
+                        <h3 style="font-weight: 700; margin-bottom: 1rem; font-size: 1rem;">SmartKidsInvest</h3>
+                        <div class="result-value" id="resultSmartKids">-</div>
+                        <p style="font-size: 0.875rem; color: #1e40af; font-weight: 700;" id="resultSmartKidsReturn">-</p>
+                    </div>
+                    
+                    <div class="result-card success">
+                        <h3 style="font-weight: 700; margin-bottom: 1rem; font-size: 1rem;">Sparbuch</h3>
+                        <div class="result-value" id="resultSavings">-</div>
+                        <p style="font-size: 0.875rem; color: #059669; font-weight: 700;" id="resultSavingsReturn">-</p>
+                    </div>
+                    
+                    <div class="result-card warning">
+                        <h3 style="font-weight: 700; margin-bottom: 1rem; font-size: 1rem;">Bausparvertrag</h3>
+                        <div class="result-value" id="resultBuilding">-</div>
+                        <p style="font-size: 0.875rem; color: #d97706; font-weight: 700;" id="resultBuildingReturn">-</p>
+                    </div>
+                </div>
+
+
+
+                <div class="card">
+                    <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
+                    <div style="position: relative; height: 400px; width: 100%;">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 space-x-4">
+                <button onclick="showPage('kundendaten')" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                    </svg>
+                    Zurück
+                </button>
+                <button onclick="calculateAndShowResults()" class="btn-primary" id="calculateBtn">
+                    Jetzt berechnen
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+                    </svg>
+                </button>
+                <button onclick="calculateAndShowResults()" class="btn-secondary hidden" id="recalculateBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                    </svg>
+                    Neu berechnen
+                </button>
+                <button onclick="showPage('gesellschaft')" class="btn-primary hidden" id="nextToVorteileBtn">
+                    Weiter
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 3: Company Information -->
+        <div id="page-gesellschaft" class="page-content hidden">
+            <div class="page-header">
+                <h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
+                <p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
+            </div>
+            
+            <!-- Baloise Information -->
+            <div id="baloiseInfo" class="hidden">
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Baloise?</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>150+ Jahre Erfahrung</strong><br>
+                                        <span style="color: #6b7280;">Seit 1863 ein verlässlicher Partner für Generationen</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💪</div>
+                                    <div>
+                                        <strong>Finanzstärke AAA</strong><br>
+                                        <span style="color: #6b7280;">Höchste Bonitätsbewertung für maximale Sicherheit</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🌍</div>
+                                    <div>
+                                        <strong>Europaweit tätig</strong><br>
+                                        <span style="color: #6b7280;">Starke Präsenz in Deutschland, Schweiz, Belgien und Luxemburg</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📈</div>
+                                    <div>
+                                        <strong>Überdurchschnittliche Überschüsse</strong><br>
+                                        <span style="color: #6b7280;">Kontinuierlich hohe Gewinnbeteiligung für Kunden</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🎯</div>
+                                    <div>
+                                        <strong>Flexible Fondsauswahl</strong><br>
+                                        <span style="color: #6b7280;">Über 100 Fonds zur individuellen Gestaltung</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔄</div>
+                                    <div>
+                                        <strong>Kostenfreie Umschichtungen</strong><br>
+                                        <span style="color: #6b7280;">Unbegrenzt und ohne zusätzliche Gebühren</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🛡️</div>
+                                    <div>
+                                        <strong>Garantierte Beitragsrückgewähr</strong><br>
+                                        <span style="color: #6b7280;">100% Ihrer Einzahlungen sind garantiert</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">⚡</div>
+                                    <div>
+                                        <strong>Schnelle Auszahlung</strong><br>
+                                        <span style="color: #6b7280;">Unkomplizierte Abwicklung bei Fälligkeit</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alte Leipziger Information -->
+            <div id="alteLeipzigerInfo" class="hidden">
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Alte Leipziger?</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>200+ Jahre Tradition</strong><br>
+                                        <span style="color: #6b7280;">Seit 1819 Deutschlands ältester Lebensversicherer</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💎</div>
+                                    <div>
+                                        <strong>Ausgezeichnete Ratings</strong><br>
+                                        <span style="color: #6b7280;">A+ Rating von Standard & Poor's für Stabilität</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🎖️</div>
+                                    <div>
+                                        <strong>Testsieger-Qualität</strong><br>
+                                        <span style="color: #6b7280;">Regelmäßige Auszeichnungen von Stiftung Warentest</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📊</div>
+                                    <div>
+                                        <strong>Hohe Überschussbeteiligung</strong><br>
+                                        <span style="color: #6b7280;">Überdurchschnittliche Gewinnausschüttung an Kunden</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🌟</div>
+                                    <div>
+                                        <strong>AL_best Fonds</strong><br>
+                                        <span style="color: #6b7280;">Hauseigene Premiumfonds mit Top-Performance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔒</div>
+                                    <div>
+                                        <strong>Beitragsgarantie</strong><br>
+                                        <span style="color: #6b7280;">Ihre Einzahlungen sind zu 100% geschützt</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🎯</div>
+                                    <div>
+                                        <strong>Flexible Strategien</strong><br>
+                                        <span style="color: #6b7280;">Von konservativ bis chancenorientiert</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">👨‍💼</div>
+                                    <div>
+                                        <strong>Persönlicher Service</strong><br>
+                                        <span style="color: #6b7280;">Direkter Ansprechpartner für alle Fragen</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 space-x-4">
+                <button onclick="showPage('berechnung')" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                    </svg>
+                    Zurück
+                </button>
+                <button onclick="showPage('vorteile')" class="btn-primary">
+                    Weiter
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 4: Vorteile -->
+        <div id="page-vorteile" class="page-content hidden">
+            <div class="page-header">
+                <h1>Warum SmartKidsInvest?</h1>
+                <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
+            </div>
+            
+            <div class="grid-2 mb-8">
+                <div class="card">
+                    <h2 class="card-title" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.125rem;">⭐ Hauptvorteile</h2>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">📈</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Hohe Renditechancen</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Professionelles Fondsmanagement mit langfristig attraktiven Renditeaussichten</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🔄</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Steuerfreier Strategiewechsel</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Flexible Anpassung der Anlagestrategie ohne steuerliche Nachteile</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">💎</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Transparente Kosten</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Klare, vorhersagbare Kostenstruktur ohne versteckte Gebühren</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🎯</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kontrolle bei den Eltern</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Sie behalten die volle Kontrolle über die Geldanlage Ihres Kindes</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.125rem;">🎁 Kostenfreie Extras</h2>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">🛡️</div>
+                            <div>
+                                <strong style="font-size: 1rem;">100% sichere Einzahlungen</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Ihre Beiträge sind durch gesetzliche Sicherungssysteme vollständig geschützt</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🚫</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kostenfreie BU-Option</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Berufsunfähigkeitsschutz für Ihr Kind ohne zusätzliche Kosten integrierbar</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">👨‍💼</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kostenlose jährliche Beratung</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Regelmäßige, kostenfreie Beratungstermine mit unseren Finanzexperten</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 space-x-4">
+                <button onclick="showPage('berechnung')" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                    </svg>
+                    Zurück
+                </button>
+                <button onclick="showPage('zusatzabsicherungen')" class="btn-primary">
+                    Weiter
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 5: Zusatzabsicherungen -->
+        <div id="page-zusatzabsicherungen" class="page-content hidden">
+            <div class="page-header">
+                <h1>Zusätzlicher Schutz</h1>
+                <p>Umfassende Sicherheit für Ihre Familie</p>
+            </div>
+            
+            <!-- Risikolebensversicherung -->
+            <div class="insurance-section">
+                <div class="insurance-header">Risikolebensversicherung für Eltern</div>
+                
+                <div class="grid-2" style="gap: 2rem; align-items: start;">
+                    <div class="recommendation-box">
+                        <div class="recommendation-title">Wir empfehlen:</div>
+                        <div class="form-group">
+                            <label class="form-label">Gesellschaft</label>
+                            <input type="text" id="deathInsuranceCompany" class="form-input" placeholder="Allianz Leben">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Monatlicher Beitrag (€)</label>
+                                <input type="number" id="deathInsurancePrice" class="form-input" placeholder="25" value="25" step="5" onchange="updateTotalInsuranceCost()">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Absicherungshöhe (€)</label>
+                                <input type="text" id="deathInsuranceAmount" class="form-input" placeholder="100.000" value="100.000" onchange="formatInsuranceAmount('deathInsuranceAmount')">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Laufzeit (Jahre)</label>
+                                <select id="deathInsuranceDuration" class="form-select">
+                                    <option value="10">10 Jahre</option>
+                                    <option value="15">15 Jahre</option>
+                                    <option value="20" selected>20 Jahre</option>
+                                    <option value="25">25 Jahre</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Verlauf</label>
+                                <select id="deathInsuranceType" class="form-select">
+                                    <option value="konstant" selected>Konstant</option>
+                                    <option value="linear-fallend">Linear fallend</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 4px solid #f59e0b; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(245, 158, 11, 0.25); height: fit-content;">
+                        <h3 style="font-size: 1.375rem; color: #92400e; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 2rem;">⚠️</span>
+                            Warum gerade für Kinder wichtig:
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: #92400e; font-weight: 600; line-height: 1.8;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #f59e0b; font-size: 1.25rem;">💰</span>
+                                <span>Studienkosten: 50.000-80.000€ pro Kind sind ohne Eltern nicht finanzierbar</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #f59e0b; font-size: 1.25rem;">🏠</span>
+                                <span>Lebensunterhalt: 1.200€/Monat für 18 Jahre = 259.200€ Gesamtkosten</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #f59e0b; font-size: 1.25rem;">📈</span>
+                                <span>Nur 25€/Monat sichern 100.000€ ab - das ist 333x mehr Schutz!</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #f59e0b; font-size: 1.25rem;">🎯</span>
+                                <span>Auszahlung komplett steuerfrei - volle Summe kommt beim Kind an</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zahnzusatzversicherung -->
+            <div class="insurance-section">
+                <div class="insurance-header">Zahnzusatzversicherung für Kinder</div>
+                
+                <div class="grid-2" style="gap: 2rem; align-items: start;">
+                    <div class="recommendation-box">
+                        <div class="recommendation-title">Wir empfehlen:</div>
+                        <div class="form-group">
+                            <label class="form-label">Gesellschaft</label>
+                            <input type="text" id="dentalInsuranceCompany" class="form-input" placeholder="ERGO Direkt">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Monatlicher Beitrag (€)</label>
+                                <input type="number" id="dentalInsurancePrice" class="form-input" placeholder="12" value="12" step="1" onchange="calculateDentalTotal()">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Leistungen</label>
+                                <select id="dentalInsuranceLevel" class="form-select">
+                                    <option value="100">100% Zahnersatz</option>
+                                    <option value="90" selected>90% Zahnersatz</option>
+                                    <option value="80">80% Zahnersatz</option>
+                                    <option value="70">70% Zahnersatz</option>
+                                    <option value="50">50% Zahnersatz</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="dentalBeitragsanstieg" class="checkbox-input" onchange="toggleBeitragsanstieg()">
+                            <label for="dentalBeitragsanstieg" class="checkbox-label">Beitragsanstieg?</label>
+                        </div>
+                        
+                        <div id="beitragsanstiegFields" style="display: none; margin-top: 1rem;">
+                            <div class="grid-2">
+                                <div class="form-group">
+                                    <label class="form-label">Ab wann (Alter des Kindes)</label>
+                                    <input type="number" id="dentalIncreaseYear" class="form-input" placeholder="10" value="10" min="1" max="18" onchange="calculateDentalTotal()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Neuer monatlicher Beitrag (€)</label>
+                                    <input type="number" id="dentalNewPrice" class="form-input" placeholder="18" value="18" step="1" onchange="calculateDentalTotal()">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f0fdf4; border: 1px solid #22c55e; border-radius: 6px; padding: 1rem; margin-top: 1rem;">
+                            <p style="font-size: 0.875rem; color: #059669; margin: 0; font-weight: 600;">
+                                <strong>Gesamtbeitrag bis zum 18. Lebensjahr:</strong> <span id="dentalTotalCost">-</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 4px solid #10b981; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25); height: fit-content;">
+                        <h3 style="font-size: 1.375rem; color: #065f46; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 2rem;">🦷</span>
+                            Warum gerade für Kinder wichtig:
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: #065f46; font-weight: 600; line-height: 1.8;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #10b981; font-size: 1.25rem;">💸</span>
+                                <span>Ohne Versicherung: Zahnspange kostet 8.000€ - mit Versicherung nur 800€</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #10b981; font-size: 1.25rem;">✨</span>
+                                <span>Unsichtbare Zahnspangen: 12.000€ Eigenanteil wird auf 1.200€ reduziert</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #10b981; font-size: 1.25rem;">⚡</span>
+                                <span>Keine Wartezeiten vor dem 8. Lebensjahr - sofortiger Schutz</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #10b981; font-size: 1.25rem;">📊</span>
+                                <span>85% aller Kinder brauchen eine Zahnspange - Wahrscheinlichkeit sehr hoch</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #10b981; font-size: 1.25rem;">🎯</span>
+                                <span>12€/Monat sparen bis zu 10.800€ Behandlungskosten - 900x Rendite!</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schüler-BU -->
+            <div class="insurance-section">
+                <div class="insurance-header">Schüler-BU für Kinder</div>
+                
+                <div class="grid-2" style="gap: 2rem; align-items: start;">
+                    <div class="recommendation-box">
+                        <div class="recommendation-title">Wir empfehlen:</div>
+                        <div class="form-group">
+                            <label class="form-label">Gesellschaft</label>
+                            <input type="text" id="disabilityInsuranceCompany" class="form-input" placeholder="Continentale">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Monatlicher Beitrag (€)</label>
+                                <input type="number" id="disabilityInsurancePrice" class="form-input" placeholder="20" value="20" step="5" onchange="updateTotalInsuranceCost()">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">BU-Rente (€)</label>
+                                <input type="number" id="disabilityInsuranceRent" class="form-input" placeholder="1500" value="1500" step="100">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Endalter ab</label>
+                            <input type="number" id="disabilityInsuranceAge" class="form-input" placeholder="67" value="67" min="60" max="70">
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 4px solid #ec4899; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25); height: fit-content;">
+                        <h3 style="font-size: 1.375rem; color: #831843; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 2rem;">🛡️</span>
+                            Warum gerade für Kinder wichtig:
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: #831843; font-weight: 600; line-height: 1.8;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #ec4899; font-size: 1.25rem;">⚠️</span>
+                                <span>Jeder 4. wird berufsunfähig - das sind 25% Wahrscheinlichkeit!</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #ec4899; font-size: 1.25rem;">💰</span>
+                                <span>1.500€ BU-Rente = 810.000€ Gesamtleistung bis 67 (45 Jahre)</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #ec4899; font-size: 1.25rem;">🏥</span>
+                                <span>Verkürzte Gesundheitsfragen - später oft nicht mehr versicherbar</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #ec4899; font-size: 1.25rem;">🔒</span>
+                                <span>Lebenslange Versicherbarkeit garantiert - auch bei Krankheit</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #ec4899; font-size: 1.25rem;">📈</span>
+                                <span>Beitrag steigt nie - heute 20€, in 30 Jahren immer noch 20€</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Insurance Cost Summary -->
+            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <h3 style="color: #0369a1; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 1.25rem;">💰</span>
+                    Gesamtkosten aller Absicherungen
+                </h3>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #0369a1;" id="totalInsuranceCost">-</div>
+                        <p style="font-size: 0.875rem; color: #374151; font-weight: 600; margin: 0;">Monatlicher Gesamtbeitrag</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.8); padding: 1rem; border-radius: 8px; border: 1px solid #0ea5e9; max-width: 60%;">
+                        <div id="insuranceBreakdown" style="color: #374151; font-weight: 600; line-height: 1.6; font-size: 0.875rem;">
+                            <!-- Dynamic content will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8 space-x-4">
+                <button onclick="showPage('vorteile')" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                    </svg>
+                    Zurück
+                </button>
+                <button onclick="showPage('zusammenfassung')" class="btn-primary">
+                    Weiter
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Page 6: Zusammenfassung -->
+        <div id="page-zusammenfassung" class="page-content hidden">
+            <div class="page-header">
+                <h1>Ihre Beratungszusammenfassung</h1>
+                <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
+            </div>
+            
+            <div class="grid-2 mb-6">
+                <div class="card">
+                    <h2 class="card-title">Beratungsdetails</h2>
+                    <div class="summary-section">
+                        <div class="summary-item">
+                            <span class="summary-label">👤 Familie:</span>
+                            <span class="summary-value" id="summaryCustomer">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">👶 Kind:</span>
+                            <span class="summary-value" id="summaryChild">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">👨‍💼 Berater:</span>
+                            <span class="summary-value" id="summaryAdvisor">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">📅 Datum:</span>
+                            <span class="summary-value" id="summaryDate">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2 class="card-title">Anlageparameter</h2>
+                    <div class="summary-section">
+                        <div class="summary-item">
+                            <span class="summary-label">🏦 Startkapital:</span>
+                            <span class="summary-value" id="summaryStartCapital">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">💳 Monatlich:</span>
+                            <span class="summary-value" id="summaryMonthly">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">⏱️ Laufzeit:</span>
+                            <span class="summary-value" id="summaryDuration">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">🎯 Guthaben nach Kosten:</span>
+                            <span class="summary-value" id="summarySmartKidsTarget">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">📈 Erwartete Rendite:</span>
+                            <span class="summary-value" id="summaryReturn">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-6">
+                <h2 class="card-title">Berechnungsergebnisse</h2>
+                <div class="grid-4 mb-4">
+                    <div class="result-card neutral">
+                        <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">💰</div>
+                        <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Ihre Einzahlungen</h3>
+                        <div class="result-value" id="summaryContributions">-</div>
+                        <p style="font-size: 1.125rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
+                    </div>
+                    <div class="result-card primary">
+                        <div style="width: 56px; height: 56px; background: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; color: #6b7280; font-weight: 600; margin: 0 auto 1.5rem auto;">LOGO</div>
+                        <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">SmartKidsInvest</h3>
+                        <div class="result-value" id="summarySmartKids">-</div>
+                        <p style="font-size: 1.125rem; color: #1e3a8a; font-weight: 700;" id="smartKidsReturn">-</p>
+                    </div>
+                    <div class="result-card success">
+                        <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🏦</div>
+                        <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Sparbuch</h3>
+                        <div class="result-value" id="summarySavings">-</div>
+                        <p style="font-size: 1.125rem; color: #059669; font-weight: 700;" id="savingsReturn">-</p>
+                    </div>
+                    <div class="result-card warning">
+                        <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🏠</div>
+                        <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Bausparvertrag</h3>
+                        <div class="result-value" id="summaryBuilding">-</div>
+                        <p style="font-size: 1.125rem; color: #d97706; font-weight: 700;" id="buildingReturn">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-6">
+                <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
+                <div style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="summaryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Zusatzabsicherungen Summary -->
+            <div id="insuranceSummary" class="card mb-6" style="display: none;">
+                <h2 class="card-title">Gewählte Zusatzabsicherungen</h2>
+                <div id="insuranceSummaryContent" class="summary-section">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 2rem; margin-top: 2rem; text-align: center;">
+                    <h3 style="font-size: 1.25rem; color: #0369a1; margin-bottom: 1rem; font-weight: 700;">💰 Gesamtkosten aller Absicherungen</h3>
+                    <div style="font-size: 2rem; font-weight: 900; color: #0369a1;" id="summaryTotalInsuranceCost">-</div>
+                    <p style="color: #374151; font-weight: 600; margin-top: 0.5rem;">Monatlicher Gesamtbeitrag</p>
+                </div>
+            </div>
+
+            <!-- Vorteile als Kacheln -->
+            <div class="card mb-6">
+                <h2 class="card-title">SmartKidsInvest Vorteile</h2>
+                <div class="grid-3">
+                    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #22c55e; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">📈</div>
+                        <h3 style="font-weight: 800; color: #059669; margin-bottom: 1.5rem;">Hohe Renditechancen</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Professionelles Fondsmanagement</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #3b82f6; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">🔄</div>
+                        <h3 style="font-weight: 800; color: #1e3a8a; margin-bottom: 1.5rem;">Steuerfreier Strategiewechsel</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Flexible Anpassung möglich</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #f59e0b; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">💎</div>
+                        <h3 style="font-weight: 800; color: #d97706; margin-bottom: 1.5rem;">Transparente Kosten</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Keine versteckten Gebühren</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #6b7280; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">🎯</div>
+                        <h3 style="font-weight: 800; color: #374151; margin-bottom: 1.5rem;">Kontrolle bei Eltern</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Volle Kontrolle behalten</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #0ea5e9; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">🛡️</div>
+                        <h3 style="font-weight: 800; color: #0369a1; margin-bottom: 1.5rem;">100% sichere Einzahlungen</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Gesetzlich geschützt</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #ec4899; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">👨‍💼</div>
+                        <h3 style="font-weight: 800; color: #be185d; margin-bottom: 1.5rem;">Kostenlose Beratung</h3>
+                        <p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Jährlich kostenfrei</p>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="card" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 2px solid #e5e7eb; padding: 1.5rem;">
+                <p style="text-align: center; font-size: 0.75rem; color: #6b7280; margin: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; line-height: 1.4;">
+                    <span style="font-size: 0.875rem;">⚠️</span>
+                    <strong>Wichtiger Hinweis:</strong> Alle Berechnungen basieren auf den eingegebenen Annahmen und erfolgen ohne Gewähr. 
+                    Die tatsächliche Entwicklung kann von den Prognosen abweichen. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse.
+                </p>
+            </div>
+            
+            <div class="text-center mt-8 space-x-4">
+                <button onclick="showPage('zusatzabsicherungen')" class="btn-secondary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
+                    </svg>
+                    Zurück
+                </button>
+                <button onclick="window.print()" class="btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"/>
+                    </svg>
+                    Drucken / PDF
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentPage = 'kundendaten';
+        let calculationData = {};
+        let chart = null;
+        let summaryChart = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('consultationDate').value = new Date().toISOString().split('T')[0];
+            updateLivePreview();
+            calculateDentalTotal();
+            updateTotalInsuranceCost();
+        });
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show selected page
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-tab').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find the correct nav tab to activate
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                if (tab.getAttribute('onclick') && tab.getAttribute('onclick').includes(pageId)) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            currentPage = pageId;
+            
+            // Update summary when showing summary page
+            if (pageId === 'zusammenfassung') {
+                updateSummary();
+            }
+        }
+
+        function toggleBeitragsanstieg() {
+            const checkbox = document.getElementById('dentalBeitragsanstieg');
+            const fields = document.getElementById('beitragsanstiegFields');
+            const container = checkbox.closest('.checkbox-container');
+            
+            if (checkbox.checked) {
+                fields.style.display = 'block';
+                container.classList.add('active');
+            } else {
+                fields.style.display = 'none';
+                container.classList.remove('active');
+            }
+            
+            calculateDentalTotal();
+        }
+
+        function formatInsuranceAmount(fieldId) {
+            const input = document.getElementById(fieldId);
+            let value = input.value.replace(/\./g, '').replace(/[^\d]/g, '');
+            
+            if (value) {
+                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                input.value = value;
+            }
+        }
+
+        function calculateDentalTotal() {
+            const childAge = parseInt(document.getElementById('childAge').value) || 5;
+            const monthlyPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 12;
+            const beitragsanstieg = document.getElementById('dentalBeitragsanstieg').checked;
+            
+            let totalCost = 0;
+            const yearsUntil18 = 18 - childAge;
+            
+            if (beitragsanstieg) {
+                const increaseYear = parseInt(document.getElementById('dentalIncreaseYear').value) || 10;
+                const newPrice = parseFloat(document.getElementById('dentalNewPrice').value) || 18;
+                
+                // Calculate years before and after increase
+                const yearsBeforeIncrease = Math.max(0, Math.min(increaseYear - childAge, yearsUntil18));
+                const yearsAfterIncrease = Math.max(0, yearsUntil18 - yearsBeforeIncrease);
+                
+                totalCost = (yearsBeforeIncrease * monthlyPrice * 12) + (yearsAfterIncrease * newPrice * 12);
+            } else {
+                totalCost = yearsUntil18 * monthlyPrice * 12;
+            }
+            
+            document.getElementById('dentalTotalCost').textContent = formatCurrency(totalCost);
+            updateTotalInsuranceCost();
+        }
+
+        function updateTotalInsuranceCost() {
+            const deathPrice = parseFloat(document.getElementById('deathInsurancePrice').value) || 0;
+            const dentalPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 0;
+            const disabilityPrice = parseFloat(document.getElementById('disabilityInsurancePrice').value) || 0;
+            
+            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice;
+            
+            const totalCostElement = document.getElementById('totalInsuranceCost');
+            const breakdownElement = document.getElementById('insuranceBreakdown');
+            
+            if (totalCostElement) {
+                totalCostElement.textContent = formatCurrency(totalMonthlyCost) + '/Monat';
+            }
+            
+            if (breakdownElement) {
+                let breakdownHTML = '';
+                
+                if (deathPrice > 0) {
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🛡️ Risikolebensversicherung:</span><span>${formatCurrency(deathPrice)}/Monat</span></div>`;
+                }
+                
+                if (dentalPrice > 0) {
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🦷 Zahnzusatzversicherung:</span><span>${formatCurrency(dentalPrice)}/Monat</span></div>`;
+                }
+                
+                if (disabilityPrice > 0) {
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🚫 Schüler-BU:</span><span>${formatCurrency(disabilityPrice)}/Monat</span></div>`;
+                }
+                
+                if (breakdownHTML === '') {
+                    breakdownHTML = '<div style="color: #6b7280; font-style: italic;">Keine Absicherungen ausgewählt</div>';
+                } else {
+                    breakdownHTML += `<div style="border-top: 2px solid #0ea5e9; padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; font-weight: 800; font-size: 1.125rem;"><span>Gesamt:</span><span>${formatCurrency(totalMonthlyCost)}/Monat</span></div>`;
+                }
+                
+                breakdownElement.innerHTML = breakdownHTML;
+            }
+        }
+
+        function formatTargetAmount() {
+            const input = document.getElementById('smartKidsTarget');
+            let value = input.value.replace(/\./g, '').replace(/[^\d]/g, '');
+            
+            if (value) {
+                // Add dots every 3 digits from the right
+                value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                input.value = value;
+            }
+        }
+
+        function updateLivePreview() {
+            const childAge = parseInt(document.getElementById('childAge').value) || 5;
+            const endAge = parseInt(document.getElementById('endAge').value) || 67;
+            const startCapital = parseFloat(document.getElementById('startCapital').value) || 5000;
+            const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value) || 100;
+            const smartKidsTargetStr = document.getElementById('smartKidsTarget').value || '250.000';
+            const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
+            const effectiveCosts = parseFloat(document.getElementById('effectiveCosts').value) || 0.6;
+            
+            const duration = endAge - childAge;
+            // Calculate closing costs and effective costs until endAge (not 67)
+            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+            const closingCosts = totalContributions * 0.025;
+            // Effective costs are calculated yearly on the total balance until endAge
+            const totalEffectiveCosts = closingCosts + (smartKidsTarget * (effectiveCosts / 100) * duration);
+            
+            document.getElementById('previewDuration').textContent = duration + ' Jahre';
+            document.getElementById('previewTotal').textContent = formatCurrency(totalContributions);
+            document.getElementById('previewClosingCosts').textContent = formatCurrency(closingCosts);
+            document.getElementById('previewEffectiveCosts').textContent = formatCurrency(totalEffectiveCosts);
+            document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
+            document.getElementById('displayEffectiveCosts').textContent = effectiveCosts + '%';
+            
+            // Update company info display
+            updateCompanyInfo();
+        }
+
+        function updateCompanyInfo() {
+            const company = document.getElementById('company').value;
+            const baloiseInfo = document.getElementById('baloiseInfo');
+            const alteLeipzigerInfo = document.getElementById('alteLeipzigerInfo');
+            const companyTitle = document.getElementById('companyTitle');
+            const companySubtitle = document.getElementById('companySubtitle');
+            
+            if (company === 'baloise') {
+                baloiseInfo.classList.remove('hidden');
+                alteLeipzigerInfo.classList.add('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><div style="width: 48px; height: 48px; background: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #6b7280; font-weight: 600;">LOGO</div>Baloise Lebensversicherung</div>';
+                companySubtitle.textContent = 'Ihr starker Partner mit 150+ Jahren Erfahrung';
+            } else {
+                baloiseInfo.classList.add('hidden');
+                alteLeipzigerInfo.classList.remove('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><div style="width: 48px; height: 48px; background: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #6b7280; font-weight: 600;">LOGO</div>Alte Leipziger Lebensversicherung</div>';
+                companySubtitle.textContent = 'Tradition trifft Innovation seit 1819';
+            }
+        }
+
+        function calculateAndShowResults() {
+            console.log('=== CALCULATE BUTTON CLICKED ===');
+            
+            try {
+                // Get all input values with safe fallbacks
+                const customerName = document.getElementById('customerName')?.value || 'Familie Mustermann';
+                const childName = document.getElementById('childName')?.value || 'Kind';
+                const childAge = parseInt(document.getElementById('childAge')?.value) || 5;
+                const endAge = parseInt(document.getElementById('endAge')?.value) || 67;
+                const startCapital = parseFloat(document.getElementById('startCapital')?.value) || 5000;
+                const monthlyAmount = parseFloat(document.getElementById('monthlyAmount')?.value) || 100;
+                const smartKidsTargetStr = document.getElementById('smartKidsTarget')?.value || '250.000';
+                const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '').replace(/,/g, '')) || 250000;
+                const expectedReturn = parseFloat(document.getElementById('expectedReturn')?.value) || 5.0;
+                const effectiveCosts = parseFloat(document.getElementById('effectiveCosts')?.value) || 0.6;
+                const advisorName = document.getElementById('advisorName')?.value || 'Berater';
+                const advisorEmail = document.getElementById('advisorEmail')?.value || 'berater@smartkidsinvest.de';
+                const advisorPhone = document.getElementById('advisorPhone')?.value || '+49 123 456789';
+                const consultationDate = document.getElementById('consultationDate')?.value || new Date().toISOString().split('T')[0];
+
+                console.log('Input values:', { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget });
+
+                // Validate inputs
+                if (isNaN(childAge) || childAge < 0 || childAge > 18) {
+                    alert('Bitte geben Sie ein gültiges Alter für das Kind ein (0-18 Jahre).');
+                    return;
+                }
+
+                if (isNaN(endAge) || endAge <= childAge || endAge > 100) {
+                    alert('Das Ziel-Alter muss höher als das aktuelle Alter und unter 100 Jahren sein.');
+                    return;
+                }
+
+                // Calculate parameters
+                const duration = endAge - childAge;
+                const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+                const durationTo67 = 67 - childAge;
+                const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo67);
+                const closingCosts = totalContributionsTo67 * 0.025;
+
+                // Calculate results
+                const smartKidsReturn = smartKidsTarget;
+                const savingsReturn = calculateSavingsAccount(startCapital, monthlyAmount, duration, 0.5);
+                const buildingReturn = calculateBuildingSociety(startCapital, monthlyAmount, duration);
+
+                // Store calculation data
+                calculationData = {
+                    customerName, childName, childAge, endAge, startCapital, monthlyAmount,
+                    smartKidsTarget, expectedReturn, effectiveCosts, advisorName, advisorEmail, 
+                    advisorPhone, consultationDate, duration, totalContributions, closingCosts,
+                    smartKidsReturn, savingsReturn, buildingReturn
+                };
+
+                console.log('Calculation data stored:', calculationData);
+
+                // Update results display with safe element access
+                updateResultsDisplay();
+                
+                // Create chart
+                createChart();
+
+                // Show results section and update buttons
+                const resultsSection = document.getElementById('resultsSection');
+                const nextBtn = document.getElementById('nextToVorteileBtn');
+                const calculateBtn = document.getElementById('calculateBtn');
+                const recalculateBtn = document.getElementById('recalculateBtn');
+                
+                if (resultsSection) resultsSection.classList.remove('hidden');
+                if (nextBtn) nextBtn.classList.remove('hidden');
+                if (calculateBtn) calculateBtn.classList.add('hidden');
+                if (recalculateBtn) recalculateBtn.classList.remove('hidden');
+                
+                // Scroll to results
+                if (resultsSection) {
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                
+                console.log('=== CALCULATION COMPLETED SUCCESSFULLY ===');
+                
+            } catch (error) {
+                console.error('=== CRITICAL ERROR IN CALCULATION ===', error);
+                alert('Fehler bei der Berechnung: ' + error.message);
+            }
+        }
+
+        function calculateSavingsAccount(startCapital, monthlyPayment, years, rate) {
+            const monthlyRate = rate / 100 / 12;
+            const months = years * 12;
+            
+            let value = startCapital;
+            
+            for (let month = 1; month <= months; month++) {
+                value += monthlyPayment;
+                value *= (1 + monthlyRate);
+            }
+            
+            return value;
+        }
+
+        function calculateBuildingSociety(startCapital, monthlyPayment, years) {
+            const totalContributions = startCapital + (monthlyPayment * 12 * years);
+            const closingFee = totalContributions * 0.01; // 1% Abschlussgebühr
+            const netContributions = totalContributions - closingFee;
+            
+            // Calculate with 1% interest on net contributions
+            return calculateSavingsAccount(startCapital - (startCapital * 0.01), monthlyPayment, years, 1.0);
+        }
+
+        function updateResultsDisplay() {
+            const { endAge, smartKidsReturn, savingsReturn, buildingReturn, totalContributions } = calculationData;
+
+            // Safely update elements with null checks
+            const resultEndAgeEl = document.getElementById('resultEndAge');
+            const resultContributionsEl = document.getElementById('resultContributions');
+            const resultSmartKidsEl = document.getElementById('resultSmartKids');
+            const resultSavingsEl = document.getElementById('resultSavings');
+            const resultBuildingEl = document.getElementById('resultBuilding');
+            
+            if (resultEndAgeEl) resultEndAgeEl.textContent = endAge;
+            if (resultContributionsEl) resultContributionsEl.textContent = formatCurrency(totalContributions);
+            if (resultSmartKidsEl) resultSmartKidsEl.textContent = formatCurrency(smartKidsReturn);
+            if (resultSavingsEl) resultSavingsEl.textContent = formatCurrency(savingsReturn);
+            if (resultBuildingEl) resultBuildingEl.textContent = formatCurrency(buildingReturn);
+
+            // Calculate and display returns with percentages
+            const smartKidsReturnAmount = smartKidsReturn - totalContributions;
+            const savingsReturnAmount = savingsReturn - totalContributions;
+            const buildingReturnAmount = buildingReturn - totalContributions;
+            
+            const smartKidsReturnPercent = ((smartKidsReturnAmount / totalContributions) * 100).toFixed(1);
+            const savingsReturnPercent = ((savingsReturnAmount / totalContributions) * 100).toFixed(1);
+            const buildingReturnPercent = ((buildingReturnAmount / totalContributions) * 100).toFixed(1);
+            
+            const resultSmartKidsReturnEl = document.getElementById('resultSmartKidsReturn');
+            const resultSavingsReturnEl = document.getElementById('resultSavingsReturn');
+            const resultBuildingReturnEl = document.getElementById('resultBuildingReturn');
+            
+            if (resultSmartKidsReturnEl) resultSmartKidsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(smartKidsReturnAmount)} (${smartKidsReturnPercent}%)`;
+            if (resultSavingsReturnEl) resultSavingsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(savingsReturnAmount)} (${savingsReturnPercent}%)`;
+            if (resultBuildingReturnEl) resultBuildingReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(buildingReturnAmount)} (${buildingReturnPercent}%)`;
+
+            console.log('Results display updated successfully');
+        }
+
+        function createChart() {
+            const chartElement = document.getElementById('comparisonChart');
+            if (!chartElement) {
+                console.error('Chart element not found');
+                return;
+            }
+            
+            const ctx = chartElement.getContext('2d');
+            
+            if (chart && typeof chart.destroy === 'function') {
+                chart.destroy();
+            }
+
+            const { duration, startCapital, monthlyAmount, smartKidsTarget } = calculationData;
+
+            const years = [];
+            const contributionsData = [];
+            const smartKidsData = [];
+            const savingsData = [];
+            const buildingData = [];
+
+            // Create data points for chart
+            const stepSize = Math.max(1, Math.floor(duration / 20));
+            
+            for (let year = 0; year <= duration; year += stepSize) {
+                years.push(year);
+                
+                const contributions = startCapital + (monthlyAmount * 12 * year);
+                contributionsData.push(contributions);
+                
+                // Linear interpolation for SmartKidsInvest
+                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
+                smartKidsData.push(smartKidsValue);
+                
+                const savingsValue = year === 0 ? startCapital : calculateSavingsAccount(startCapital, monthlyAmount, year, 0.5);
+                savingsData.push(savingsValue);
+                
+                const buildingValue = year === 0 ? startCapital : calculateBuildingSociety(startCapital, monthlyAmount, year);
+                buildingData.push(buildingValue);
+            }
+
+            // Ensure final year is included
+            if (years[years.length - 1] !== duration) {
+                years.push(duration);
+                contributionsData.push(calculationData.totalContributions);
+                smartKidsData.push(calculationData.smartKidsReturn);
+                savingsData.push(calculationData.savingsReturn);
+                buildingData.push(calculationData.buildingReturn);
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years.map(y => `Jahr ${y}`),
+                    datasets: [{
+                        label: 'Ihre Einzahlungen (ohne Zinsen)',
+                        data: contributionsData,
+                        borderColor: '#94a3b8',
+                        backgroundColor: 'rgba(148, 163, 184, 0.1)',
+                        tension: 0.2,
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        label: 'SmartKidsInvest',
+                        data: smartKidsData,
+                        borderColor: '#1e40af',
+                        backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                        tension: 0.3,
+                        borderWidth: 4,
+                        fill: false,
+                        pointRadius: 4,
+                        pointHoverRadius: 8
+                    }, {
+                        label: 'Sparbuch (0,5%)',
+                        data: savingsData,
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        tension: 0.3,
+                        borderWidth: 3,
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }, {
+                        label: 'Bausparvertrag (1,0%)',
+                        data: buildingData,
+                        borderColor: '#d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        tension: 0.3,
+                        borderWidth: 3,
+                        fill: false,
+                        pointRadius: 3,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Wertentwicklung bis zum ${calculationData.endAge}. Lebensjahr`,
+                            font: { size: 18, weight: '600', family: 'Inter' },
+                            color: '#1e293b',
+                            padding: 20
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: { 
+                                font: { size: 13, family: 'Inter', weight: '600' },
+                                padding: 20,
+                                color: '#374151',
+                                usePointStyle: true,
+                                pointStyle: 'line'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                },
+                                font: { family: 'Inter', size: 12, weight: '500' },
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                font: { family: 'Inter', size: 12, weight: '500' },
+                                color: '#6b7280'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        }
+
+        function createSummaryChart() {
+            const chartElement = document.getElementById('summaryChart');
+            if (!chartElement) {
+                console.error('Summary chart element not found');
+                return;
+            }
+            
+            const ctx = chartElement.getContext('2d');
+            
+            if (summaryChart && typeof summaryChart.destroy === 'function') {
+                summaryChart.destroy();
+            }
+
+            // Reuse the same chart configuration as the comparison chart
+            const { duration, startCapital, monthlyAmount, smartKidsTarget } = calculationData;
+
+            const years = [];
+            const contributionsData = [];
+            const smartKidsData = [];
+            const savingsData = [];
+            const buildingData = [];
+
+            const stepSize = Math.max(1, Math.floor(duration / 20));
+            
+            for (let year = 0; year <= duration; year += stepSize) {
+                years.push(year);
+                
+                const contributions = startCapital + (monthlyAmount * 12 * year);
+                contributionsData.push(contributions);
+                
+                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
+                smartKidsData.push(smartKidsValue);
+                
+                const savingsValue = year === 0 ? startCapital : calculateSavingsAccount(startCapital, monthlyAmount, year, 0.5);
+                savingsData.push(savingsValue);
+                
+                const buildingValue = year === 0 ? startCapital : calculateBuildingSociety(startCapital, monthlyAmount, year);
+                buildingData.push(buildingValue);
+            }
+
+            if (years[years.length - 1] !== duration) {
+                years.push(duration);
+                contributionsData.push(calculationData.totalContributions);
+                smartKidsData.push(calculationData.smartKidsReturn);
+                savingsData.push(calculationData.savingsReturn);
+                buildingData.push(calculationData.buildingReturn);
+            }
+
+            summaryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years.map(y => `Jahr ${y}`),
+                    datasets: [{
+                        label: '💰 Ihre Einzahlungen (ohne Zinsen)',
+                        data: contributionsData,
+                        borderColor: '#6b7280',
+                        backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                        tension: 0.1,
+                        borderWidth: 4,
+                        borderDash: [10, 5],
+                        fill: false
+                    }, {
+                        label: '🚀 SmartKidsInvest',
+                        data: smartKidsData,
+                        borderColor: '#1e3a8a',
+                        backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 6,
+                        fill: false
+                    }, {
+                        label: '🏦 Sparbuch (0,5%)',
+                        data: savingsData,
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 4,
+                        fill: false
+                    }, {
+                        label: '🏠 Bausparvertrag (1,0%)',
+                        data: buildingData,
+                        borderColor: '#d97706',
+                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                        tension: 0.4,
+                        borderWidth: 4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `📊 Wertentwicklung bis zum ${calculationData.endAge}. Lebensjahr`,
+                            font: { size: 20, weight: 'bold', family: 'Quicksand' }
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: { 
+                                font: { size: 16, family: 'Quicksand', weight: 'bold' },
+                                padding: 25
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                },
+                                font: { family: 'Quicksand', size: 14, weight: 'bold' }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { family: 'Quicksand', size: 14, weight: 'bold' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateSummary() {
+            console.log('Updating summary...');
+            
+            // Always get fresh data from form fields with debug logging
+            const customerName = document.getElementById('customerName')?.value || 'Familie Mustermann';
+            const childName = document.getElementById('childName')?.value || 'Anna Mustermann';
+            const advisorName = document.getElementById('advisorName')?.value || 'Sarah Schmidt';
+            const consultationDate = document.getElementById('consultationDate')?.value || new Date().toISOString().split('T')[0];
+            const childAge = parseInt(document.getElementById('childAge')?.value) || 5;
+            const endAge = parseInt(document.getElementById('endAge')?.value) || 67;
+            const startCapital = parseFloat(document.getElementById('startCapital')?.value) || 5000;
+            const monthlyAmount = parseFloat(document.getElementById('monthlyAmount')?.value) || 100;
+            const duration = endAge - childAge;
+            const smartKidsTargetStr = document.getElementById('smartKidsTarget')?.value || '250.000';
+            const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
+            const expectedReturn = parseFloat(document.getElementById('expectedReturn')?.value) || 5.0;
+            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+            const smartKidsReturn = smartKidsTarget;
+            const savingsReturn = calculateSavingsAccount(startCapital, monthlyAmount, duration, 0.5);
+            const buildingReturn = calculateBuildingSociety(startCapital, monthlyAmount, duration);
+            
+            console.log('Summary data:', { customerName, childName, advisorName, totalContributions, smartKidsReturn });
+            
+            // Update calculationData for chart creation
+            calculationData = {
+                customerName, childName, advisorName, consultationDate, childAge, endAge,
+                startCapital, monthlyAmount, duration, smartKidsTarget, expectedReturn,
+                totalContributions, smartKidsReturn, savingsReturn, buildingReturn
+            };
+            
+            // Update basic info with error handling
+            const summaryCustomerEl = document.getElementById('summaryCustomer');
+            const summaryChildEl = document.getElementById('summaryChild');
+            const summaryAdvisorEl = document.getElementById('summaryAdvisor');
+            const summaryDateEl = document.getElementById('summaryDate');
+            
+            if (summaryCustomerEl) summaryCustomerEl.textContent = customerName;
+            if (summaryChildEl) summaryChildEl.textContent = childName;
+            if (summaryAdvisorEl) summaryAdvisorEl.textContent = advisorName;
+            if (summaryDateEl) summaryDateEl.textContent = consultationDate ? new Date(consultationDate).toLocaleDateString('de-DE') : 'Heute';
+            
+            // Update parameters with error handling
+            const summaryStartCapitalEl = document.getElementById('summaryStartCapital');
+            const summaryMonthlyEl = document.getElementById('summaryMonthly');
+            const summaryDurationEl = document.getElementById('summaryDuration');
+            const summarySmartKidsTargetEl = document.getElementById('summarySmartKidsTarget');
+            const summaryReturnEl = document.getElementById('summaryReturn');
+            
+            if (summaryStartCapitalEl) summaryStartCapitalEl.textContent = formatCurrency(startCapital);
+            if (summaryMonthlyEl) summaryMonthlyEl.textContent = formatCurrency(monthlyAmount);
+            if (summaryDurationEl) summaryDurationEl.textContent = duration + ' Jahre';
+            if (summarySmartKidsTargetEl) summarySmartKidsTargetEl.textContent = formatCurrency(smartKidsTarget);
+            if (summaryReturnEl) summaryReturnEl.textContent = expectedReturn + '% p.a.';
+            
+            // Update results with error handling
+            const summaryContributionsEl = document.getElementById('summaryContributions');
+            const summarySmartKidsEl = document.getElementById('summarySmartKids');
+            const summarySavingsEl = document.getElementById('summarySavings');
+            const summaryBuildingEl = document.getElementById('summaryBuilding');
+            
+            if (summaryContributionsEl) summaryContributionsEl.textContent = formatCurrency(totalContributions);
+            if (summarySmartKidsEl) summarySmartKidsEl.textContent = formatCurrency(smartKidsReturn);
+            if (summarySavingsEl) summarySavingsEl.textContent = formatCurrency(savingsReturn);
+            if (summaryBuildingEl) summaryBuildingEl.textContent = formatCurrency(buildingReturn);
+            
+            // Calculate and display returns
+            const smartKidsReturnAmount = smartKidsReturn - totalContributions;
+            const savingsReturnAmount = savingsReturn - totalContributions;
+            const buildingReturnAmount = buildingReturn - totalContributions;
+            
+            const smartKidsReturnPercent = ((smartKidsReturnAmount / totalContributions) * 100).toFixed(1);
+            const savingsReturnPercent = ((savingsReturnAmount / totalContributions) * 100).toFixed(1);
+            const buildingReturnPercent = ((buildingReturnAmount / totalContributions) * 100).toFixed(1);
+            
+            const smartKidsReturnEl = document.getElementById('smartKidsReturn');
+            const savingsReturnEl = document.getElementById('savingsReturn');
+            const buildingReturnEl = document.getElementById('buildingReturn');
+            
+            if (smartKidsReturnEl) smartKidsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(smartKidsReturnAmount)} (${smartKidsReturnPercent}%)`;
+            if (savingsReturnEl) savingsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(savingsReturnAmount)} (${savingsReturnPercent}%)`;
+            if (buildingReturnEl) buildingReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(buildingReturnAmount)} (${buildingReturnPercent}%)`;
+            
+            // Calculate advantages
+            const advantageVsContributions = smartKidsReturn - totalContributions;
+            const advantageVsSavings = smartKidsReturn - savingsReturn;
+            const advantageVsBuilding = smartKidsReturn - buildingReturn;
+            
+            const finalAdvantageContributionsEl = document.getElementById('finalAdvantageContributions');
+            const finalAdvantageSavingsEl = document.getElementById('finalAdvantageSavings');
+            const finalAdvantageBuildingEl = document.getElementById('finalAdvantageBuilding');
+            
+            if (finalAdvantageContributionsEl) finalAdvantageContributionsEl.textContent = formatCurrency(advantageVsContributions);
+            if (finalAdvantageSavingsEl) finalAdvantageSavingsEl.textContent = formatCurrency(advantageVsSavings);
+            if (finalAdvantageBuildingEl) finalAdvantageBuildingEl.textContent = formatCurrency(advantageVsBuilding);
+            
+            // Update insurance summary
+            updateInsuranceSummary();
+            
+            // Update total insurance cost in summary
+            const deathPrice = parseFloat(document.getElementById('deathInsurancePrice').value) || 0;
+            const dentalPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 0;
+            const disabilityPrice = parseFloat(document.getElementById('disabilityInsurancePrice').value) || 0;
+            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice;
+            
+            const summaryTotalInsuranceCostEl = document.getElementById('summaryTotalInsuranceCost');
+            if (summaryTotalInsuranceCostEl) {
+                summaryTotalInsuranceCostEl.textContent = formatCurrency(totalMonthlyCost) + '/Monat';
+            }
+            
+            // Create summary chart
+            setTimeout(() => {
+                createSummaryChart();
+            }, 100);
+            
+            console.log('Summary update completed');
+        }
+
+        function updateInsuranceSummary() {
+            const summaryContainer = document.getElementById('insuranceSummary');
+            const summaryContent = document.getElementById('insuranceSummaryContent');
+            let hasInsurance = false;
+            let summaryHTML = '';
+
+            // Death Insurance - always show if fields are filled
+            const deathCompany = document.getElementById('deathInsuranceCompany').value;
+            const deathPrice = document.getElementById('deathInsurancePrice').value;
+            const deathAmount = document.getElementById('deathInsuranceAmount').value;
+            const deathDuration = document.getElementById('deathInsuranceDuration').value;
+            const deathType = document.getElementById('deathInsuranceType').value;
+            
+            if (deathCompany || deathPrice || deathAmount) {
+                hasInsurance = true;
+                const amountFormatted = deathAmount ? parseFloat(deathAmount.replace(/\./g, '')) : 100000;
+                summaryHTML += `
+                    <div class="summary-item">
+                        <span class="summary-label">Risikolebensversicherung:</span>
+                        <span class="summary-value">${deathCompany || 'Allianz Leben'} - ${formatCurrency(amountFormatted)} (${deathType}) über ${deathDuration} Jahre - ${deathPrice || '25'}€/Monat</span>
+                    </div>
+                `;
+            }
+
+            // Dental Insurance - always show if fields are filled
+            const dentalCompany = document.getElementById('dentalInsuranceCompany').value;
+            const dentalPrice = document.getElementById('dentalInsurancePrice').value;
+            const dentalLevel = document.getElementById('dentalInsuranceLevel').value;
+            const dentalTotalCost = document.getElementById('dentalTotalCost').textContent;
+            
+            if (dentalCompany || dentalPrice) {
+                hasInsurance = true;
+                summaryHTML += `
+                    <div class="summary-item">
+                        <span class="summary-label">Zahnzusatzversicherung:</span>
+                        <span class="summary-value">${dentalCompany || 'ERGO Direkt'} - ${dentalLevel || '90'}% Zahnersatz - ${dentalPrice || '12'}€/Monat - Gesamt bis 18: ${dentalTotalCost}</span>
+                    </div>
+                `;
+            }
+
+            // Disability Insurance - always show if fields are filled
+            const disabilityCompany = document.getElementById('disabilityInsuranceCompany').value;
+            const disabilityPrice = document.getElementById('disabilityInsurancePrice').value;
+            const disabilityRent = document.getElementById('disabilityInsuranceRent').value;
+            const disabilityAge = document.getElementById('disabilityInsuranceAge').value;
+            
+            if (disabilityCompany || disabilityPrice || disabilityRent) {
+                hasInsurance = true;
+                summaryHTML += `
+                    <div class="summary-item">
+                        <span class="summary-label">Berufsunfähigkeitsversicherung:</span>
+                        <span class="summary-value">${disabilityCompany || 'Continentale'} - ${formatCurrency(parseFloat(disabilityRent) || 1500)} BU-Rente ab ${disabilityAge || '18'}. Lebensjahr - ${disabilityPrice || '20'}€/Monat</span>
+                    </div>
+                `;
+            }
+
+            if (hasInsurance) {
+                summaryContent.innerHTML = summaryHTML;
+                summaryContainer.style.display = 'block';
+            } else {
+                summaryContainer.style.display = 'none';
+            }
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('de-DE', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        async function generatePDF() {
+            if (!calculationData.customerName) {
+                alert('Bitte führen Sie zuerst eine Berechnung durch.');
+                return;
+            }
+
+            try {
+                // Show summary page first
+                showPage('zusammenfassung');
+                
+                // Wait a moment for the page to render
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Use browser's print functionality which can save as PDF
+                window.print();
+                
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                alert('Fehler beim Erstellen des PDFs. Bitte verwenden Sie die Druckfunktion Ihres Browsers.');
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964c10e0101df948',t:'MTc1MzQ1MDc5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
