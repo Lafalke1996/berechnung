@@ -1,7 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <link rel="icon" href="logo_transparent_SKI.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartKidsInvest - Professionelle Investmentberatung</title>
@@ -730,12 +730,60 @@
             
             .page-content {
                 padding: 0;
+                margin: 0;
+            }
+            
+            .page-header {
+                margin-bottom: 1rem;
+                padding: 1rem;
+                page-break-inside: avoid;
             }
             
             .card {
                 box-shadow: none;
                 border: 1px solid #e5e7eb;
                 break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 1rem;
+                padding: 1rem;
+            }
+            
+            .insurance-section {
+                page-break-inside: avoid;
+            }
+            
+            .grid-2, .grid-3, .grid-4 {
+                page-break-inside: avoid;
+            }
+            
+            .result-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 0.5rem;
+                min-height: auto;
+                padding: 1rem;
+            }
+            
+            .result-value {
+                font-size: 1.25rem;
+            }
+            
+            canvas {
+                max-height: 300px !important;
+            }
+            
+            .container-main {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            .summary-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -746,7 +794,7 @@
         <div class="container-main">
             <div class="logo-container">
                 <div style="display: flex; align-items: center;">
-                    <img src="logo_transparent_SKI.png" alt="SmartKidsInvest Logo" style="height: 48px; width: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <img src="smartkids-logo.png" alt="SmartKidsInvest Logo" style="height:48px;">
                     <div>
                         <div class="logo-text">
                             <span class="logo-smart">Smart</span><span class="logo-kids">Kids</span><span class="logo-invest">Invest</span>
@@ -840,7 +888,7 @@
         </div>
 
         <!-- Page 2: Berechnung & Ergebnisse -->
-        <div id="page-berechnung" class="page-content hidden">
+        <div id="page-berechnung" class="page-content">
             <div class="page-header">
                 <h1>Ihre Anlagestrategie</h1>
                 <p>Gemeinsam finden wir die perfekte Lösung für Ihr Kind</p>
@@ -881,6 +929,9 @@
                         <select id="company" class="form-select" onchange="updateLivePreview()">
                             <option value="baloise">Baloise Lebensversicherung</option>
                             <option value="alte-leipziger">Alte-Leipziger Lebensversicherung</option>
+                            <option value="nuernberger">Nürnberger Lebensversicherung</option>
+                            <option value="lv1871">LV 1871 Lebensversicherung</option>
+                            <option value="allianz">Allianz Lebensversicherung</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -907,11 +958,11 @@
                                 <span class="summary-value" id="previewClosingCosts">-</span>
                             </div>
                             <div class="summary-item">
-                                <span class="summary-label">Gesamteffektivkosten:</span>
+                                <span class="summary-label">Effektivkosten:</span>
                                 <span class="summary-value" id="previewEffectiveCosts">-</span>
                             </div>
                             <div class="summary-item">
-                                <span class="summary-label">Endergebnis SmartKidsInvest:</span>
+                                <span class="summary-label">Guthaben:</span>
                                 <span class="summary-value" id="previewSmartKidsTarget">-</span>
                             </div>
                         </div>
@@ -921,19 +972,16 @@
                         <h2 class="card-title">Produktvergleich</h2>
                         <div style="margin-bottom: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 8px; border: 2px solid #3b82f6;">
                             <h3 style="font-weight: 700; color: #1e40af; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                                <img src="logo_transparent_SKI.png" alt="SmartKidsInvest Logo" class="h-8 w-8 rounded shadow">
+                                <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:32px;">
                                 SmartKidsInvest
                             </h3>
+                            <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 7,0% p.a.</p>
                             <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Effektivkosten: <span id="displayEffectiveCosts">0,6%</span> p.a.</p>
                             <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Abschlusskosten: 2,5% auf Beitragssumme</p>
                         </div>
                         <div style="margin-bottom: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-radius: 8px; border: 2px solid #10b981;">
                             <h3 style="font-weight: 700; color: #059669; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="#059669">
-                                    <path d="M12,3A4,4 0 0,1 16,7A4,4 0 0,1 12,11A4,4 0 0,1 8,7A4,4 0 0,1 12,3M12,14.2C13.5,14.2 15.3,14.9 16.4,15.5C17.5,16.1 18,16.5 18,17V20H6V17C6,16.5 6.5,16.1 7.6,15.5C8.7,14.9 10.5,14.2 12,14.2Z"/>
-                                    <rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="#059669" stroke-width="1.5"/>
-                                    <path d="M2,8 L22,8" stroke="#059669" stroke-width="1.5"/>
-                                </svg>
+                                <div style="font-size: 2rem;">🏦</div>
                                 Sparbuch
                             </h3>
                             <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 0,5% p.a.</p>
@@ -941,12 +989,7 @@
                         </div>
                         <div style="padding: 1.5rem; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-radius: 8px; border: 2px solid #f59e0b;">
                             <h3 style="font-weight: 700; color: #d97706; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                                <svg width="32" height="32" viewBox="0 0 24 24" fill="#d97706">
-                                    <path d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/>
-                                    <circle cx="12" cy="8" r="2" fill="#f59e0b"/>
-                                    <path d="M8,16 L16,16" stroke="#d97706" stroke-width="1.5"/>
-                                    <path d="M8,18 L16,18" stroke="#d97706" stroke-width="1.5"/>
-                                </svg>
+                                <div style="font-size: 2rem;">🏠</div>
                                 Bausparvertrag
                             </h3>
                             <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 1,0% p.a.</p>
@@ -989,8 +1032,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="card">
                     <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
                     <div style="position: relative; height: 400px; width: 100%;">
@@ -1028,19 +1069,14 @@
         </div>
 
         <!-- Page 3: Company Information -->
-        <div id="page-gesellschaft" class="page-content hidden">
+        <div id="page-gesellschaft" class="page-content">
             <div class="page-header">
-                
-                
-<div id="companyLogoBox" style="text-align: center; margin-bottom: 1rem;">
-    <img id="gesellschaftLogo" src="" alt="Gesellschaftslogo" style="height: 48px; width: auto; object-fit: contain;">
-</div>
-<p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
-
+                <h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
+                <p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
             </div>
             
             <!-- Baloise Information -->
-            <div id="baloiseInfo" class="hidden">
+            <div id="baloiseInfo">
                 <div class="card">
                     <div class="grid-2 mb-6">
                         <div>
@@ -1114,7 +1150,7 @@
             </div>
 
             <!-- Alte Leipziger Information -->
-            <div id="alteLeipzigerInfo" class="hidden">
+            <div id="alteLeipzigerInfo">
                 <div class="card">
                     <div class="grid-2 mb-6">
                         <div>
@@ -1186,6 +1222,228 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Nürnberger Information -->
+            <div id="nuernbergerInfo">
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Nürnberger?</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>100+ Jahre Erfahrung</strong><br>
+                                        <span style="color: #6b7280;">Seit 1884 ein starker Partner für Familien</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💪</div>
+                                    <div>
+                                        <strong>Solide Finanzstärke</strong><br>
+                                        <span style="color: #6b7280;">A- Rating und stabile Kapitalausstattung</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🎯</div>
+                                    <div>
+                                        <strong>Spezialist für Altersvorsorge</strong><br>
+                                        <span style="color: #6b7280;">Fokus auf langfristige Vermögensbildung</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📈</div>
+                                    <div>
+                                        <strong>Attraktive Überschüsse</strong><br>
+                                        <span style="color: #6b7280;">Konstant gute Gewinnbeteiligung für Kunden</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🎨</div>
+                                    <div>
+                                        <strong>Breite Fondspalette</strong><br>
+                                        <span style="color: #6b7280;">Über 80 Fonds für jede Anlagestrategie</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔄</div>
+                                    <div>
+                                        <strong>Flexible Umschichtungen</strong><br>
+                                        <span style="color: #6b7280;">Kostenfreie Anpassung der Anlagestrategie</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🛡️</div>
+                                    <div>
+                                        <strong>Beitragserhalt garantiert</strong><br>
+                                        <span style="color: #6b7280;">Mindestens Ihre Einzahlungen sind sicher</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🏠</div>
+                                    <div>
+                                        <strong>Regionale Nähe</strong><br>
+                                        <span style="color: #6b7280;">Deutschlandweites Servicenetz</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LV 1871 Information -->
+            <div id="lv1871Info">
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum LV 1871?</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>150+ Jahre Tradition</strong><br>
+                                        <span style="color: #6b7280;">Seit 1871 ein verlässlicher Partner für Generationen</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💪</div>
+                                    <div>
+                                        <strong>Starke Finanzstärke</strong><br>
+                                        <span style="color: #6b7280;">A+ Rating und solide Kapitalausstattung</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🚀</div>
+                                    <div>
+                                        <strong>Innovationsführer</strong><br>
+                                        <span style="color: #6b7280;">Moderne digitale Lösungen und Services</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📈</div>
+                                    <div>
+                                        <strong>Überdurchschnittliche Renditen</strong><br>
+                                        <span style="color: #6b7280;">Konstant hohe Überschussbeteiligung</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🎯</div>
+                                    <div>
+                                        <strong>Maxxellence Invest</strong><br>
+                                        <span style="color: #6b7280;">Innovative Fondspolice mit Top-Performance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔄</div>
+                                    <div>
+                                        <strong>Kostenfreie Switches</strong><br>
+                                        <span style="color: #6b7280;">Unbegrenzte Umschichtungen ohne Gebühren</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🛡️</div>
+                                    <div>
+                                        <strong>Beitragsgarantie</strong><br>
+                                        <span style="color: #6b7280;">100% Schutz Ihrer eingezahlten Beiträge</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📱</div>
+                                    <div>
+                                        <strong>Digitaler Service</strong><br>
+                                        <span style="color: #6b7280;">Online-Portal für einfache Verwaltung</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allianz Information -->
+            <div id="allianzInfo">
+                <div class="card">
+                    <div class="grid-2 mb-6">
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Allianz?</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>130+ Jahre Erfahrung</strong><br>
+                                        <span style="color: #6b7280;">Seit 1890 Deutschlands größter Lebensversicherer</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">💪</div>
+                                    <div>
+                                        <strong>Marktführer Deutschland</strong><br>
+                                        <span style="color: #6b7280;">AA Rating und höchste Finanzstärke</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🌍</div>
+                                    <div>
+                                        <strong>Weltweite Präsenz</strong><br>
+                                        <span style="color: #6b7280;">Globaler Versicherungskonzern mit lokaler Expertise</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">📈</div>
+                                    <div>
+                                        <strong>Konstante Überschüsse</strong><br>
+                                        <span style="color: #6b7280;">Verlässlich hohe Gewinnbeteiligung für Kunden</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <div class="feature-icon">🎯</div>
+                                    <div>
+                                        <strong>InvestFlex Konzept</strong><br>
+                                        <span style="color: #6b7280;">Flexible Fondspolice mit erstklassiger Performance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🔄</div>
+                                    <div>
+                                        <strong>Kostenfreie Umschichtungen</strong><br>
+                                        <span style="color: #6b7280;">Beliebig viele Switches ohne zusätzliche Kosten</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🛡️</div>
+                                    <div>
+                                        <strong>Beitragsgarantie</strong><br>
+                                        <span style="color: #6b7280;">Vollständiger Schutz aller eingezahlten Beiträge</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="feature-icon">🏆</div>
+                                    <div>
+                                        <strong>Ausgezeichneter Service</strong><br>
+                                        <span style="color: #6b7280;">Mehrfach prämierte Kundenbetreuung</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <div class="text-center mt-8 space-x-4">
                 <button onclick="showPage('berechnung')" class="btn-secondary">
@@ -1204,7 +1462,7 @@
         </div>
 
         <!-- Page 4: Vorteile -->
-        <div id="page-vorteile" class="page-content hidden">
+        <div id="page-vorteile" class="page-content">
             <div class="page-header">
                 <h1>Warum SmartKidsInvest?</h1>
                 <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
@@ -1274,7 +1532,7 @@
             </div>
             
             <div class="text-center mt-8 space-x-4">
-                <button onclick="showPage('berechnung')" class="btn-secondary">
+                <button onclick="showPage('gesellschaft')" class="btn-secondary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/>
                     </svg>
@@ -1290,7 +1548,7 @@
         </div>
 
         <!-- Page 5: Zusatzabsicherungen -->
-        <div id="page-zusatzabsicherungen" class="page-content hidden">
+        <div id="page-zusatzabsicherungen" class="page-content">
             <div class="page-header">
                 <h1>Zusätzlicher Schutz</h1>
                 <p>Umfassende Sicherheit für Ihre Familie</p>
@@ -1381,7 +1639,7 @@
                                 <input type="number" id="dentalInsurancePrice" class="form-input" placeholder="12" value="12" step="1" onchange="calculateDentalTotal()">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Leistungen</label>
+                                <label class="form-label">Zahnersatz</label>
                                 <select id="dentalInsuranceLevel" class="form-select">
                                     <option value="100">100% Zahnersatz</option>
                                     <option value="90" selected>90% Zahnersatz</option>
@@ -1390,6 +1648,16 @@
                                     <option value="50">50% Zahnersatz</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Übernahme Kieferorthopädie</label>
+                            <select id="dentalOrthodonticsLevel" class="form-select">
+                                <option value="100">100% Kieferorthopädie</option>
+                                <option value="90" selected>90% Kieferorthopädie</option>
+                                <option value="80">80% Kieferorthopädie</option>
+                                <option value="70">70% Kieferorthopädie</option>
+                                <option value="50">50% Kieferorthopädie</option>
+                            </select>
                         </div>
                         
                         <div class="checkbox-container">
@@ -1469,7 +1737,7 @@
                                 <input type="number" id="disabilityInsuranceRent" class="form-input" placeholder="1500" value="1500" step="100">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-bottom: 0;">
                             <label class="form-label">Endalter ab</label>
                             <input type="number" id="disabilityInsuranceAge" class="form-input" placeholder="67" value="67" min="60" max="70">
                         </div>
@@ -1500,6 +1768,73 @@
                             <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
                                 <span style="color: #ec4899; font-size: 1.25rem;">📈</span>
                                 <span>Beitrag steigt nie - heute 20€, in 30 Jahren immer noch 20€</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stationäre Zusatzversicherung -->
+            <div class="insurance-section">
+                <div class="insurance-header">Stationäre Zusatzversicherung für Kinder</div>
+                
+                <div class="grid-2" style="gap: 2rem; align-items: start;">
+                    <div class="recommendation-box">
+                        <div class="recommendation-title">Wir empfehlen:</div>
+                        <div class="form-group">
+                            <label class="form-label">Gesellschaft</label>
+                            <input type="text" id="stationaryInsuranceCompany" class="form-input" placeholder="DKV">
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Monatlicher Beitrag (€)</label>
+                                <input type="number" id="stationaryInsurancePrice" class="form-input" placeholder="15" value="15" step="1" onchange="updateTotalInsuranceCost()">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Leistungen</label>
+                                <select id="stationaryInsuranceLevel" class="form-select">
+                                    <option value="1-bett" selected>1-Bett-Zimmer</option>
+                                    <option value="2-bett">2-Bett-Zimmer</option>
+                                    <option value="chefarzt">Chefarztbehandlung</option>
+                                    <option value="komplett">Komplett-Schutz</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Erstattung</label>
+                            <select id="stationaryInsuranceReimbursement" class="form-select">
+                                <option value="100" selected>100% Erstattung</option>
+                                <option value="90">90% Erstattung</option>
+                                <option value="80">80% Erstattung</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 4px solid #3b82f6; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25); height: fit-content;">
+                        <h3 style="font-size: 1.375rem; color: #1e3a8a; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+                            <span style="font-size: 2rem;">🏥</span>
+                            Warum gerade für Kinder wichtig:
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0; color: #1e3a8a; font-weight: 600; line-height: 1.8;">
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #3b82f6; font-size: 1.25rem;">👶</span>
+                                <span>Kinder sind häufiger krank - 3x mehr Krankenhausaufenthalte als Erwachsene</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #3b82f6; font-size: 1.25rem;">🛏️</span>
+                                <span>1-Bett-Zimmer: Ruhe für schnellere Genesung und weniger Ansteckungsrisiko</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #3b82f6; font-size: 1.25rem;">👨‍⚕️</span>
+                                <span>Chefarztbehandlung: Beste medizinische Versorgung für Ihr Kind</span>
+                            </li>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #3b82f6; font-size: 1.25rem;">💰</span>
+                                <span>Nur 15€/Monat für lebenslangen Schutz - später unbezahlbar teuer</span>
+                            </li>
+                            <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
+                                <span style="color: #3b82f6; font-size: 1.25rem;">🔒</span>
+                                <span>Keine Gesundheitsprüfung bei Kindern - später oft Ausschlüsse</span>
                             </li>
                         </ul>
                     </div>
@@ -1542,7 +1877,7 @@
         </div>
 
         <!-- Page 6: Zusammenfassung -->
-        <div id="page-zusammenfassung" class="page-content hidden">
+        <div id="page-zusammenfassung" class="page-content">
             <div class="page-header">
                 <h1>Ihre Beratungszusammenfassung</h1>
                 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
@@ -1608,7 +1943,7 @@
                         <p style="font-size: 1.125rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
                     </div>
                     <div class="result-card primary">
-                        <div style="width: 56px; height: 56px; background: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.875rem; color: #6b7280; font-weight: 600; margin: 0 auto 1.5rem auto;">LOGO</div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:56px; margin: 0 auto 1.5rem auto; display:block;">
                         <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">SmartKidsInvest</h3>
                         <div class="result-value" id="summarySmartKids">-</div>
                         <p style="font-size: 1.125rem; color: #1e3a8a; font-weight: 700;" id="smartKidsReturn">-</p>
@@ -1629,6 +1964,13 @@
             </div>
 
             <div class="card mb-6">
+                <h2 class="card-title">Ihre gewählte Gesellschaft</h2>
+                <div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+                    <!-- Company info will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="card mb-6">
                 <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
                 <div style="position: relative; height: 400px; width: 100%;">
                     <canvas id="summaryChart"></canvas>
@@ -1638,13 +1980,23 @@
             <!-- Zusatzabsicherungen Summary -->
             <div id="insuranceSummary" class="card mb-6" style="display: none;">
                 <h2 class="card-title">Gewählte Zusatzabsicherungen</h2>
-                <div id="insuranceSummaryContent" class="summary-section">
-                    <!-- Dynamic content will be inserted here -->
+                
+                <!-- Insurance Cards Grid -->
+                <div id="insuranceCardsContainer" class="grid-2 mb-6" style="gap: 1.5rem;">
+                    <!-- Dynamic insurance cards will be inserted here -->
                 </div>
-                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 2rem; margin-top: 2rem; text-align: center;">
-                    <h3 style="font-size: 1.25rem; color: #0369a1; margin-bottom: 1rem; font-weight: 700;">💰 Gesamtkosten aller Absicherungen</h3>
-                    <div style="font-size: 2rem; font-weight: 900; color: #0369a1;" id="summaryTotalInsuranceCost">-</div>
-                    <p style="color: #374151; font-weight: 600; margin-top: 0.5rem;">Monatlicher Gesamtbeitrag</p>
+                
+                <!-- Total Cost Summary -->
+                <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">💰</div>
+                        <div>
+                            <h3 style="font-size: 1.25rem; color: #1e293b; margin: 0; font-weight: 800;">Gesamtkosten aller Absicherungen</h3>
+                            <p style="color: #64748b; font-size: 0.875rem; margin: 0; font-weight: 500;">Monatlicher Gesamtbeitrag für alle gewählten Versicherungen</p>
+                        </div>
+                    </div>
+                    <div style="font-size: 2.5rem; font-weight: 900; color: #0369a1; margin-bottom: 0.5rem;" id="summaryTotalInsuranceCost">-</div>
+                    <div style="color: #64748b; font-weight: 600; font-size: 1rem;">pro Monat</div>
                 </div>
             </div>
 
@@ -1684,8 +2036,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <div class="card" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 2px solid #e5e7eb; padding: 1.5rem;">
                 <p style="text-align: center; font-size: 0.75rem; color: #6b7280; margin: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; line-height: 1.4;">
@@ -1811,8 +2161,9 @@
             const deathPrice = parseFloat(document.getElementById('deathInsurancePrice').value) || 0;
             const dentalPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 0;
             const disabilityPrice = parseFloat(document.getElementById('disabilityInsurancePrice').value) || 0;
+            const stationaryPrice = parseFloat(document.getElementById('stationaryInsurancePrice').value) || 0;
             
-            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice;
+            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice + stationaryPrice;
             
             const totalCostElement = document.getElementById('totalInsuranceCost');
             const breakdownElement = document.getElementById('insuranceBreakdown');
@@ -1834,6 +2185,10 @@
                 
                 if (disabilityPrice > 0) {
                     breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🚫 Schüler-BU:</span><span>${formatCurrency(disabilityPrice)}/Monat</span></div>`;
+                }
+                
+                if (stationaryPrice > 0) {
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🏥 Stationäre Zusatzversicherung:</span><span>${formatCurrency(stationaryPrice)}/Monat</span></div>`;
                 }
                 
                 if (breakdownHTML === '') {
@@ -1867,16 +2222,18 @@
             const effectiveCosts = parseFloat(document.getElementById('effectiveCosts').value) || 0.6;
             
             const duration = endAge - childAge;
-            // Calculate closing costs and effective costs until endAge (not 67)
+            const durationTo67 = 67 - childAge;
+            // Calculate closing costs always until 67, but total contributions until endAge
             const totalContributions = startCapital + (monthlyAmount * 12 * duration);
-            const closingCosts = totalContributions * 0.025;
+            const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo67);
+            const closingCosts = totalContributionsTo67 * 0.025;
             // Effective costs are calculated yearly on the total balance until endAge
             const totalEffectiveCosts = closingCosts + (smartKidsTarget * (effectiveCosts / 100) * duration);
             
             document.getElementById('previewDuration').textContent = duration + ' Jahre';
             document.getElementById('previewTotal').textContent = formatCurrency(totalContributions);
             document.getElementById('previewClosingCosts').textContent = formatCurrency(closingCosts);
-            document.getElementById('previewEffectiveCosts').textContent = formatCurrency(totalEffectiveCosts);
+            document.getElementById('previewEffectiveCosts').textContent = effectiveCosts + '% p.a.';
             document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
             document.getElementById('displayEffectiveCosts').textContent = effectiveCosts + '%';
             
@@ -1888,621 +2245,793 @@
             const company = document.getElementById('company').value;
             const baloiseInfo = document.getElementById('baloiseInfo');
             const alteLeipzigerInfo = document.getElementById('alteLeipzigerInfo');
+            const nuernbergerInfo = document.getElementById('nuernbergerInfo');
+            const lv1871Info = document.getElementById('lv1871Info');
+            const allianzInfo = document.getElementById('allianzInfo');
             const companyTitle = document.getElementById('companyTitle');
             const companySubtitle = document.getElementById('companySubtitle');
             
+            // Hide all company info sections first
+            baloiseInfo.classList.add('hidden');
+            alteLeipzigerInfo.classList.add('hidden');
+            nuernbergerInfo.classList.add('hidden');
+            lv1871Info.classList.add('hidden');
+            allianzInfo.classList.add('hidden');
+            
             if (company === 'baloise') {
                 baloiseInfo.classList.remove('hidden');
-                alteLeipzigerInfo.classList.add('hidden');
-                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="Baloise-Logo.png" alt="Baloise Logo" style="height: 36px; width: auto; object-fit: contain;"> Baloise Lebensversicherung</div>';
-                companySubtitle.textContent = 'Ihr starker Partner mit 150+ Jahren Erfahrung';
-            } else {
-                baloiseInfo.classList.add('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="baloise-logo.png" alt="Baloise" style="height:48px; margin-bottom:1rem;"></div>';
+                companySubtitle.textContent = 'Lebensversicherung - Warum wir diese Gesellschaft empfehlen';
+            } else if (company === 'alte-leipziger') {
                 alteLeipzigerInfo.classList.remove('hidden');
-                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="Logo_Alte-Leipziger.png" alt="Alte Leipziger Logo" style="height: 42px; width: auto; object-fit: contain;"> Alte Leipziger Lebensversicherung</div>';
-                companySubtitle.textContent = 'Tradition trifft Innovation seit 1819';
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="Logo_Alte_Leipziger.png" alt="Alte Leipziger" style="height:48px; margin-bottom:1rem;"></div>';
+                companySubtitle.textContent = 'Lebensversicherung - Warum wir diese Gesellschaft empfehlen';
+            } else if (company === 'nuernberger') {
+                nuernbergerInfo.classList.remove('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="Logo-Nürnberger.png" alt="Nürnberger" style="height:48px; margin-bottom:1rem;"></div>';
+                companySubtitle.textContent = 'Lebensversicherung - Warum wir diese Gesellschaft empfehlen';
+            } else if (company === 'lv1871') {
+                lv1871Info.classList.remove('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="LV_1871_logo.png" alt="LV 1871" style="height:48px; margin-bottom:1rem;"></div>';
+                companySubtitle.textContent = 'Lebensversicherung - Warum wir diese Gesellschaft empfehlen';
+            } else if (company === 'allianz') {
+                allianzInfo.classList.remove('hidden');
+                companyTitle.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; gap: 1rem;"><img src="allianz-logo.png" alt="Allianz" style="height:48px; margin-bottom:1rem;"></div>';
+                companySubtitle.textContent = 'Lebensversicherung - Warum wir diese Gesellschaft empfehlen';
             }
         }
 
         function calculateAndShowResults() {
-            console.log('=== CALCULATE BUTTON CLICKED ===');
+            const childAge = parseInt(document.getElementById('childAge').value) || 5;
+            const endAge = parseInt(document.getElementById('endAge').value) || 67;
+            const startCapital = parseFloat(document.getElementById('startCapital').value) || 5000;
+            const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value) || 100;
+            const smartKidsTargetStr = document.getElementById('smartKidsTarget').value || '250.000';
+            const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
             
-            try {
-                // Get all input values with safe fallbacks
-                const customerName = document.getElementById('customerName')?.value || 'Familie Mustermann';
-                const childName = document.getElementById('childName')?.value || 'Kind';
-                const childAge = parseInt(document.getElementById('childAge')?.value) || 5;
-                const endAge = parseInt(document.getElementById('endAge')?.value) || 67;
-                const startCapital = parseFloat(document.getElementById('startCapital')?.value) || 5000;
-                const monthlyAmount = parseFloat(document.getElementById('monthlyAmount')?.value) || 100;
-                const smartKidsTargetStr = document.getElementById('smartKidsTarget')?.value || '250.000';
-                const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '').replace(/,/g, '')) || 250000;
-                const expectedReturn = parseFloat(document.getElementById('expectedReturn')?.value) || 5.0;
-                const effectiveCosts = parseFloat(document.getElementById('effectiveCosts')?.value) || 0.6;
-                const advisorName = document.getElementById('advisorName')?.value || 'Berater';
-                const advisorEmail = document.getElementById('advisorEmail')?.value || 'berater@smartkidsinvest.de';
-                const advisorPhone = document.getElementById('advisorPhone')?.value || '+49 123 456789';
-                const consultationDate = document.getElementById('consultationDate')?.value || new Date().toISOString().split('T')[0];
-
-                console.log('Input values:', { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget });
-
-                // Validate inputs
-                if (isNaN(childAge) || childAge < 0 || childAge > 18) {
-                    alert('Bitte geben Sie ein gültiges Alter für das Kind ein (0-18 Jahre).');
-                    return;
-                }
-
-                if (isNaN(endAge) || endAge <= childAge || endAge > 100) {
-                    alert('Das Ziel-Alter muss höher als das aktuelle Alter und unter 100 Jahren sein.');
-                    return;
-                }
-
-                // Calculate parameters
-                const duration = endAge - childAge;
-                const totalContributions = startCapital + (monthlyAmount * 12 * duration);
-                const durationTo67 = 67 - childAge;
-                const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo67);
-                const closingCosts = totalContributionsTo67 * 0.025;
-
-                // Calculate results
-                const smartKidsReturn = smartKidsTarget;
-                const savingsReturn = calculateSavingsAccount(startCapital, monthlyAmount, duration, 0.5);
-                const buildingReturn = calculateBuildingSociety(startCapital, monthlyAmount, duration);
-
-                // Store calculation data
-                calculationData = {
-                    customerName, childName, childAge, endAge, startCapital, monthlyAmount,
-                    smartKidsTarget, expectedReturn, effectiveCosts, advisorName, advisorEmail, 
-                    advisorPhone, consultationDate, duration, totalContributions, closingCosts,
-                    smartKidsReturn, savingsReturn, buildingReturn
-                };
-
-                console.log('Calculation data stored:', calculationData);
-
-                // Update results display with safe element access
-                updateResultsDisplay();
-                
-                // Create chart
-                createChart();
-
-                // Show results section and update buttons
-                const resultsSection = document.getElementById('resultsSection');
-                const nextBtn = document.getElementById('nextToVorteileBtn');
-                const calculateBtn = document.getElementById('calculateBtn');
-                const recalculateBtn = document.getElementById('recalculateBtn');
-                
-                if (resultsSection) resultsSection.classList.remove('hidden');
-                if (nextBtn) nextBtn.classList.remove('hidden');
-                if (calculateBtn) calculateBtn.classList.add('hidden');
-                if (recalculateBtn) recalculateBtn.classList.remove('hidden');
-                
-                // Scroll to results
-                if (resultsSection) {
-                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                
-                console.log('=== CALCULATION COMPLETED SUCCESSFULLY ===');
-                
-            } catch (error) {
-                console.error('=== CRITICAL ERROR IN CALCULATION ===', error);
-                alert('Fehler bei der Berechnung: ' + error.message);
-            }
+            const duration = endAge - childAge;
+            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+            
+            // Calculate results for different investment options
+            const savingsResult = calculateSavingsBook(startCapital, monthlyAmount, duration);
+            const buildingResult = calculateBuildingSavings(startCapital, monthlyAmount, duration);
+            
+            // Store calculation data
+            calculationData = {
+                childAge,
+                endAge,
+                startCapital,
+                monthlyAmount,
+                duration,
+                totalContributions,
+                smartKidsTarget,
+                savingsResult,
+                buildingResult
+            };
+            
+            // Update result displays
+            document.getElementById('resultEndAge').textContent = endAge;
+            document.getElementById('resultContributions').textContent = formatCurrency(totalContributions);
+            document.getElementById('resultSmartKids').textContent = formatCurrency(smartKidsTarget);
+            document.getElementById('resultSavings').textContent = formatCurrency(savingsResult);
+            document.getElementById('resultBuilding').textContent = formatCurrency(buildingResult);
+            
+            // Calculate returns
+            const smartKidsReturn = ((smartKidsTarget - totalContributions) / totalContributions * 100).toFixed(1);
+            const savingsReturn = ((savingsResult - totalContributions) / totalContributions * 100).toFixed(1);
+            const buildingReturn = ((buildingResult - totalContributions) / totalContributions * 100).toFixed(1);
+            
+            document.getElementById('resultSmartKidsReturn').textContent = `+${smartKidsReturn}% Rendite`;
+            document.getElementById('resultSavingsReturn').textContent = `+${savingsReturn}% Rendite`;
+            document.getElementById('resultBuildingReturn').textContent = `+${buildingReturn}% Rendite`;
+            
+            // Show results section and update buttons
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('calculateBtn').classList.add('hidden');
+            document.getElementById('recalculateBtn').classList.remove('hidden');
+            document.getElementById('nextToVorteileBtn').classList.remove('hidden');
+            
+            // Create chart
+            createComparisonChart();
         }
 
-        function calculateSavingsAccount(startCapital, monthlyPayment, years, rate) {
-            const monthlyRate = rate / 100 / 12;
-            const months = years * 12;
+        function calculateSavingsBook(startCapital, monthlyAmount, duration) {
+            const interestRate = 0.005; // 0.5% annual interest
+            let balance = startCapital;
             
-            let value = startCapital;
-            
-            for (let month = 1; month <= months; month++) {
-                value += monthlyPayment;
-                value *= (1 + monthlyRate);
+            for (let year = 0; year < duration; year++) {
+                balance = balance * (1 + interestRate) + (monthlyAmount * 12);
             }
             
-            return value;
+            return Math.round(balance);
         }
 
-        function calculateBuildingSociety(startCapital, monthlyPayment, years) {
-            const totalContributions = startCapital + (monthlyPayment * 12 * years);
-            const closingFee = totalContributions * 0.01; // 1% Abschlussgebühr
-            const netContributions = totalContributions - closingFee;
+        function calculateBuildingSavings(startCapital, monthlyAmount, duration) {
+            const interestRate = 0.01; // 1.0% annual interest
+            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+            const closingFee = totalContributions * 0.01; // 1% closing fee
             
-            // Calculate with 1% interest on net contributions
-            return calculateSavingsAccount(startCapital - (startCapital * 0.01), monthlyPayment, years, 1.0);
-        }
-
-        function updateResultsDisplay() {
-            const { endAge, smartKidsReturn, savingsReturn, buildingReturn, totalContributions } = calculationData;
-
-            // Safely update elements with null checks
-            const resultEndAgeEl = document.getElementById('resultEndAge');
-            const resultContributionsEl = document.getElementById('resultContributions');
-            const resultSmartKidsEl = document.getElementById('resultSmartKids');
-            const resultSavingsEl = document.getElementById('resultSavings');
-            const resultBuildingEl = document.getElementById('resultBuilding');
+            let balance = startCapital - (startCapital * 0.01); // Apply closing fee to start capital
             
-            if (resultEndAgeEl) resultEndAgeEl.textContent = endAge;
-            if (resultContributionsEl) resultContributionsEl.textContent = formatCurrency(totalContributions);
-            if (resultSmartKidsEl) resultSmartKidsEl.textContent = formatCurrency(smartKidsReturn);
-            if (resultSavingsEl) resultSavingsEl.textContent = formatCurrency(savingsReturn);
-            if (resultBuildingEl) resultBuildingEl.textContent = formatCurrency(buildingReturn);
-
-            // Calculate and display returns with percentages
-            const smartKidsReturnAmount = smartKidsReturn - totalContributions;
-            const savingsReturnAmount = savingsReturn - totalContributions;
-            const buildingReturnAmount = buildingReturn - totalContributions;
-            
-            const smartKidsReturnPercent = ((smartKidsReturnAmount / totalContributions) * 100).toFixed(1);
-            const savingsReturnPercent = ((savingsReturnAmount / totalContributions) * 100).toFixed(1);
-            const buildingReturnPercent = ((buildingReturnAmount / totalContributions) * 100).toFixed(1);
-            
-            const resultSmartKidsReturnEl = document.getElementById('resultSmartKidsReturn');
-            const resultSavingsReturnEl = document.getElementById('resultSavingsReturn');
-            const resultBuildingReturnEl = document.getElementById('resultBuildingReturn');
-            
-            if (resultSmartKidsReturnEl) resultSmartKidsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(smartKidsReturnAmount)} (${smartKidsReturnPercent}%)`;
-            if (resultSavingsReturnEl) resultSavingsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(savingsReturnAmount)} (${savingsReturnPercent}%)`;
-            if (resultBuildingReturnEl) resultBuildingReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(buildingReturnAmount)} (${buildingReturnPercent}%)`;
-
-            console.log('Results display updated successfully');
-        }
-
-        function createChart() {
-            const chartElement = document.getElementById('comparisonChart');
-            if (!chartElement) {
-                console.error('Chart element not found');
-                return;
+            for (let year = 0; year < duration; year++) {
+                const yearlyContribution = monthlyAmount * 12;
+                balance = balance * (1 + interestRate) + yearlyContribution;
             }
             
-            const ctx = chartElement.getContext('2d');
+            return Math.round(balance - closingFee);
+        }
+
+        function createComparisonChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
             
-            if (chart && typeof chart.destroy === 'function') {
+            if (chart) {
                 chart.destroy();
             }
-
-            const { duration, startCapital, monthlyAmount, smartKidsTarget } = calculationData;
-
+            
             const years = [];
-            const contributionsData = [];
             const smartKidsData = [];
             const savingsData = [];
             const buildingData = [];
-
-            // Create data points for chart
-            const stepSize = Math.max(1, Math.floor(duration / 20));
+            const contributionsData = [];
             
-            for (let year = 0; year <= duration; year += stepSize) {
-                years.push(year);
+            const { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
+            
+            // Generate data points for each year
+            for (let year = 0; year <= duration; year++) {
+                years.push(childAge + year);
                 
+                // Contributions (linear growth)
                 const contributions = startCapital + (monthlyAmount * 12 * year);
                 contributionsData.push(contributions);
                 
-                // Linear interpolation for SmartKidsInvest
+                // SmartKidsInvest (exponential growth towards target)
                 const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
                 smartKidsData.push(smartKidsValue);
                 
-                const savingsValue = year === 0 ? startCapital : calculateSavingsAccount(startCapital, monthlyAmount, year, 0.5);
+                // Savings book (compound interest)
+                let savingsValue = startCapital;
+                for (let y = 0; y < year; y++) {
+                    savingsValue = savingsValue * 1.005 + (monthlyAmount * 12);
+                }
                 savingsData.push(savingsValue);
                 
-                const buildingValue = year === 0 ? startCapital : calculateBuildingSociety(startCapital, monthlyAmount, year);
+                // Building savings (compound interest with fees)
+                let buildingValue = startCapital * 0.99; // Apply closing fee
+                for (let y = 0; y < year; y++) {
+                    buildingValue = buildingValue * 1.01 + (monthlyAmount * 12);
+                }
                 buildingData.push(buildingValue);
             }
-
-            // Ensure final year is included
-            if (years[years.length - 1] !== duration) {
-                years.push(duration);
-                contributionsData.push(calculationData.totalContributions);
-                smartKidsData.push(calculationData.smartKidsReturn);
-                savingsData.push(calculationData.savingsReturn);
-                buildingData.push(calculationData.buildingReturn);
-            }
-
+            
             chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: years.map(y => `Jahr ${y}`),
-                    datasets: [{
-                        label: 'Ihre Einzahlungen (ohne Zinsen)',
-                        data: contributionsData,
-                        borderColor: '#94a3b8',
-                        backgroundColor: 'rgba(148, 163, 184, 0.1)',
-                        tension: 0.2,
-                        borderWidth: 2,
-                        borderDash: [8, 4],
-                        fill: false,
-                        pointRadius: 3,
-                        pointHoverRadius: 6
-                    }, {
-                        label: 'SmartKidsInvest',
-                        data: smartKidsData,
-                        borderColor: '#1e40af',
-                        backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                        tension: 0.3,
-                        borderWidth: 4,
-                        fill: false,
-                        pointRadius: 4,
-                        pointHoverRadius: 8
-                    }, {
-                        label: 'Sparbuch (0,5%)',
-                        data: savingsData,
-                        borderColor: '#059669',
-                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                        tension: 0.3,
-                        borderWidth: 3,
-                        fill: false,
-                        pointRadius: 3,
-                        pointHoverRadius: 6
-                    }, {
-                        label: 'Bausparvertrag (1,0%)',
-                        data: buildingData,
-                        borderColor: '#d97706',
-                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                        tension: 0.3,
-                        borderWidth: 3,
-                        fill: false,
-                        pointRadius: 3,
-                        pointHoverRadius: 6
-                    }]
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Ihre Einzahlungen',
+                            data: contributionsData,
+                            borderColor: '#64748b',
+                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'SmartKidsInvest',
+                            data: smartKidsData,
+                            borderColor: '#1e40af',
+                            backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                            borderWidth: 4,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Sparbuch',
+                            data: savingsData,
+                            borderColor: '#059669',
+                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Bausparvertrag',
+                            data: buildingData,
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        title: {
-                            display: true,
-                            text: `Wertentwicklung bis zum ${calculationData.endAge}. Lebensjahr`,
-                            font: { size: 18, weight: '600', family: 'Inter' },
-                            color: '#1e293b',
-                            padding: 20
-                        },
                         legend: {
                             position: 'top',
-                            labels: { 
-                                font: { size: 13, family: 'Inter', weight: '600' },
-                                padding: 20,
-                                color: '#374151',
-                                usePointStyle: true,
-                                pointStyle: 'line'
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
                             }
                         }
                     },
                     scales: {
-                        y: {
-                            beginAtZero: true,
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Alter des Kindes',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
                             grid: {
-                                color: 'rgba(0, 0, 0, 0.05)',
-                                lineWidth: 1
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Vermögen (€)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
                             },
                             ticks: {
                                 callback: function(value) {
                                     return formatCurrency(value);
-                                },
-                                font: { family: 'Inter', size: 12, weight: '500' },
-                                color: '#6b7280'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)',
-                                lineWidth: 1
+                                }
                             },
-                            ticks: {
-                                font: { family: 'Inter', size: 12, weight: '500' },
-                                color: '#6b7280'
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
                             }
                         }
                     },
                     interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    }
-                }
-            });
-        }
-
-        function createSummaryChart() {
-            const chartElement = document.getElementById('summaryChart');
-            if (!chartElement) {
-                console.error('Summary chart element not found');
-                return;
-            }
-            
-            const ctx = chartElement.getContext('2d');
-            
-            if (summaryChart && typeof summaryChart.destroy === 'function') {
-                summaryChart.destroy();
-            }
-
-            // Reuse the same chart configuration as the comparison chart
-            const { duration, startCapital, monthlyAmount, smartKidsTarget } = calculationData;
-
-            const years = [];
-            const contributionsData = [];
-            const smartKidsData = [];
-            const savingsData = [];
-            const buildingData = [];
-
-            const stepSize = Math.max(1, Math.floor(duration / 20));
-            
-            for (let year = 0; year <= duration; year += stepSize) {
-                years.push(year);
-                
-                const contributions = startCapital + (monthlyAmount * 12 * year);
-                contributionsData.push(contributions);
-                
-                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
-                smartKidsData.push(smartKidsValue);
-                
-                const savingsValue = year === 0 ? startCapital : calculateSavingsAccount(startCapital, monthlyAmount, year, 0.5);
-                savingsData.push(savingsValue);
-                
-                const buildingValue = year === 0 ? startCapital : calculateBuildingSociety(startCapital, monthlyAmount, year);
-                buildingData.push(buildingValue);
-            }
-
-            if (years[years.length - 1] !== duration) {
-                years.push(duration);
-                contributionsData.push(calculationData.totalContributions);
-                smartKidsData.push(calculationData.smartKidsReturn);
-                savingsData.push(calculationData.savingsReturn);
-                buildingData.push(calculationData.buildingReturn);
-            }
-
-            summaryChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years.map(y => `Jahr ${y}`),
-                    datasets: [{
-                        label: '💰 Ihre Einzahlungen (ohne Zinsen)',
-                        data: contributionsData,
-                        borderColor: '#6b7280',
-                        backgroundColor: 'rgba(107, 114, 128, 0.1)',
-                        tension: 0.1,
-                        borderWidth: 4,
-                        borderDash: [10, 5],
-                        fill: false
-                    }, {
-                        label: '🚀 SmartKidsInvest',
-                        data: smartKidsData,
-                        borderColor: '#1e3a8a',
-                        backgroundColor: 'rgba(30, 58, 138, 0.1)',
-                        tension: 0.4,
-                        borderWidth: 6,
-                        fill: false
-                    }, {
-                        label: '🏦 Sparbuch (0,5%)',
-                        data: savingsData,
-                        borderColor: '#059669',
-                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                        tension: 0.4,
-                        borderWidth: 4,
-                        fill: false
-                    }, {
-                        label: '🏠 Bausparvertrag (1,0%)',
-                        data: buildingData,
-                        borderColor: '#d97706',
-                        backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                        tension: 0.4,
-                        borderWidth: 4,
-                        fill: false
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: `📊 Wertentwicklung bis zum ${calculationData.endAge}. Lebensjahr`,
-                            font: { size: 20, weight: 'bold', family: 'Quicksand' }
-                        },
-                        legend: {
-                            position: 'top',
-                            labels: { 
-                                font: { size: 16, family: 'Quicksand', weight: 'bold' },
-                                padding: 25
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                },
-                                font: { family: 'Quicksand', size: 14, weight: 'bold' }
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                font: { family: 'Quicksand', size: 14, weight: 'bold' }
-                            }
-                        }
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
                     }
                 }
             });
         }
 
         function updateSummary() {
-            console.log('Updating summary...');
+            // Update basic info
+            document.getElementById('summaryCustomer').textContent = document.getElementById('customerName').value || '-';
+            document.getElementById('summaryChild').textContent = document.getElementById('childName').value || '-';
+            document.getElementById('summaryAdvisor').textContent = document.getElementById('advisorName').value || '-';
             
-            // Always get fresh data from form fields with debug logging
-            const customerName = document.getElementById('customerName')?.value || 'Familie Mustermann';
-            const childName = document.getElementById('childName')?.value || 'Anna Mustermann';
-            const advisorName = document.getElementById('advisorName')?.value || 'Sarah Schmidt';
-            const consultationDate = document.getElementById('consultationDate')?.value || new Date().toISOString().split('T')[0];
-            const childAge = parseInt(document.getElementById('childAge')?.value) || 5;
-            const endAge = parseInt(document.getElementById('endAge')?.value) || 67;
-            const startCapital = parseFloat(document.getElementById('startCapital')?.value) || 5000;
-            const monthlyAmount = parseFloat(document.getElementById('monthlyAmount')?.value) || 100;
-            const duration = endAge - childAge;
-            const smartKidsTargetStr = document.getElementById('smartKidsTarget')?.value || '250.000';
+            // Format date to German format (DD.MM.YYYY)
+            const dateValue = document.getElementById('consultationDate').value;
+            if (dateValue) {
+                const date = new Date(dateValue);
+                const formattedDate = date.toLocaleDateString('de-DE');
+                document.getElementById('summaryDate').textContent = formattedDate;
+            } else {
+                document.getElementById('summaryDate').textContent = '-';
+            }
+            
+            // Update company info in summary
+            updateSummaryCompanyInfo();
+            
+            // Update calculation parameters
+            const startCapital = parseFloat(document.getElementById('startCapital').value) || 5000;
+            const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value) || 100;
+            const childAge = parseInt(document.getElementById('childAge').value) || 5;
+            const endAge = parseInt(document.getElementById('endAge').value) || 67;
+            const smartKidsTargetStr = document.getElementById('smartKidsTarget').value || '250.000';
             const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
-            const expectedReturn = parseFloat(document.getElementById('expectedReturn')?.value) || 5.0;
+            
+            const duration = endAge - childAge;
             const totalContributions = startCapital + (monthlyAmount * 12 * duration);
-            const smartKidsReturn = smartKidsTarget;
-            const savingsReturn = calculateSavingsAccount(startCapital, monthlyAmount, duration, 0.5);
-            const buildingReturn = calculateBuildingSociety(startCapital, monthlyAmount, duration);
             
-            console.log('Summary data:', { customerName, childName, advisorName, totalContributions, smartKidsReturn });
+            document.getElementById('summaryStartCapital').textContent = formatCurrency(startCapital);
+            document.getElementById('summaryMonthly').textContent = formatCurrency(monthlyAmount);
+            document.getElementById('summaryDuration').textContent = duration + ' Jahre';
+            document.getElementById('summarySmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
             
-            // Update calculationData for chart creation
-            calculationData = {
-                customerName, childName, advisorName, consultationDate, childAge, endAge,
-                startCapital, monthlyAmount, duration, smartKidsTarget, expectedReturn,
-                totalContributions, smartKidsReturn, savingsReturn, buildingReturn
-            };
+            // Calculate and display return
+            const smartKidsReturn = ((smartKidsTarget - totalContributions) / totalContributions * 100).toFixed(1);
+            document.getElementById('summaryReturn').textContent = `+${smartKidsReturn}%`;
             
-            // Update basic info with error handling
-            const summaryCustomerEl = document.getElementById('summaryCustomer');
-            const summaryChildEl = document.getElementById('summaryChild');
-            const summaryAdvisorEl = document.getElementById('summaryAdvisor');
-            const summaryDateEl = document.getElementById('summaryDate');
-            
-            if (summaryCustomerEl) summaryCustomerEl.textContent = customerName;
-            if (summaryChildEl) summaryChildEl.textContent = childName;
-            if (summaryAdvisorEl) summaryAdvisorEl.textContent = advisorName;
-            if (summaryDateEl) summaryDateEl.textContent = consultationDate ? new Date(consultationDate).toLocaleDateString('de-DE') : 'Heute';
-            
-            // Update parameters with error handling
-            const summaryStartCapitalEl = document.getElementById('summaryStartCapital');
-            const summaryMonthlyEl = document.getElementById('summaryMonthly');
-            const summaryDurationEl = document.getElementById('summaryDuration');
-            const summarySmartKidsTargetEl = document.getElementById('summarySmartKidsTarget');
-            const summaryReturnEl = document.getElementById('summaryReturn');
-            
-            if (summaryStartCapitalEl) summaryStartCapitalEl.textContent = formatCurrency(startCapital);
-            if (summaryMonthlyEl) summaryMonthlyEl.textContent = formatCurrency(monthlyAmount);
-            if (summaryDurationEl) summaryDurationEl.textContent = duration + ' Jahre';
-            if (summarySmartKidsTargetEl) summarySmartKidsTargetEl.textContent = formatCurrency(smartKidsTarget);
-            if (summaryReturnEl) summaryReturnEl.textContent = expectedReturn + '% p.a.';
-            
-            // Update results with error handling
-            const summaryContributionsEl = document.getElementById('summaryContributions');
-            const summarySmartKidsEl = document.getElementById('summarySmartKids');
-            const summarySavingsEl = document.getElementById('summarySavings');
-            const summaryBuildingEl = document.getElementById('summaryBuilding');
-            
-            if (summaryContributionsEl) summaryContributionsEl.textContent = formatCurrency(totalContributions);
-            if (summarySmartKidsEl) summarySmartKidsEl.textContent = formatCurrency(smartKidsReturn);
-            if (summarySavingsEl) summarySavingsEl.textContent = formatCurrency(savingsReturn);
-            if (summaryBuildingEl) summaryBuildingEl.textContent = formatCurrency(buildingReturn);
-            
-            // Calculate and display returns
-            const smartKidsReturnAmount = smartKidsReturn - totalContributions;
-            const savingsReturnAmount = savingsReturn - totalContributions;
-            const buildingReturnAmount = buildingReturn - totalContributions;
-            
-            const smartKidsReturnPercent = ((smartKidsReturnAmount / totalContributions) * 100).toFixed(1);
-            const savingsReturnPercent = ((savingsReturnAmount / totalContributions) * 100).toFixed(1);
-            const buildingReturnPercent = ((buildingReturnAmount / totalContributions) * 100).toFixed(1);
-            
-            const smartKidsReturnEl = document.getElementById('smartKidsReturn');
-            const savingsReturnEl = document.getElementById('savingsReturn');
-            const buildingReturnEl = document.getElementById('buildingReturn');
-            
-            if (smartKidsReturnEl) smartKidsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(smartKidsReturnAmount)} (${smartKidsReturnPercent}%)`;
-            if (savingsReturnEl) savingsReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(savingsReturnAmount)} (${savingsReturnPercent}%)`;
-            if (buildingReturnEl) buildingReturnEl.textContent = `💰 Gesamtrendite: ${formatCurrency(buildingReturnAmount)} (${buildingReturnPercent}%)`;
-            
-            // Calculate advantages
-            const advantageVsContributions = smartKidsReturn - totalContributions;
-            const advantageVsSavings = smartKidsReturn - savingsReturn;
-            const advantageVsBuilding = smartKidsReturn - buildingReturn;
-            
-            const finalAdvantageContributionsEl = document.getElementById('finalAdvantageContributions');
-            const finalAdvantageSavingsEl = document.getElementById('finalAdvantageSavings');
-            const finalAdvantageBuildingEl = document.getElementById('finalAdvantageBuilding');
-            
-            if (finalAdvantageContributionsEl) finalAdvantageContributionsEl.textContent = formatCurrency(advantageVsContributions);
-            if (finalAdvantageSavingsEl) finalAdvantageSavingsEl.textContent = formatCurrency(advantageVsSavings);
-            if (finalAdvantageBuildingEl) finalAdvantageBuildingEl.textContent = formatCurrency(advantageVsBuilding);
+            // Update result cards
+            if (calculationData.totalContributions) {
+                document.getElementById('summaryContributions').textContent = formatCurrency(calculationData.totalContributions);
+                document.getElementById('summarySmartKids').textContent = formatCurrency(calculationData.smartKidsTarget);
+                document.getElementById('summarySavings').textContent = formatCurrency(calculationData.savingsResult);
+                document.getElementById('summaryBuilding').textContent = formatCurrency(calculationData.buildingResult);
+                
+                // Update returns
+                const smartKidsRet = ((calculationData.smartKidsTarget - calculationData.totalContributions) / calculationData.totalContributions * 100).toFixed(1);
+                const savingsRet = ((calculationData.savingsResult - calculationData.totalContributions) / calculationData.totalContributions * 100).toFixed(1);
+                const buildingRet = ((calculationData.buildingResult - calculationData.totalContributions) / calculationData.totalContributions * 100).toFixed(1);
+                
+                document.getElementById('smartKidsReturn').textContent = `+${smartKidsRet}% Rendite`;
+                document.getElementById('savingsReturn').textContent = `+${savingsRet}% Rendite`;
+                document.getElementById('buildingReturn').textContent = `+${buildingRet}% Rendite`;
+            }
             
             // Update insurance summary
             updateInsuranceSummary();
             
-            // Update total insurance cost in summary
-            const deathPrice = parseFloat(document.getElementById('deathInsurancePrice').value) || 0;
-            const dentalPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 0;
-            const disabilityPrice = parseFloat(document.getElementById('disabilityInsurancePrice').value) || 0;
-            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice;
-            
-            const summaryTotalInsuranceCostEl = document.getElementById('summaryTotalInsuranceCost');
-            if (summaryTotalInsuranceCostEl) {
-                summaryTotalInsuranceCostEl.textContent = formatCurrency(totalMonthlyCost) + '/Monat';
-            }
-            
             // Create summary chart
-            setTimeout(() => {
-                createSummaryChart();
-            }, 100);
-            
-            console.log('Summary update completed');
+            createSummaryChart();
         }
 
         function updateInsuranceSummary() {
-            const summaryContainer = document.getElementById('insuranceSummary');
-            const summaryContent = document.getElementById('insuranceSummaryContent');
-            let hasInsurance = false;
-            let summaryHTML = '';
-
-            // Death Insurance - always show if fields are filled
-            const deathCompany = document.getElementById('deathInsuranceCompany').value;
-            const deathPrice = document.getElementById('deathInsurancePrice').value;
-            const deathAmount = document.getElementById('deathInsuranceAmount').value;
-            const deathDuration = document.getElementById('deathInsuranceDuration').value;
-            const deathType = document.getElementById('deathInsuranceType').value;
+            const deathPrice = parseFloat(document.getElementById('deathInsurancePrice').value) || 0;
+            const dentalPrice = parseFloat(document.getElementById('dentalInsurancePrice').value) || 0;
+            const disabilityPrice = parseFloat(document.getElementById('disabilityInsurancePrice').value) || 0;
+            const stationaryPrice = parseFloat(document.getElementById('stationaryInsurancePrice').value) || 0;
             
-            if (deathCompany || deathPrice || deathAmount) {
-                hasInsurance = true;
-                const amountFormatted = deathAmount ? parseFloat(deathAmount.replace(/\./g, '')) : 100000;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <span class="summary-label">Risikolebensversicherung:</span>
-                        <span class="summary-value">${deathCompany || 'Allianz Leben'} - ${formatCurrency(amountFormatted)} (${deathType}) über ${deathDuration} Jahre - ${deathPrice || '25'}€/Monat</span>
-                    </div>
-                `;
-            }
-
-            // Dental Insurance - always show if fields are filled
-            const dentalCompany = document.getElementById('dentalInsuranceCompany').value;
-            const dentalPrice = document.getElementById('dentalInsurancePrice').value;
-            const dentalLevel = document.getElementById('dentalInsuranceLevel').value;
-            const dentalTotalCost = document.getElementById('dentalTotalCost').textContent;
+            const totalMonthlyCost = deathPrice + dentalPrice + disabilityPrice + stationaryPrice;
             
-            if (dentalCompany || dentalPrice) {
-                hasInsurance = true;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <span class="summary-label">Zahnzusatzversicherung:</span>
-                        <span class="summary-value">${dentalCompany || 'ERGO Direkt'} - ${dentalLevel || '90'}% Zahnersatz - ${dentalPrice || '12'}€/Monat - Gesamt bis 18: ${dentalTotalCost}</span>
-                    </div>
-                `;
-            }
-
-            // Disability Insurance - always show if fields are filled
-            const disabilityCompany = document.getElementById('disabilityInsuranceCompany').value;
-            const disabilityPrice = document.getElementById('disabilityInsurancePrice').value;
-            const disabilityRent = document.getElementById('disabilityInsuranceRent').value;
-            const disabilityAge = document.getElementById('disabilityInsuranceAge').value;
-            
-            if (disabilityCompany || disabilityPrice || disabilityRent) {
-                hasInsurance = true;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <span class="summary-label">Berufsunfähigkeitsversicherung:</span>
-                        <span class="summary-value">${disabilityCompany || 'Continentale'} - ${formatCurrency(parseFloat(disabilityRent) || 1500)} BU-Rente ab ${disabilityAge || '18'}. Lebensjahr - ${disabilityPrice || '20'}€/Monat</span>
-                    </div>
-                `;
-            }
-
-            if (hasInsurance) {
-                summaryContent.innerHTML = summaryHTML;
-                summaryContainer.style.display = 'block';
+            if (totalMonthlyCost > 0) {
+                document.getElementById('insuranceSummary').style.display = 'block';
+                
+                let cardsHTML = '';
+                
+                if (deathPrice > 0) {
+                    const company = document.getElementById('deathInsuranceCompany').value || 'Allianz Leben';
+                    const amount = document.getElementById('deathInsuranceAmount').value || '100.000';
+                    const duration = document.getElementById('deathInsuranceDuration').value || '20';
+                    const type = document.getElementById('deathInsuranceType').value || 'konstant';
+                    
+                    cardsHTML += `
+                        <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 40px; height: 40px; background: rgba(217, 119, 6, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">⚠️</div>
+                                <div>
+                                    <h4 style="color: #92400e; font-weight: 800; margin: 0; font-size: 1.125rem;">Risikolebensversicherung</h4>
+                                    <p style="color: #a16207; font-size: 0.875rem; margin: 0; font-weight: 600;">${company}</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: #92400e; font-weight: 600; font-size: 0.875rem;">Absicherungshöhe:</span>
+                                    <span style="color: #92400e; font-weight: 700; font-size: 0.875rem;">${amount}€</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: #92400e; font-weight: 600; font-size: 0.875rem;">Laufzeit:</span>
+                                    <span style="color: #92400e; font-weight: 700; font-size: 0.875rem;">${duration} Jahre</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #92400e; font-weight: 600; font-size: 0.875rem;">Verlauf:</span>
+                                    <span style="color: #92400e; font-weight: 700; font-size: 0.875rem;">${type}</span>
+                                </div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(217, 119, 6, 0.1); border-radius: 8px; margin-top: auto;">
+                                <div style="font-size: 1.75rem; font-weight: 900; color: #92400e;">${formatCurrency(deathPrice)}</div>
+                                <div style="color: #a16207; font-weight: 600; font-size: 0.875rem;">pro Monat</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (dentalPrice > 0) {
+                    const company = document.getElementById('dentalInsuranceCompany').value || 'ERGO Direkt';
+                    const level = document.getElementById('dentalInsuranceLevel').value || '90';
+                    const orthodonticsLevel = document.getElementById('dentalOrthodonticsLevel').value || '90';
+                    
+                    cardsHTML += `
+                        <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 2px solid #10b981; border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #10b981 0%, #059669 100%);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 40px; height: 40px; background: rgba(16, 185, 129, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🦷</div>
+                                <div>
+                                    <h4 style="color: #065f46; font-weight: 800; margin: 0; font-size: 1.125rem;">Zahnzusatzversicherung</h4>
+                                    <p style="color: #047857; font-size: 0.875rem; margin: 0; font-weight: 600;">${company}</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: #065f46; font-weight: 600; font-size: 0.875rem;">Zahnersatz-Erstattung:</span>
+                                    <span style="color: #065f46; font-weight: 700; font-size: 0.875rem;">${level}%</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #065f46; font-weight: 600; font-size: 0.875rem;">Kieferorthopädie:</span>
+                                    <span style="color: #065f46; font-weight: 700; font-size: 0.875rem;">${orthodonticsLevel}%</span>
+                                </div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 8px; margin-top: auto;">
+                                <div style="font-size: 1.75rem; font-weight: 900; color: #065f46;">${formatCurrency(dentalPrice)}</div>
+                                <div style="color: #047857; font-weight: 600; font-size: 0.875rem;">pro Monat</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (disabilityPrice > 0) {
+                    const company = document.getElementById('disabilityInsuranceCompany').value || 'Continentale';
+                    const rent = document.getElementById('disabilityInsuranceRent').value || '1500';
+                    const age = document.getElementById('disabilityInsuranceAge').value || '67';
+                    
+                    cardsHTML += `
+                        <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 2px solid #ec4899; border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #ec4899 0%, #be185d 100%);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 40px; height: 40px; background: rgba(236, 72, 153, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🛡️</div>
+                                <div>
+                                    <h4 style="color: #831843; font-weight: 800; margin: 0; font-size: 1.125rem;">Schüler-BU</h4>
+                                    <p style="color: #be185d; font-size: 0.875rem; margin: 0; font-weight: 600;">${company}</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: #831843; font-weight: 600; font-size: 0.875rem;">BU-Rente:</span>
+                                    <span style="color: #831843; font-weight: 700; font-size: 0.875rem;">${formatCurrency(rent)}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #831843; font-weight: 600; font-size: 0.875rem;">Endalter:</span>
+                                    <span style="color: #831843; font-weight: 700; font-size: 0.875rem;">${age} Jahre</span>
+                                </div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(236, 72, 153, 0.1); border-radius: 8px; margin-top: auto;">
+                                <div style="font-size: 1.75rem; font-weight: 900; color: #831843;">${formatCurrency(disabilityPrice)}</div>
+                                <div style="color: #be185d; font-weight: 600; font-size: 0.875rem;">pro Monat</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                if (stationaryPrice > 0) {
+                    const company = document.getElementById('stationaryInsuranceCompany').value || 'DKV';
+                    const level = document.getElementById('stationaryInsuranceLevel').value || '1-bett';
+                    const reimbursement = document.getElementById('stationaryInsuranceReimbursement').value || '100';
+                    
+                    const levelText = level.replace('1-bett', '1-Bett-Zimmer').replace('2-bett', '2-Bett-Zimmer').replace('chefarzt', 'Chefarztbehandlung').replace('komplett', 'Komplett-Schutz');
+                    
+                    cardsHTML += `
+                        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 2px solid #3b82f6; border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column;">
+                            <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);"></div>
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="width: 40px; height: 40px; background: rgba(59, 130, 246, 0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">🏥</div>
+                                <div>
+                                    <h4 style="color: #1e3a8a; font-weight: 800; margin: 0; font-size: 1.125rem;">Stationäre Zusatzversicherung</h4>
+                                    <p style="color: #1d4ed8; font-size: 0.875rem; margin: 0; font-weight: 600;">${company}</p>
+                                </div>
+                            </div>
+                            <div style="background: rgba(255, 255, 255, 0.6); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; flex: 1;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="color: #1e3a8a; font-weight: 600; font-size: 0.875rem;">Leistungen:</span>
+                                    <span style="color: #1e3a8a; font-weight: 700; font-size: 0.875rem;">${levelText}</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #1e3a8a; font-weight: 600; font-size: 0.875rem;">Erstattung:</span>
+                                    <span style="color: #1e3a8a; font-weight: 700; font-size: 0.875rem;">${reimbursement}%</span>
+                                </div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; margin-top: auto;">
+                                <div style="font-size: 1.75rem; font-weight: 900; color: #1e3a8a;">${formatCurrency(stationaryPrice)}</div>
+                                <div style="color: #1d4ed8; font-weight: 600; font-size: 0.875rem;">pro Monat</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('insuranceCardsContainer').innerHTML = cardsHTML;
+                document.getElementById('summaryTotalInsuranceCost').textContent = formatCurrency(totalMonthlyCost);
             } else {
-                summaryContainer.style.display = 'none';
+                document.getElementById('insuranceSummary').style.display = 'none';
             }
+        }
+
+        function createSummaryChart() {
+            const ctx = document.getElementById('summaryChart').getContext('2d');
+            
+            if (summaryChart) {
+                summaryChart.destroy();
+            }
+            
+            if (!calculationData.duration) {
+                return;
+            }
+            
+            const years = [];
+            const smartKidsData = [];
+            const savingsData = [];
+            const buildingData = [];
+            const contributionsData = [];
+            
+            const { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
+            
+            // Generate data points for each year
+            for (let year = 0; year <= duration; year++) {
+                years.push(childAge + year);
+                
+                // Contributions (linear growth)
+                const contributions = startCapital + (monthlyAmount * 12 * year);
+                contributionsData.push(contributions);
+                
+                // SmartKidsInvest (exponential growth towards target)
+                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
+                smartKidsData.push(smartKidsValue);
+                
+                // Savings book (compound interest)
+                let savingsValue = startCapital;
+                for (let y = 0; y < year; y++) {
+                    savingsValue = savingsValue * 1.005 + (monthlyAmount * 12);
+                }
+                savingsData.push(savingsValue);
+                
+                // Building savings (compound interest with fees)
+                let buildingValue = startCapital * 0.99; // Apply closing fee
+                for (let y = 0; y < year; y++) {
+                    buildingValue = buildingValue * 1.01 + (monthlyAmount * 12);
+                }
+                buildingData.push(buildingValue);
+            }
+            
+            summaryChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Ihre Einzahlungen',
+                            data: contributionsData,
+                            borderColor: '#64748b',
+                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'SmartKidsInvest',
+                            data: smartKidsData,
+                            borderColor: '#1e40af',
+                            backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                            borderWidth: 4,
+                            fill: false,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Sparbuch',
+                            data: savingsData,
+                            borderColor: '#059669',
+                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Bausparvertrag',
+                            data: buildingData,
+                            borderColor: '#d97706',
+                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Alter des Kindes',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Vermögen (€)',
+                                font: {
+                                    size: 14,
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        }
+
+        function updateSummaryCompanyInfo() {
+            const company = document.getElementById('company').value;
+            const summaryCompanyInfo = document.getElementById('summaryCompanyInfo');
+            
+            let companyHTML = '';
+            
+            if (company === 'baloise') {
+                companyHTML = `
+                    <div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Baloise?</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🏆 150+ Jahre Erfahrung</li>
+                                    <li style="margin-bottom: 0.5rem;">💪 Finanzstärke AAA</li>
+                                    <li style="margin-bottom: 0.5rem;">🌍 Europaweit tätig</li>
+                                    <li>📈 Überdurchschnittliche Überschüsse</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🎯 Flexible Fondsauswahl</li>
+                                    <li style="margin-bottom: 0.5rem;">🔄 Kostenfreie Umschichtungen</li>
+                                    <li style="margin-bottom: 0.5rem;">🛡️ Garantierte Beitragsrückgewähr</li>
+                                    <li>⚡ Schnelle Auszahlung</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (company === 'alte-leipziger') {
+                companyHTML = `
+                    <div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Alte Leipziger?</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🏆 200+ Jahre Tradition</li>
+                                    <li style="margin-bottom: 0.5rem;">💎 Ausgezeichnete Ratings</li>
+                                    <li style="margin-bottom: 0.5rem;">🎖️ Testsieger-Qualität</li>
+                                    <li>📊 Hohe Überschussbeteiligung</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🌟 AL_best Fonds</li>
+                                    <li style="margin-bottom: 0.5rem;">🔒 Beitragsgarantie</li>
+                                    <li style="margin-bottom: 0.5rem;">🎯 Flexible Strategien</li>
+                                    <li>👨‍💼 Persönlicher Service</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (company === 'nuernberger') {
+                companyHTML = `
+                    <div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Nürnberger?</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🏆 100+ Jahre Erfahrung</li>
+                                    <li style="margin-bottom: 0.5rem;">💪 Solide Finanzstärke</li>
+                                    <li style="margin-bottom: 0.5rem;">🎯 Spezialist für Altersvorsorge</li>
+                                    <li>📈 Attraktive Überschüsse</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🎨 Breite Fondspalette</li>
+                                    <li style="margin-bottom: 0.5rem;">🔄 Flexible Umschichtungen</li>
+                                    <li style="margin-bottom: 0.5rem;">🛡️ Beitragserhalt garantiert</li>
+                                    <li>🏠 Regionale Nähe</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (company === 'lv1871') {
+                companyHTML = `
+                    <div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum LV 1871?</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🏆 150+ Jahre Tradition</li>
+                                    <li style="margin-bottom: 0.5rem;">💪 Starke Finanzstärke</li>
+                                    <li style="margin-bottom: 0.5rem;">🚀 Innovationsführer</li>
+                                    <li>📈 Überdurchschnittliche Renditen</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🎯 Maxxellence Invest</li>
+                                    <li style="margin-bottom: 0.5rem;">🔄 Kostenfreie Switches</li>
+                                    <li style="margin-bottom: 0.5rem;">🛡️ Beitragsgarantie</li>
+                                    <li>📱 Digitaler Service</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (company === 'allianz') {
+                companyHTML = `
+                    <div>
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Allianz?</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🏆 130+ Jahre Erfahrung</li>
+                                    <li style="margin-bottom: 0.5rem;">💪 Marktführer Deutschland</li>
+                                    <li style="margin-bottom: 0.5rem;">🌍 Weltweite Präsenz</li>
+                                    <li>📈 Konstante Überschüsse</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h4>
+                                <ul style="list-style: none; padding: 0; margin: 0; color: #374151; font-size: 0.875rem; line-height: 1.6;">
+                                    <li style="margin-bottom: 0.5rem;">🎯 InvestFlex Konzept</li>
+                                    <li style="margin-bottom: 0.5rem;">🔄 Kostenfreie Umschichtungen</li>
+                                    <li style="margin-bottom: 0.5rem;">🛡️ Beitragsgarantie</li>
+                                    <li>🏆 Ausgezeichneter Service</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            summaryCompanyInfo.innerHTML = companyHTML;
         }
 
         function formatCurrency(amount) {
@@ -2513,28 +3042,6 @@
                 maximumFractionDigits: 0
             }).format(amount);
         }
-
-        async function generatePDF() {
-            if (!calculationData.customerName) {
-                alert('Bitte führen Sie zuerst eine Berechnung durch.');
-                return;
-            }
-
-            try {
-                // Show summary page first
-                showPage('zusammenfassung');
-                
-                // Wait a moment for the page to render
-                await new Promise(resolve => setTimeout(resolve, 500));
-                
-                // Use browser's print functionality which can save as PDF
-                window.print();
-                
-            } catch (error) {
-                console.error('PDF generation error:', error);
-                alert('Fehler beim Erstellen des PDFs. Bitte verwenden Sie die Druckfunktion Ihres Browsers.');
-            }
-        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'964c10e0101df948',t:'MTc1MzQ1MDc5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965a26d86578e506',t:'MTc1MzU5ODQ5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
