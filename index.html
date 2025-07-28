@@ -2225,7 +2225,7 @@
             const durationTo67 = 67 - childAge;
             // Calculate closing costs always until 67, but total contributions until endAge
             const totalContributions = startCapital + (monthlyAmount * 12 * duration);
-            const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo40);
+            const totalContributionsTo40 = startCapital + (monthlyAmount * 12 * durationTo40);
             const closingCosts = totalContributionsTo40 * 0.025;
             // Effective costs are calculated yearly on the total balance until endAge
             const totalEffectiveCosts = closingCosts + (smartKidsTarget * (effectiveCosts / 100) * duration);
