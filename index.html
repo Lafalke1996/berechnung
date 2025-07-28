@@ -2064,7 +2064,7 @@
     </main>
 
     <script>
-        let currentPage = 'kundendaten';
+   let currentPage = 'kundendaten';
         let calculationData = {};
         let chart = null;
         let summaryChart = null;
@@ -2075,6 +2075,16 @@
             updateLivePreview();
             calculateDentalTotal();
             updateTotalInsuranceCost();
+
+            // Live Preview sofort bei Eingabe aktualisieren
+            [
+                'childAge', 'endAge', 'monthlyAmount', 'startCapital', 'effectiveCosts', 'smartKidsTarget', 'company'
+            ].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', updateLivePreview);
+                }
+            });
         });
 
         function showPage(pageId) {
@@ -2212,34 +2222,37 @@
                 input.value = value;
             }
         }
-
-        function updateLivePreview() {
+   function updateLivePreview() {
             const childAge = parseInt(document.getElementById('childAge').value) || 5;
             const endAge = parseInt(document.getElementById('endAge').value) || 67;
             const startCapital = parseFloat(document.getElementById('startCapital').value) || 5000;
             const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value) || 100;
-            const smartKidsTargetStr = document.getElementById('smartKidsTarget').value || '250.000';
-            const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
             const effectiveCosts = parseFloat(document.getElementById('effectiveCosts').value) || 0.6;
-            
+
+            // Korrigierte Berechnung der Laufzeit und Beitragssumme
             const duration = endAge - childAge;
-            const durationTo67 = 67 - childAge;
-            // Calculate closing costs always until 67, but total contributions until endAge
-            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
-            const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo67);
-            const closingCosts = totalContributionsTo67 * 0.025;
-            // Effective costs are calculated yearly on the total balance until endAge
-            const totalEffectiveCosts = closingCosts + (smartKidsTarget * (effectiveCosts / 100) * duration);
-            
-            document.getElementById('previewDuration').textContent = duration + ' Jahre';
+            const totalContributions = (monthlyAmount * 12 * duration) + startCapital;
+            const closingCosts = totalContributions * 0.025;
+            const yearlyEffectiveCosts = totalContributions * (effectiveCosts / 100);
+
+            // Zielwert SmartKidsInvest (7% p.a. nach Kosten)
+            let targetAmount = startCapital;
+            for (let i = 0; i < duration; i++) {
+                targetAmount = (targetAmount + (monthlyAmount * 12)) * 1.07;
+                targetAmount = targetAmount * (1 - (effectiveCosts / 100));
+            }
+
+            // Update Preview
+            document.getElementById('previewDuration').textContent = `${duration} Jahre`;
             document.getElementById('previewTotal').textContent = formatCurrency(totalContributions);
             document.getElementById('previewClosingCosts').textContent = formatCurrency(closingCosts);
-            document.getElementById('previewEffectiveCosts').textContent = effectiveCosts + '% p.a.';
-            document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
-            document.getElementById('displayEffectiveCosts').textContent = effectiveCosts + '%';
-            
+            document.getElementById('previewEffectiveCosts').textContent = `${formatCurrency(yearlyEffectiveCosts)} pro Jahr`;
+            document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(targetAmount);
+            document.getElementById('displayEffectiveCosts').textContent = `${effectiveCosts.toFixed(1)}%`;
+            document.getElementById('smartKidsTarget').value = formatCurrency(targetAmount);
+
             // Update company info display
-            updateCompanyInfo();
+            if (typeof updateCompanyInfo === "function") updateCompanyInfo();
         }
 
         function updateCompanyInfo() {
@@ -3035,12 +3048,12 @@
             summaryCompanyInfo.innerHTML = companyHTML;
         }
 
-        function formatCurrency(amount) {
+     function formatCurrency(amount) {
             return new Intl.NumberFormat('de-DE', {
                 style: 'currency',
                 currency: 'EUR',
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
             }).format(amount);
         }
     </script>
