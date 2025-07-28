@@ -888,7 +888,7 @@
         </div>
 
         <!-- Page 2: Berechnung & Ergebnisse -->
-        <div id="page-berechnung" class="page-content hidden">
+        <div id="page-berechnung" class="page-content">
             <div class="page-header">
                 <h1>Ihre Anlagestrategie</h1>
                 <p>Gemeinsam finden wir die perfekte Lösung für Ihr Kind</p>
@@ -972,7 +972,7 @@
                         <h2 class="card-title">Produktvergleich</h2>
                         <div style="margin-bottom: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-radius: 8px; border: 2px solid #3b82f6;">
                             <h3 style="font-weight: 700; color: #1e40af; margin-bottom: 0.75rem; font-size: 1rem; display: flex; align-items: center; gap: 0.75rem;">
-                                <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:55px;">
+                                <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:32px;">
                                 SmartKidsInvest
                             </h3>
                             <p style="font-size: 0.875rem; color: #374151; margin: 0.25rem 0; font-weight: 500;">Zinssatz: 7,0% p.a.</p>
@@ -1069,12 +1069,11 @@
         </div>
 
         <!-- Page 3: Company Information -->
-        <div id="page-gesellschaft" class="page-content hidden">
+        <div id="page-gesellschaft" class="page-content">
             <div class="page-header">
-<h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
-<p id="companyNameDisplay" style="font-weight:700; font-size:1.1rem; margin-top:0.5rem;"></p>
-<p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
-</div>
+                <h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
+                <p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
+            </div>
             
             <!-- Baloise Information -->
             <div id="baloiseInfo">
@@ -1463,7 +1462,7 @@
         </div>
 
         <!-- Page 4: Vorteile -->
-        <div id="page-vorteile" class="page-content hidden">
+        <div id="page-vorteile" class="page-content">
             <div class="page-header">
                 <h1>Warum SmartKidsInvest?</h1>
                 <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
@@ -1549,7 +1548,7 @@
         </div>
 
         <!-- Page 5: Zusatzabsicherungen -->
-        <div id="page-zusatzabsicherungen" class="page-content hidden">
+        <div id="page-zusatzabsicherungen" class="page-content">
             <div class="page-header">
                 <h1>Zusätzlicher Schutz</h1>
                 <p>Umfassende Sicherheit für Ihre Familie</p>
@@ -1878,7 +1877,7 @@
         </div>
 
         <!-- Page 6: Zusammenfassung -->
-        <div id="page-zusammenfassung" class="page-content hidden">
+        <div id="page-zusammenfassung" class="page-content">
             <div class="page-header">
                 <h1>Ihre Beratungszusammenfassung</h1>
                 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
@@ -1944,7 +1943,7 @@
                         <p style="font-size: 1.125rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
                     </div>
                     <div class="result-card primary">
-                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:85px; margin: 0 auto 1.5rem auto; display:block;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:56px; margin: 0 auto 1.5rem auto; display:block;">
                         <h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">SmartKidsInvest</h3>
                         <div class="result-value" id="summarySmartKids">-</div>
                         <p style="font-size: 1.125rem; color: #1e3a8a; font-weight: 700;" id="smartKidsReturn">-</p>
@@ -2064,7 +2063,7 @@
     </main>
 
     <script>
-   let currentPage = 'kundendaten';
+        let currentPage = 'kundendaten';
         let calculationData = {};
         let chart = null;
         let summaryChart = null;
@@ -2075,16 +2074,6 @@
             updateLivePreview();
             calculateDentalTotal();
             updateTotalInsuranceCost();
-
-            // Live Preview sofort bei Eingabe aktualisieren
-            [
-                'childAge', 'endAge', 'monthlyAmount', 'startCapital', 'effectiveCosts', 'smartKidsTarget', 'company'
-            ].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.addEventListener('input', updateLivePreview);
-                }
-            });
         });
 
         function showPage(pageId) {
@@ -2222,37 +2211,34 @@
                 input.value = value;
             }
         }
-   function updateLivePreview() {
+
+        function updateLivePreview() {
             const childAge = parseInt(document.getElementById('childAge').value) || 5;
             const endAge = parseInt(document.getElementById('endAge').value) || 67;
             const startCapital = parseFloat(document.getElementById('startCapital').value) || 5000;
             const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value) || 100;
+            const smartKidsTargetStr = document.getElementById('smartKidsTarget').value || '250.000';
+            const smartKidsTarget = parseFloat(smartKidsTargetStr.replace(/\./g, '')) || 250000;
             const effectiveCosts = parseFloat(document.getElementById('effectiveCosts').value) || 0.6;
-
-            // Korrigierte Berechnung der Laufzeit und Beitragssumme
+            
             const duration = endAge - childAge;
-            const totalContributions = (monthlyAmount * 12 * duration) + startCapital;
-            const closingCosts = totalContributions * 0.025;
-            const yearlyEffectiveCosts = totalContributions * (effectiveCosts / 100);
-
-            // Zielwert SmartKidsInvest (7% p.a. nach Kosten)
-            let targetAmount = startCapital;
-            for (let i = 0; i < duration; i++) {
-                targetAmount = (targetAmount + (monthlyAmount * 12)) * 1.07;
-                targetAmount = targetAmount * (1 - (effectiveCosts / 100));
-            }
-
-            // Update Preview
-            document.getElementById('previewDuration').textContent = `${duration} Jahre`;
+            const durationTo67 = 67 - childAge;
+            // Calculate closing costs always until 67, but total contributions until endAge
+            const totalContributions = startCapital + (monthlyAmount * 12 * duration);
+            const totalContributionsTo67 = startCapital + (monthlyAmount * 12 * durationTo67);
+            const closingCosts = totalContributionsTo67 * 0.025;
+            // Effective costs are calculated yearly on the total balance until endAge
+            const totalEffectiveCosts = closingCosts + (smartKidsTarget * (effectiveCosts / 100) * duration);
+            
+            document.getElementById('previewDuration').textContent = duration + ' Jahre';
             document.getElementById('previewTotal').textContent = formatCurrency(totalContributions);
             document.getElementById('previewClosingCosts').textContent = formatCurrency(closingCosts);
-            document.getElementById('previewEffectiveCosts').textContent = `${formatCurrency(yearlyEffectiveCosts)} pro Jahr`;
-            document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(targetAmount);
-            document.getElementById('displayEffectiveCosts').textContent = `${effectiveCosts.toFixed(1)}%`;
-            document.getElementById('smartKidsTarget').value = formatCurrency(targetAmount);
-
+            document.getElementById('previewEffectiveCosts').textContent = effectiveCosts + '% p.a.';
+            document.getElementById('previewSmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
+            document.getElementById('displayEffectiveCosts').textContent = effectiveCosts + '%';
+            
             // Update company info display
-            if (typeof updateCompanyInfo === "function") updateCompanyInfo();
+            updateCompanyInfo();
         }
 
         function updateCompanyInfo() {
@@ -2916,7 +2902,7 @@
             if (company === 'baloise') {
                 companyHTML = `
                     <div>
-                        <img src="baloise-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                             <div>
                                 <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Baloise?</h4>
@@ -2942,7 +2928,7 @@
             } else if (company === 'alte-leipziger') {
                 companyHTML = `
                     <div>
-                        <img src="Logo_Alte_Leipziger.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                             <div>
                                 <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Alte Leipziger?</h4>
@@ -2968,7 +2954,7 @@
             } else if (company === 'nuernberger') {
                 companyHTML = `
                     <div>
-                        <img src="Logo-Nürnberger.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                             <div>
                                 <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Nürnberger?</h4>
@@ -2994,7 +2980,7 @@
             } else if (company === 'lv1871') {
                 companyHTML = `
                     <div>
-                        <img src="LV_1871_logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                             <div>
                                 <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum LV 1871?</h4>
@@ -3020,7 +3006,7 @@
             } else if (company === 'allianz') {
                 companyHTML = `
                     <div>
-                        <img src="allianz-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
+                        <img src="smartkids-logo.png" alt="SmartKidsInvest" style="height:64px; margin-bottom:2rem;">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                             <div>
                                 <h4 style="font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Allianz?</h4>
@@ -3048,12 +3034,12 @@
             summaryCompanyInfo.innerHTML = companyHTML;
         }
 
-     function formatCurrency(amount) {
+        function formatCurrency(amount) {
             return new Intl.NumberFormat('de-DE', {
                 style: 'currency',
                 currency: 'EUR',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
             }).format(amount);
         }
     </script>
