@@ -786,6 +786,167 @@
             }
         }
     </style>
+
+<!-- Professional redesign overrides (no HTML changes) -->
+<style>
+:root{
+  --brand: #1e3a8a;           /* Deep brand blue */
+  --brand-2: #0f52ba;         /* Accent blue */
+  --brand-accent: #f59e0b;    /* Brand gold */
+  --text: #0f172a;            /* Slate-900 */
+  --muted: #475569;           /* Slate-600 */
+  --bg: #f6f7f9;              /* Soft app background */
+  --surface: #ffffff;         /* Card surface */
+  --surface-2: #f9fafb;       /* Subtle surface */
+  --border: #e5e7eb;          /* Card borders */
+  --ring: rgba(31, 111, 235, 0.18);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 8px 24px rgba(16, 24, 40, .06);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, .08);
+  --radius: 16px;
+}
+
+/* ============ Global reset / typography ============ */
+html{scroll-behavior:smooth}
+*{font-feature-settings:"liga" 1,"calt" 1}
+body{background:var(--bg)!important;color:var(--text);}
+.container-main{max-width:1100px}
+
+/* Headings */
+h1,h2,h3{letter-spacing:-.01em;color:var(--text)}
+h1{font-weight:800;font-size:clamp(1.6rem,1.2rem+1.2vw,2rem)}
+h2{font-weight:700;font-size:1.125rem}
+h3{font-weight:700;font-size:1rem}
+
+/* Text smoothing */
+body,button,input,select{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale }
+
+/* Reduce the heavy gradients everywhere to a modern, clean UI */
+.header-main,
+.page-header,
+.card,
+.insurance-section,
+.summary-section{background:var(--surface)!important;border:1px solid var(--border)!important;box-shadow:var(--shadow-md)!important}
+
+/* Subtle page header with divider bar */
+.page-header{border-radius:var(--radius);padding:2rem 2rem}
+.page-header::before{background:linear-gradient(90deg,var(--brand),var(--brand-2))!important;height:3px}
+.page-header p{color:var(--muted)!important;font-weight:500}
+
+/* Header with compact brand treatment */
+.header-main{backdrop-filter:saturate(120%) blur(8px);border:0;border-bottom:1px solid var(--border)!important;box-shadow:var(--shadow-sm)!important}
+.logo-text{font-weight:900;letter-spacing:-.02em}
+.logo-smart,.logo-kids{color:var(--brand-accent)!important}
+.logo-invest{color:var(--brand)!important}
+.logo-subtitle{color:var(--muted)!important}
+
+/* Navigation tabs -> simplified underline tabs */
+.nav-container{background:var(--surface)!important;border-bottom:1px solid var(--border)!important;box-shadow:var(--shadow-sm)!important}
+.nav-tabs{gap:.25rem}
+.nav-tab{min-width:unset;padding:.875rem 1.25rem;border-bottom:2px solid transparent;background:transparent!important;color:#64748b;box-shadow:none}
+.nav-tab .nav-step{background:#eef2ff!important;color:var(--brand)!important;box-shadow:none}
+.nav-tab:hover{color:var(--brand-accent)!important;transform:none}
+.nav-tab.active{color:var(--brand)!important;border-bottom-color:var(--brand)!important;background:transparent}
+.nav-tab.active .nav-step{background:var(--brand)!important;color:#fff!important}
+
+/* Cards */
+.card{border-radius:var(--radius)!important;padding:2rem!important}
+.card::before{display:none}
+.card-title{border-bottom:1px solid var(--border)!important;margin-bottom:1rem!important;padding-bottom:.75rem}
+
+/* Forms */
+.form-label{color:#0f172a!important}
+.form-input,.form-select{background:var(--surface-2)!important;border:1px solid var(--border)!important;border-radius:12px!important}
+.form-input:focus,.form-select:focus{outline:0;box-shadow:0 0 0 6px var(--ring)!important;border-color:transparent!important;transform:none}
+
+/* Checkbox rows */
+.checkbox-container{background:var(--surface-2)!important;border-color:var(--border)!important;box-shadow:var(--shadow-sm)}
+.checkbox-container:hover{box-shadow:var(--shadow-md);transform:none}
+.checkbox-container.active{background:#eef6ff!important;border-color:#cfe1ff!important;box-shadow:var(--shadow-md)}
+
+/* Buttons – solid primary & neutral secondary */
+.btn-primary{background:linear-gradient(0deg,var(--brand),var(--brand))!important;color:#fff!important;border:none!important;box-shadow:var(--shadow-md)!important}
+.btn-primary:hover{transform:translateY(-1px);filter:saturate(110%);box-shadow:var(--shadow-lg)!important}
+.btn-secondary{background:var(--surface)!important;color:var(--text)!important;border:1px solid var(--border)!important;box-shadow:var(--shadow-sm)!important}
+.btn-secondary:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)!important;border-color:#d1d5db!important}
+
+/* Results */
+.result-card{background:var(--surface)!important;border-color:var(--border)!important;box-shadow:var(--shadow-sm)!important}
+.result-card::before{background:linear-gradient(90deg,var(--brand),var(--brand-2))!important;height:4px}
+.result-card.primary .result-value{color:var(--brand)!important}
+.result-card.success .result-value{color:#0f766e!important}
+.result-card.warning .result-value{color:#b45309!important}
+.result-card.neutral .result-value{color:#334155!important}
+
+/* Comparison section – neutralize inline gradient tiles */
+#page-berechnung .card > div[style*="background:"]{background:var(--surface-2)!important;border:1px solid var(--border)!important}
+#page-berechnung .card > div h3{color:var(--text)!important}
+#page-berechnung .card > div p{color:var(--muted)!important}
+
+/* Advantage highlight section – cleaner hero */
+.advantage-highlight{background:linear-gradient(180deg,#0f172a 0%,#111827 100%)!important;color:#fff;border:0;box-shadow:var(--shadow-lg)}
+.advantage-highlight::before{background:linear-gradient(90deg,var(--brand-accent),#f59e0b)!important}
+.advantage-box{background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.12)!important}
+
+/* Feature list tweaks */
+.feature-list li{border-bottom:1px dashed #edf2f7}
+.feature-list strong{font-weight:700}
+
+/* Insurance sections */
+.insurance-section{border-radius:var(--radius);}
+.insurance-section::before{background:linear-gradient(90deg,var(--brand),var(--brand-2))!important;height:3px}
+.recommendation-box{background:#f8fafc!important;border:1px solid var(--border)!important;box-shadow:var(--shadow-sm)!important}
+.recommendation-box::before{display:none}
+.recommendation-title{color:var(--text)!important}
+
+/* Grid spacing and responsiveness */
+.grid-2,.grid-3,.grid-4{gap:1.25rem!important}
+@media (max-width:768px){
+  .card{padding:1.25rem!important}
+  .nav-tab{padding:.75rem .875rem}
+}
+
+/* Page content spacing */
+.page-content{padding:2rem 0}
+
+/* Summary widgets */
+.summary-section{border-radius:12px}
+.summary-item{border-bottom:1px dashed #edf2f7}
+.summary-item:hover{background:#f8fafc!important;margin:0;padding:1rem;border-radius:8px}
+.summary-label{color:var(--muted)!important}
+.summary-value{color:var(--text)!important}
+
+/* Print polish */
+@media print{
+  body{background:#fff!important}
+  .card,.page-header,.summary-section,.insurance-section{box-shadow:none!important;border:1px solid #dfe3e8!important}
+  .result-value{font-size:1.1rem!important}
+}
+
+/* Focus-visible for accessibility */
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:10px}
+
+/* Subtle transitions */
+button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:box-shadow .25s ease, transform .25s ease, border-color .2s ease}
+
+</style>
+
+<style>
+
+/* --- Vergleichsblock: Unser besonderes Konzept --- */
+.comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+@media (max-width:900px){.comparison-grid{grid-template-columns:1fr}}
+.pill{display:inline-block;padding:.35rem .6rem;border-radius:9999px;font-weight:800;letter-spacing:.01em}
+.pill.spar{background:#7f1d1d;color:#fff}
+.pill.depot{background:#7f1d1d;color:#fff}
+.pill.ski{background:#065f46;color:#fff}
+.feature-row{display:flex;align-items:center;gap:.6rem;padding:.4rem 0}
+.feature-row svg{width:18px;height:18px;opacity:.95}
+.icon-check{color:#16a34a}
+.icon-x{color:#dc2626}
+.card hr.thin{border:0;border-top:1px solid var(--border);margin:1rem 0}
+
+</style>
 </head>
 <body>
     <!-- Header -->
@@ -1462,6 +1623,51 @@
 
         <!-- Page 4: Vorteile -->
         <div id="page-vorteile" class="page-content">
+<!-- Unser besonderes Konzept – codierte Version aus dem gelieferten Bild -->
+<div class="comparison-grid mb-8">
+  <!-- Sparbuch -->
+  <div class="card">
+    <div class="card-title"><span class="pill spar">Sparbuch</span></div>
+    <div class="feature-rows">
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Hohe Flexibilität</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Hohe Rendite</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Steuerfreier Strategiewechsel</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Lebenslange Konditionssicherung</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Kontrolle der Eltern mit 18</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Steuerfreie Auszahlung</div></div>
+    </div>
+    <hr class="thin">
+  </div>
+
+  <!-- Depot -->
+  <div class="card">
+    <div class="card-title"><span class="pill depot">Depot</span></div>
+    <div class="feature-rows">
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Hohe Flexibilität</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Hohe Rendite</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Steuerfreier Strategiewechsel</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Lebenslange Konditionssicherung</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Kontrolle der Eltern mit 18</div></div>
+      <div class="feature-row"><svg class="icon-x" viewBox="0 0 24 24" fill="currentColor"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"/></svg><div>Steuerfreie Auszahlung</div></div>
+    </div>
+    <hr class="thin">
+  </div>
+
+  <!-- SmartKidsInvest Konzept -->
+  <div class="card">
+    <div class="card-title"><span class="pill ski">SmartKidsInvest Konzept</span></div>
+    <div class="feature-rows">
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Hohe Flexibilität</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Hohe Rendite</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Steuerfreier Strategiewechsel</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Lebenslange Konditionssicherung</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Kontrolle der Eltern mit 18</div></div>
+      <div class="feature-row"><svg class="icon-check" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg><div>Steuerfreie Auszahlung</div></div>
+    </div>
+    <hr class="thin">
+  </div>
+</div>
+
             <div class="page-header">
                 <h1>Warum SmartKidsInvest?</h1>
                 <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
