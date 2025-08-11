@@ -792,7 +792,7 @@
 .pro-table{width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; background:#fff;
   border:1px solid #e5e7eb; border-radius:14px; overflow:hidden; box-shadow:0 2px 10px rgba(16,24,40,.06)}
 .pro-table thead th{background:#f8fafc; padding:.65rem .9rem; font-weight:700; font-size:.9rem; color:#0f172a;
-  border-bottom:1px solid #e5e7eb; text-align:center}
+  border-bottom:1px solid #e5e7eb; text-align:left}
 .pro-table tbody td{padding:.5rem .9rem; border-bottom:1px dashed #eef2f7; vertical-align:middle}
 .pro-table tbody tr:last-child td{border-bottom:0}
 .pro-table tbody tr:hover{background:#fbfdff}
@@ -893,6 +893,16 @@
   text-align: center;
 }
 .pro-table input.in-num { text-align: center; }
+
+
+/* Gentle widen for Fondsportfolio bar chart without breaking layout */
+.chart-wrap{ margin-left:-8px; margin-right:-8px; }
+@media (max-width:768px){ .chart-wrap{ margin-left:-4px; margin-right:-4px; } }
+
+/* Center align Anteil & Rendite 5J in header, cells, and inputs */
+.pro-table th:nth-child(2), .pro-table td:nth-child(2),
+.pro-table th:nth-child(3), .pro-table td:nth-child(3){ text-align:center; }
+.pro-table td:nth-child(2) input, .pro-table td:nth-child(3) input{ text-align:center; }
 </style>
 <!-- Professional redesign overrides (no HTML changes) -->
 <style>
@@ -1126,10 +1136,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <div class="nav-tab" onclick="showPage('berechnung')">
 <span class="nav-step">2</span>
 <div class="nav-label">Berechnung</div>
-</div>
-<div class="nav-tab" onclick="showPage('fondsportfolio')">
-<span class="nav-step">3</span>
-<div class="nav-label">Fondsportfolio</div></div>
+</div><div class="nav-tab" onclick="showPage('fondsportfolio')"><span class="nav-step">3</span><div class="nav-label">Fondsportfolio</div></div>
 <div class="nav-tab" onclick="showPage('gesellschaft')">
 <span class="nav-step">4</span>
 <div class="nav-label">Gesellschaft</div>
@@ -1355,7 +1362,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
                     Neu berechnen
                 </button>
-<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('gesellschaft')">
+<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
                     Weiter
                     <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
@@ -1367,14 +1374,14 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <div class="page-content hidden" id="page-fondsportfolio">
 <div class="page-header">
 <h1>Fondsportfolio</h1>
-<p>Dein individuelles Portfolio bei SmartKidsInvest</p>
+<p>Geben Sie Fonds, Anteile und 5J-Renditen ein. Zusammenfassung &amp; Diagramm aktualisieren sich automatisch.</p>
 </div>
 <div class="card">
 <div class="flex items-center justify-between mb-4">
 <h2 class="card-title" style="margin-bottom:0">Fondsübersicht</h2>
 <div>
-<button class="btn-primary" id="addFundRowBtn">Fonds hinzufügen</button>
-<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Löschen</button>
+<button class="btn-primary" id="addFundRowBtn">Zeile hinzufügen</button>
+<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Zurücksetzen</button>
 </div>
 </div>
 <div class="overflow-x-auto">
@@ -1420,11 +1427,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <h2 class="card-title">Zusammenfassung</h2>
 <div class="summary-section strong">
 <div class="summary-item">
-<span class="summary-label">Gesamtrendite</span>
+<span class="summary-label">Gesamte Rendite des Portfolios</span>
 <span class="summary-value" id="sumPortfolioReturn">0,00 %</span>
 </div>
 <div class="summary-item">
-<span class="summary-label">Effektivkosten</span>
+<span class="summary-label">Effektivkosten SmartKidsInvest</span>
 <span class="summary-value" id="effectiveCostsDisplay">0,60 %</span>
 </div>
 <div class="summary-item">
@@ -1434,8 +1441,8 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="card">
-<h2 class="card-title">Zusammenfassung</h2>
-<div id="chartSummaryBar" style="width:360px;height:360px"></div>
+<h2 class="card-title">3D-Balkendiagramm – Zusammenfassung</h2>
+<div class="chart-wrap"><div id="chartSummaryBar" style="width:100%;height:420px"></div></div>
 </div>
 </div>
 <div class="card">
@@ -1824,7 +1831,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('berechnung')">
+<button class="btn-secondary" onclick="showPage('fondsportfolio')">
 <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
 </svg>
@@ -3457,7 +3464,7 @@ document.addEventListener('DOMContentLoaded', function(){
       backgroundColor: 'transparent',
       grid: { left: 40, right: 20, top: 20, bottom: 40 },
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: (p)=> p.map(x=> x.seriesName + ': ' + (new Intl.NumberFormat('de-DE',{ minimumFractionDigits:2, maximumFractionDigits:2 }).format(x.data)) + ' %').join('<br>') },
-      xAxis: { type: 'category', data: ['Rendite nach Kosten','Effektivkosten','Gesamtrendite'], axisTick:{show:false}, axisLine:{lineStyle:{color:'#cbd5e1'}} },
+      xAxis: { type: 'category', data: ['Rendite nach Kosten','Effektivkosten','Gesamte Rendite'], axisTick:{show:false}, axisLine:{lineStyle:{color:'#cbd5e1'}} },
       yAxis: { type: 'value', axisLine:{show:false}, splitLine:{lineStyle:{color:'#e5e7eb'}}, axisLabel:{ formatter:(v)=> new Intl.NumberFormat('de-DE',{ maximumFractionDigits:0 }).format(v) + ' %' } },
       series: [{
         name: 'Wert',
