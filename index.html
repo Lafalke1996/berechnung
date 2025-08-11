@@ -947,6 +947,49 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 .card hr.thin{border:0;border-top:1px solid var(--border);margin:1rem 0}
 
 </style>
+
+<style id="extras-redesign">
+
+/* Extras Redesign (Seite 4) */
+.extras-wrap{margin-top:1.25rem}
+.extras-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+@media (max-width:900px){.extras-grid{grid-template-columns:1fr}}
+
+.card.extras-card{
+  background:var(--surface,#fff);
+  border:1px solid var(--border,#e5e7eb);
+  box-shadow:var(--shadow-md,0 8px 24px rgba(16,24,40,.06));
+  border-radius:var(--radius,16px);
+  padding:2rem
+}
+.card.extras-card .card-title{
+  border-bottom:1px solid var(--border,#e5e7eb);
+  padding-bottom:.75rem;margin-bottom:1rem
+}
+
+.perk{
+  position:relative;
+  background:var(--surface,#fff);
+  border:1px solid var(--border,#e5e7eb);
+  border-radius:var(--radius,16px);
+  box-shadow:var(--shadow-md,0 8px 24px rgba(16,24,40,.06));
+  padding:1rem
+}
+.perk .icon{
+  width:44px;height:44px;border-radius:9999px;
+  display:grid;place-items:center;
+  background:#eef2ff;color:var(--brand,#1e3a8a);font-size:22px
+}
+.perk h3{margin:.5rem 0 .25rem;font-weight:700;font-size:1rem}
+.perk p{color:var(--muted,#475569);font-size:.95rem;line-height:1.4}
+.badge-free{
+  position:absolute;top:12px;right:12px;
+  background:linear-gradient(90deg,var(--brand-accent,#f59e0b),#f6c453);
+  color:#111827;border-radius:9999px;padding:.2rem .5rem;
+  font-weight:800;font-size:.7rem;letter-spacing:.02em
+}
+
+</style>
 </head>
 <body>
     <!-- Header -->
@@ -1623,11 +1666,37 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 
         <!-- Page 4: Vorteile -->
         <div id="page-vorteile" class="page-content">
-            <div class="page-header">
-                <h1>Warum SmartKidsInvest?</h1>
-                <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
-            </div>
-            <div class="comparison-grid mb-8">
+<!-- Seite 4: nur kostenlose Extras (neues Design) -->
+<div class="extras-wrap">
+  <div class="card extras-card">
+    <div class="card-title" style="display:flex;align-items:center;gap:.5rem;">
+      <span>🎁</span><span>Kostenlose Extras</span>
+    </div>
+    <div class="extras-grid">
+      <div class="perk">
+        <span class="badge-free">kostenlos</span>
+        <div class="icon">🛡️</div>
+        <h3>100% sichere Einzahlungen</h3>
+        <p>Ihre Beiträge sind durch gesetzliche Sicherungssysteme vollständig geschützt.</p>
+      </div>
+      <div class="perk">
+        <span class="badge-free">kostenlos</span>
+        <div class="icon">🚫</div>
+        <h3>Kostenfreie BU-Option</h3>
+        <p>Berufsunfähigkeitsschutz für Ihr Kind ohne zusätzliche Kosten integrierbar.</p>
+      </div>
+      <div class="perk">
+        <span class="badge-free">kostenlos</span>
+        <div class="icon">👨‍💼</div>
+        <h3>Kostenlose jährliche Beratung</h3>
+        <p>Regelmäßige, kostenfreie Beratungstermine mit unseren Finanzexperten.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="comparison-grid mb-8">
   <!-- Sparbuch -->
   <div class="card">
     <div class="card-title"><span class="pill spar">Sparbuch</span></div>
@@ -1670,36 +1739,75 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
     <hr class="thin">
   </div>
 </div>
-<div class="extras-wrap">
-  <div class="card" style="margin-bottom:1rem;">
-    <div class="card-title" style="display:flex;align-items:center;gap:.5rem;">
-      <span>🎁</span><span>Kostenlose Extras</span>
-    </div>
 
-    <div class="extras-grid">
-      <div class="perk">
-        <span class="badge-free">kostenlos</span>
-        <div class="icon">🛡️</div>
-        <h3>100% sichere Einzahlungen</h3>
-        <p>Ihre Beiträge sind durch gesetzliche Sicherungssysteme vollständig geschützt.</p>
-      </div>
+            <div class="page-header">
+                <h1>Warum SmartKidsInvest?</h1>
+                <p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
+            </div>
+            
+            <div class="grid-2 mb-8">
+                <div class="card">
+                    <h2 class="card-title" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.125rem;">⭐ Hauptvorteile</h2>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">📈</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Hohe Renditechancen</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Professionelles Fondsmanagement mit langfristig attraktiven Renditeaussichten</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🔄</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Steuerfreier Strategiewechsel</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Flexible Anpassung der Anlagestrategie ohne steuerliche Nachteile</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">💎</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Transparente Kosten</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Klare, vorhersagbare Kostenstruktur ohne versteckte Gebühren</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🎯</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kontrolle bei den Eltern</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Sie behalten die volle Kontrolle über die Geldanlage Ihres Kindes</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
 
-      <div class="perk">
-        <span class="badge-free">kostenlos</span>
-        <div class="icon">🚫</div>
-        <h3>Kostenfreie BU-Option</h3>
-        <p>Berufsunfähigkeitsschutz für Ihr Kind ohne zusätzliche Kosten integrierbar.</p>
-      </div>
-
-      <div class="perk">
-        <span class="badge-free">kostenlos</span>
-        <div class="icon">👨‍💼</div>
-        <h3>Kostenlose jährliche Beratung</h3>
-        <p>Regelmäßige, kostenfreie Beratungstermine mit unseren Finanzexperten.</p>
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="card">
+                    <h2 class="card-title" style="background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.125rem;">🎁 Kostenfreie Extras</h2>
+                    <ul class="feature-list">
+                        <li>
+                            <div class="feature-icon">🛡️</div>
+                            <div>
+                                <strong style="font-size: 1rem;">100% sichere Einzahlungen</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Ihre Beiträge sind durch gesetzliche Sicherungssysteme vollständig geschützt</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">🚫</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kostenfreie BU-Option</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Berufsunfähigkeitsschutz für Ihr Kind ohne zusätzliche Kosten integrierbar</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="feature-icon">👨‍💼</div>
+                            <div>
+                                <strong style="font-size: 1rem;">Kostenlose jährliche Beratung</strong><br>
+                                <span style="color: #6b7280; font-size: 0.95rem; font-weight: 600;">Regelmäßige, kostenfreie Beratungstermine mit unseren Finanzexperten</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
             <div class="text-center mt-8 space-x-4">
                 <button onclick="showPage('gesellschaft')" class="btn-secondary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
