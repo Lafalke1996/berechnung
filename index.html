@@ -3457,7 +3457,7 @@ document.addEventListener('DOMContentLoaded', function(){
       backgroundColor: 'transparent',
       grid: { left: 40, right: 20, top: 20, bottom: 40 },
       tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: (p)=> p.map(x=> x.seriesName + ': ' + (new Intl.NumberFormat('de-DE',{ minimumFractionDigits:2, maximumFractionDigits:2 }).format(x.data)) + ' %').join('<br>') },
-      xAxis: { type: 'category', data: ['Gesamte Rendite','Effektivkosten','Rendite nach Kosten'], axisTick:{show:false}, axisLine:{lineStyle:{color:'#cbd5e1'}} },
+      xAxis: { type: 'category', data: ['Rendite nach Kosten','Effektivkosten','Gesamtrendite'], axisTick:{show:false}, axisLine:{lineStyle:{color:'#cbd5e1'}} },
       yAxis: { type: 'value', axisLine:{show:false}, splitLine:{lineStyle:{color:'#e5e7eb'}}, axisLabel:{ formatter:(v)=> new Intl.NumberFormat('de-DE',{ maximumFractionDigits:0 }).format(v) + ' %' } },
       series: [{
         name: 'Wert',
