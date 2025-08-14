@@ -1270,14 +1270,14 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <div class="page-content hidden" id="page-fondsportfolio">
 <div class="page-header">
 <h1>Fondsportfolio</h1>
-<p>Geben Sie Fonds, Anteile und 5J-Renditen ein. Zusammenfassung &amp; Charts aktualisieren sich automatisch.</p>
+<p>Dein individuelles Fonds-Portfolio bei SmartKidsInvest</p>
 </div>
 <div class="card">
 <div class="flex items-center justify-between mb-4">
 <h2 class="card-title" style="margin-bottom:0">Fondsübersicht</h2>
 <div>
-<button class="btn-primary" id="addFundRowBtn">Zeile hinzufügen</button>
-<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Zurücksetzen</button>
+<button class="btn-primary" id="addFundRowBtn">Fonds hinzufügen</button>
+<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Löschen</button>
 </div>
 </div>
 <div class="overflow-x-auto">
@@ -1297,32 +1297,24 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <td class="num"><input step="0.01" type="number" value="50"/></td>
 <td class="num"><input step="0.01" type="number" value="8.0"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
+<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
 </tr>
 <tr>
 <td><input type="text" value="Europe Value Fund"/></td>
 <td class="num"><input step="0.01" type="number" value="30"/></td>
 <td class="num"><input step="0.01" type="number" value="6.5"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
+<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
 </tr>
 <tr>
 <td><input type="text" value="Emerging Markets ETF"/></td>
 <td class="num"><input step="0.01" type="number" value="20"/></td>
 <td class="num"><input step="0.01" type="number" value="9.5"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
+<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
 </tr>
 </tbody>
-<tfoot>
-<tr>
-<td class="text-right">Summen:</td>
-<td class="num" id="sumWeightsCell">0,00 %</td>
-<td class="num">Gesamt Rendite:</td>
-<td class="num" id="sumPortfolioCell">0,00 %</td>
-<td></td>
-</tr>
-</tfoot>
+<tfoot><tr><td>Summen:</td><td class="num" id="sumWeightsCell">0,00 %</td><td class="num">Gesamtrendite:</td><td class="num" id="sumPortfolioCell">0,00 %</td><td></td></tr></tfoot>
 </table>
 </div>
 </div>
@@ -1331,11 +1323,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <h2 class="card-title">Zusammenfassung</h2>
 <div class="summary-section strong">
 <div class="summary-item">
-<span class="summary-label">Gesamte Rendite des Portfolios</span>
+<span class="summary-label">Gesamtrendite</span>
 <span class="summary-value" id="sumPortfolioReturn">0,00 %</span>
 </div>
 <div class="summary-item">
-<span class="summary-label">Effektivkosten SmartKidsInvest</span>
+<span class="summary-label">Effektivkosten</span>
 <span class="summary-value" id="effectiveCostsDisplay">0,60 %</span>
 </div>
 <div class="summary-item">
@@ -1345,22 +1337,18 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="card">
-<h2 class="card-title">Balkendiagramm – Zusammenfassung</h2>
-<div style="position:relative;height:360px"><canvas id="chartSummaryBar"></canvas></div>
+<h2 class="card-title">Gesamtübersicht</h2>
+<div class="chart-wrap"><div id="chartSummaryBar" style="width:420px;height:420px"></div></div>
 </div>
-</div>
-<div class="grid-3">
-<div class="card">
-<h2 class="card-title">Donut – Gesamtrendite (nach Fonds)</h2>
-<div style="position:relative;height:320px"><canvas id="chartTotalReturnByFund"></canvas></div>
 </div>
 <div class="card">
-<h2 class="card-title">Donut – Anteile des Portfolios</h2>
-<div style="position:relative;height:320px"><canvas id="chartWeights"></canvas></div>
-</div>
-<div class="card">
-<h2 class="card-title">Donut – Rendite 5 Jahre</h2>
-<div style="position:relative;height:320px"><canvas id="chart5YReturns"></canvas></div>
+<h2 class="card-title">Krisen der letzten 5 Jahre – was passierte am Aktienmarkt?</h2>
+<div class="space-y-4">
+<p><strong>2020 – COVID‑19-Panik:</strong> Schneller, tiefer Einbruch durch weltweite Lockdowns. Wer nahe des Tiefpunkts einstieg, sah in den folgenden 12–18 Monaten meist kräftige Erholungen, gestützt durch expansive Geld‑ und Fiskalpolitik.</p>
+<p><strong>2022 – Inflation &amp; Zinswende, Krieg in Europa:</strong> Breiter Bärenmarkt. Zinssensitive Wachstumswerte litten besonders, defensive Sektoren hielten sich besser. Einstiege in der Schwäche wurden im Folgejahr vielerorts mit Aufholbewegungen belohnt.</p>
+<p><strong>2023 – Bankenturbulenzen (SVB/CS):</strong> Kurzzeitige Vertrauenskrise belastete Finanzwerte; der Gesamtmarkt blieb stabiler als 2022. Nach der Beruhigung setzten sich Erholungen – vor allem in Technologietiteln – fort.</p>
+<p><strong>2024/25 – Hohe Zinsen &amp; geopolitische Spannungen:</strong> Wechselhafte Märkte mit Richtungswechseln nach Notenbank‑ und Konjunkturüberraschungen. Disziplinierte, breit gestreute Portfolios profitierten vom Investiert‑Bleiben und regelmäßigen Sparraten.</p>
+<p class="krisen-note">Hinweis: Vereinfachte Darstellung; konkrete Zahlen hängen von Index, Region und Währung ab. Auf Wunsch ergänze ich reale Drawdowns &amp; 12‑Monats‑Entwicklungen (z. B. MSCI World/DAX).</p>
 </div>
 </div>
 <div class="text-center mt-8 space-x-4">
@@ -1368,7 +1356,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <button class="btn-primary" onclick="showPage('gesellschaft')">Weiter</button>
 </div>
 </div>
-<div class="page-content" id="page-gesellschaft">
+<div class="page-content hidden" id="page-gesellschaft">
 <div class="page-header">
 <h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
 <p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
