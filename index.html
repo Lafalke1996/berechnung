@@ -2225,6 +2225,34 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
+<div class="card mb-6" id="summaryFundsCard">
+  <h2 class="card-title">Fondsportfolio (aus Seite&nbsp;3)</h2>
+  <div class="summary-section">
+    <div style="overflow-x:auto">
+      <table class="pro-table" id="summaryFundTable">
+        <thead>
+          <tr>
+            <th>Fondsname</th>
+            <th class="num">Anteil (%)</th>
+            <th class="num">Rendite 5J (%)</th>
+            <th class="num">Rendite Portfolio (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- rows injected -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Summen</td>
+            <td class="num" id="summarySumWeights">0,00 %</td>
+            <td class="num">Gesamtrendite:</td>
+            <td class="num" id="summarySumPortfolio">0,00 %</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
 <div class="card mb-6">
 <h2 class="card-title">Ihre gewählte Gesellschaft</h2>
 <div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
@@ -2260,37 +2288,43 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <!-- Vorteile als Kacheln -->
 <div class="card mb-6">
 <h2 class="card-title">SmartKidsInvest Vorteile</h2>
-<div class="grid-3">
-<div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #22c55e; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">📈</div>
-<h3 style="font-weight: 800; color: #059669; margin-bottom: 1.5rem;">Hohe Renditechancen</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Professionelles Fondsmanagement</p>
+<div class="card">
+<div class="card-title"><span class="pill spar">Sparbuch</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
 </div>
-<div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #3b82f6; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">🔄</div>
-<h3 style="font-weight: 800; color: #1e3a8a; margin-bottom: 1.5rem;">Steuerfreier Strategiewechsel</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Flexible Anpassung möglich</p>
+<hr class="thin"/>
 </div>
-<div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #f59e0b; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">💎</div>
-<h3 style="font-weight: 800; color: #d97706; margin-bottom: 1.5rem;">Transparente Kosten</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Keine versteckten Gebühren</p>
+<!-- Depot -->
+<div class="card">
+<div class="card-title"><span class="pill depot">Depot</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
 </div>
-<div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #6b7280; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">🎯</div>
-<h3 style="font-weight: 800; color: #374151; margin-bottom: 1.5rem;">Kontrolle bei Eltern</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Volle Kontrolle behalten</p>
+<hr class="thin"/>
 </div>
-<div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #0ea5e9; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">🛡️</div>
-<h3 style="font-weight: 800; color: #0369a1; margin-bottom: 1.5rem;">100% sichere Einzahlungen</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Gesetzlich geschützt</p>
+<!-- SmartKidsInvest Konzept -->
+<div class="card">
+<div class="card-title"><span class="pill ski">SmartKidsInvest Konzept</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreie Auszahlung</div></div>
 </div>
-<div style="background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); padding: 2.5rem; border-radius: 20px; border: 4px solid #ec4899; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1.5rem;">👨‍💼</div>
-<h3 style="font-weight: 800; color: #be185d; margin-bottom: 1.5rem;">Kostenlose Beratung</h3>
-<p style="color: #374151; font-size: 1.125rem; font-weight: 600;">Jährlich kostenfrei</p>
-</div>
+<hr class="thin"/>
 </div>
 </div>
 <div class="card" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 2px solid #e5e7eb; padding: 1.5rem;">
