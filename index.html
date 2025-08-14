@@ -788,121 +788,17 @@
         }
     
 
-/* --- Fondsportfolio: professional table & summary highlight --- */
-.pro-table{width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0; background:#fff;
-  border:1px solid #e5e7eb; border-radius:14px; overflow:hidden; box-shadow:0 2px 10px rgba(16,24,40,.06)}
-.pro-table thead th{background:#f8fafc; padding:.65rem .9rem; font-weight:700; font-size:.9rem; color:#0f172a;
-  border-bottom:1px solid #e5e7eb; text-align:left}
-.pro-table tbody td{padding:.5rem .9rem; border-bottom:1px dashed #eef2f7; vertical-align:middle}
+/* ---- Fondsportfolio: clean table ---- */
+.pro-table{width:100%; border-collapse:collapse; background:#fff; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden}
+.pro-table thead th{background:#f8fafc; padding:.75rem 1rem; font-weight:700; font-size:.9rem; color:#0f172a; border-bottom:1px solid #e5e7eb; text-align:left}
+.pro-table tbody td{padding:.5rem 1rem; border-bottom:1px solid #f1f5f9; vertical-align:middle}
 .pro-table tbody tr:last-child td{border-bottom:0}
-.pro-table tbody tr:hover{background:#fbfdff}
 .pro-table td.num, .pro-table th.num{text-align:right}
-.pro-table input{height:36px; padding:.45rem .65rem; border:1px solid #e5e7eb; border-radius:10px; background:#f9fafb; width:100%}
-.pro-table input:focus{outline:none; border-color:#cfe1ff; box-shadow:0 0 0 4px rgba(31,111,235,.12); background:#fff}
-.pro-table tfoot td{background:#f9fafb; font-weight:700; padding:.65rem .9rem; border-top:1px solid #e5e7eb}
-.pro-table .btn-secondary{padding:.4rem .6rem}
-
-/* Summary highlight */
-.summary-section.strong{
-  border:2px solid #1e3a8a;
-  background:linear-gradient(180deg,#f7fbff 0%, #eef5ff 100%);
-  box-shadow:0 6px 20px rgba(30,58,138,.12);
-  border-radius:12px;
-}
+.pro-table input{height:38px; padding:.5rem .75rem; border:1px solid #e5e7eb; border-radius:10px; background:#f9fafb; width:100%}
+.pro-table tfoot td{background:#f9fafb; font-weight:700; padding:.75rem 1rem; border-top:1px solid #e5e7eb}
+.summary-section.strong{border:2px solid #1e3a8a; background:linear-gradient(180deg,#f8fbff, #f0f7ff)}
 .summary-section .summary-item{display:grid; grid-template-columns:1fr 180px}
 .summary-section .summary-value{text-align:right; font-variant-numeric:tabular-nums}
-
-/* --- Refinements (2D version) --- */
-.pro-table th:nth-child(1){width:44%}
-.pro-table th:nth-child(2){width:14%}
-.pro-table th:nth-child(3){width:16%}
-.pro-table th:nth-child(4){width:18%}
-
-.pro-table input{font-size:.9rem}
-.pro-table input.in-name{font-size:1rem; font-weight:600; color:#0f172a; background:#fff}
-.pro-table input.in-num{text-align:right}
-
-.summary-section.strong{
-  border:2px solid #0f52ba;
-  background:linear-gradient(180deg,#f5f9ff 0%, #eef4ff 100%);
-  box-shadow:0 10px 24px rgba(15,82,186,.12);
-  border-radius:14px;
-  padding-top:1rem;
-  position:relative;
-}
-.summary-section.strong::before{
-  content:'';
-  position:absolute; top:0; left:0; right:0; height:4px;
-  background:linear-gradient(90deg,#1e3a8a,#0f52ba);
-  border-top-left-radius:14px; border-top-right-radius:14px;
-}
-.summary-section .summary-item{display:grid; grid-template-columns:1fr 200px}
-
-.krisen-table{width:100%; border-collapse:collapse; background:#fff; border:1px solid #e5e7eb; border-radius:12px; overflow:hidden}
-.krisen-table th, .krisen-table td{padding:.6rem .8rem; border-bottom:1px solid #f1f5f9; font-size:.95rem}
-.krisen-table thead th{background:#f8fafc; font-weight:700; color:#0f172a}
-.krisen-table tbody tr:last-child td{border-bottom:0}
-.krisen-note{font-size:.85rem; color:#64748b; margin-top:.5rem}
-
-
-/* Size adjustments per feedback */
-.pro-table input.in-name{font-size:1.05rem; font-weight:700; color:#0f172a; background:#fff}
-.pro-table input.in-num{font-size:.85rem; text-align:right}
-.icon-btn{display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px;
-  border:1px solid #e5e7eb; border-radius:10px; background:#ffffff; transition:box-shadow .2s ease, transform .1s ease}
-.icon-btn:hover{box-shadow:0 2px 8px rgba(16,24,40,.12)}
-.icon-btn:active{transform:scale(.98)}
-.icon-btn svg{width:18px; height:18px; opacity:.9}
-
-
-/* footer compact */
-.pro-table tfoot td{font-size:.85rem; white-space:nowrap}
-
-
-
-/* --- Uniform table input sizing --- */
-.pro-table input{height:36px; line-height:36px; font-size:.95rem!important; font-weight:600; color:#0f172a}
-.pro-table input.in-name{font-size:.95rem!important; font-weight:600}
-.pro-table input.in-num{font-size:.95rem!important; text-align:right}
-.pro-table th, .pro-table td{vertical-align:middle}
-.pro-table thead th{white-space:nowrap}
-
-
-/* --- Navigation fix ensures consistent mapping; Table polish --- */
-.pro-table th, .pro-table td{vertical-align:middle}
-.pro-table thead th{text-align:left}
-.pro-table thead th.num, .pro-table td.num{text-align:right}
-.pro-table td:first-child, .pro-table th:first-child{text-align:left}
-.pro-table input{height:36px; padding:.4rem .6rem; width:100%; border:1px solid #e5e7eb; border-radius:10px; background:#fff; font-variant-numeric:tabular-nums}
-.pro-table input.in-name{font-size:1rem; font-weight:600}
-.pro-table input.in-num{font-size:.9rem; text-align:right}
-.pro-table tbody td{padding:.5rem .75rem}
-/* Footer sums: readable but single-line */
-.pro-table tfoot td{font-size:.95rem; white-space:nowrap}
-/* Keep columns crisp and aligned */
-.pro-table th:nth-child(1){width:44%}
-.pro-table th:nth-child(2){width:14%}
-.pro-table th:nth-child(3){width:16%}
-.pro-table th:nth-child(4){width:18%}
-.pro-table th:nth-child(5){width:8%}
-
-
-/* Center align Anteil and Rendite 5J columns */
-.pro-table th:nth-child(2), .pro-table td:nth-child(2),
-.pro-table th:nth-child(3), .pro-table td:nth-child(3) {
-  text-align: center;
-}
-.pro-table input.in-num { text-align: center; }
-
-
-/* Gentle widen for Fondsportfolio bar chart without breaking layout */
-.chart-wrap{ margin-left:-8px; margin-right:-8px; }
-@media (max-width:768px){ .chart-wrap{ margin-left:-4px; margin-right:-4px; } }
-
-/* Center align Anteil & Rendite 5J in header, cells, and inputs */
-.pro-table th:nth-child(2), .pro-table td:nth-child(2),
-.pro-table th:nth-child(3), .pro-table td:nth-child(3){ text-align:center; }
-.pro-table td:nth-child(2) input, .pro-table td:nth-child(3) input{ text-align:center; }
 </style>
 <!-- Professional redesign overrides (no HTML changes) -->
 <style>
@@ -1105,8 +1001,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 }
 
 </style>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -1202,7 +1096,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <!-- Page 2: Berechnung & Ergebnisse -->
-<div class="page-content hidden" id="page-berechnung">
+<div class="page-content" id="page-berechnung">
 <div class="page-header">
 <h1>Ihre Anlagestrategie</h1>
 <p>Gemeinsam finden wir die perfekte Lösung für Ihr Kind</p>
@@ -1362,7 +1256,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
                     Neu berechnen
                 </button>
-<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
+<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('gesellschaft')">
                     Weiter
                     <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
@@ -1371,17 +1265,19 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <!-- Page 3: Company Information -->
+
+<!-- Page 3: Fondsportfolio -->
 <div class="page-content hidden" id="page-fondsportfolio">
 <div class="page-header">
 <h1>Fondsportfolio</h1>
-<p>Dein individuelles Fonds-Portfolio bei SmartKidsInvest</p>
+<p>Geben Sie Fonds, Anteile und 5J-Renditen ein. Zusammenfassung &amp; Charts aktualisieren sich automatisch.</p>
 </div>
 <div class="card">
 <div class="flex items-center justify-between mb-4">
 <h2 class="card-title" style="margin-bottom:0">Fondsübersicht</h2>
 <div>
-<button class="btn-primary" id="addFundRowBtn">Fonds hinzufügen</button>
-<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Löschen</button>
+<button class="btn-primary" id="addFundRowBtn">Zeile hinzufügen</button>
+<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Zurücksetzen</button>
 </div>
 </div>
 <div class="overflow-x-auto">
@@ -1401,24 +1297,32 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <td class="num"><input step="0.01" type="number" value="50"/></td>
 <td class="num"><input step="0.01" type="number" value="8.0"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
+<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
 </tr>
 <tr>
 <td><input type="text" value="Europe Value Fund"/></td>
 <td class="num"><input step="0.01" type="number" value="30"/></td>
 <td class="num"><input step="0.01" type="number" value="6.5"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
+<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
 </tr>
 <tr>
 <td><input type="text" value="Emerging Markets ETF"/></td>
 <td class="num"><input step="0.01" type="number" value="20"/></td>
 <td class="num"><input step="0.01" type="number" value="9.5"/></td>
 <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
+<td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>
 </tr>
 </tbody>
-<tfoot><tr><td>Summen:</td><td class="num" id="sumWeightsCell">0,00 %</td><td class="num">Gesamtrendite:</td><td class="num" id="sumPortfolioCell">0,00 %</td><td></td></tr></tfoot>
+<tfoot>
+<tr>
+<td class="text-right">Summen:</td>
+<td class="num" id="sumWeightsCell">0,00 %</td>
+<td class="num">Gesamt Rendite:</td>
+<td class="num" id="sumPortfolioCell">0,00 %</td>
+<td></td>
+</tr>
+</tfoot>
 </table>
 </div>
 </div>
@@ -1427,11 +1331,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <h2 class="card-title">Zusammenfassung</h2>
 <div class="summary-section strong">
 <div class="summary-item">
-<span class="summary-label">Gesamtrendite</span>
+<span class="summary-label">Gesamte Rendite des Portfolios</span>
 <span class="summary-value" id="sumPortfolioReturn">0,00 %</span>
 </div>
 <div class="summary-item">
-<span class="summary-label">Effektivkosten</span>
+<span class="summary-label">Effektivkosten SmartKidsInvest</span>
 <span class="summary-value" id="effectiveCostsDisplay">0,60 %</span>
 </div>
 <div class="summary-item">
@@ -1441,18 +1345,22 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="card">
-<h2 class="card-title">Gesamtübersicht</h2>
-<div class="chart-wrap"><div id="chartSummaryBar" style="width:420px;height:420px"></div></div>
+<h2 class="card-title">Balkendiagramm – Zusammenfassung</h2>
+<div style="position:relative;height:360px"><canvas id="chartSummaryBar"></canvas></div>
 </div>
+</div>
+<div class="grid-3">
+<div class="card">
+<h2 class="card-title">Donut – Gesamtrendite (nach Fonds)</h2>
+<div style="position:relative;height:320px"><canvas id="chartTotalReturnByFund"></canvas></div>
 </div>
 <div class="card">
-<h2 class="card-title">Krisen der letzten 5 Jahre – was passierte am Aktienmarkt?</h2>
-<div class="space-y-4">
-<p><strong>2020 – COVID‑19-Panik:</strong> Schneller, tiefer Einbruch durch weltweite Lockdowns. Wer nahe des Tiefpunkts einstieg, sah in den folgenden 12–18 Monaten meist kräftige Erholungen, gestützt durch expansive Geld‑ und Fiskalpolitik.</p>
-<p><strong>2022 – Inflation &amp; Zinswende, Krieg in Europa:</strong> Breiter Bärenmarkt. Zinssensitive Wachstumswerte litten besonders, defensive Sektoren hielten sich besser. Einstiege in der Schwäche wurden im Folgejahr vielerorts mit Aufholbewegungen belohnt.</p>
-<p><strong>2023 – Bankenturbulenzen (SVB/CS):</strong> Kurzzeitige Vertrauenskrise belastete Finanzwerte; der Gesamtmarkt blieb stabiler als 2022. Nach der Beruhigung setzten sich Erholungen – vor allem in Technologietiteln – fort.</p>
-<p><strong>2024/25 – Hohe Zinsen &amp; geopolitische Spannungen:</strong> Wechselhafte Märkte mit Richtungswechseln nach Notenbank‑ und Konjunkturüberraschungen. Disziplinierte, breit gestreute Portfolios profitierten vom Investiert‑Bleiben und regelmäßigen Sparraten.</p>
-<p class="krisen-note">Hinweis: Vereinfachte Darstellung; konkrete Zahlen hängen von Index, Region und Währung ab. Auf Wunsch ergänze ich reale Drawdowns &amp; 12‑Monats‑Entwicklungen (z. B. MSCI World/DAX).</p>
+<h2 class="card-title">Donut – Anteile des Portfolios</h2>
+<div style="position:relative;height:320px"><canvas id="chartWeights"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Donut – Rendite 5 Jahre</h2>
+<div style="position:relative;height:320px"><canvas id="chart5YReturns"></canvas></div>
 </div>
 </div>
 <div class="text-center mt-8 space-x-4">
@@ -1460,7 +1368,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <button class="btn-primary" onclick="showPage('gesellschaft')">Weiter</button>
 </div>
 </div>
-<div class="page-content hidden" id="page-gesellschaft">
+<div class="page-content" id="page-gesellschaft">
 <div class="page-header">
 <h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
 <p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
@@ -1831,7 +1739,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('fondsportfolio')">
+<button class="btn-secondary" onclick="showPage('berechnung')">
 <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
 </svg>
@@ -1846,11 +1754,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <!-- Page 4: Vorteile -->
-<div class="page-content hidden" id="page-vorteile">
+<div class="page-content" id="page-vorteile">
 <!-- Seite 4: nur kostenlose Extras (neues Design) -->
 <div class="page-header">
 <h1>Warum SmartKidsInvest?</h1>
-<p>Die beste Wahl für junge Eltern⭐</p>
+<p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
 </div>
 <div class="comparison-grid mb-8">
 <!-- Sparbuch -->
@@ -1935,17 +1843,13 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </button>
 </div>
 </div>
-<!-- Page 6: Zusatzabsicherungen -->
-<div class="page-content hidden" id="page-zusatzabsicherungen">
+<!-- Page 5: Zusatzabsicherungen -->
+<div class="page-content" id="page-zusatzabsicherungen">
 <div class="page-header">
-<h1>Absicherung deiner Kinder</h1>
-<p>weil der Schutz deiner Familie das Wichtigste ist!</p>
+<h1>Zusätzlicher Schutz</h1>
+<p>Umfassende Sicherheit für Ihre Familie</p>
 </div>
 <!-- Risikolebensversicherung -->
- <label class="product-toggle">
-                    <input type="checkbox" onchange="toggleProduct('rlv-eltern')">
-                    <span>Risikolebensversicherung für Eltern</span>
-                </label>
 <div class="insurance-section">
 <div class="insurance-header">Risikolebensversicherung für Eltern</div>
 <div class="grid-2" style="gap: 2rem; align-items: start;">
@@ -1973,7 +1877,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <option value="15">15 Jahre</option>
 <option selected="" value="20">20 Jahre</option>
 <option value="25">25 Jahre</option>
-<option value="30">30 Jahre</option>
 </select>
 </div>
 <div class="form-group">
@@ -1986,7 +1889,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 4px solid #f59e0b; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(245, 158, 11, 0.25); height: fit-content;">
-<h3 style="font-size: 1.200rem; color: #92400e; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+<h3 style="font-size: 1.375rem; color: #92400e; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
 <span style="font-size: 2rem;">⚠️</span>
                             Warum gerade für Kinder wichtig:
                         </h3>
@@ -1997,19 +1900,15 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #f59e0b; font-size: 1.25rem;">🏠</span>
-<span>Lebensunterhalt deiner Kinder sichern: 1.200€/Monat für 18 Jahre = 259.200€ Gesamtkosten</span>
+<span>Lebensunterhalt: 1.200€/Monat für 18 Jahre = 259.200€ Gesamtkosten</span>
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #f59e0b; font-size: 1.25rem;">📈</span>
-<span>Bereits ab 10€ im Monat - 100.000€ absichern - das ist 833x mehr Schutz!</span>
+<span>Nur 25€/Monat sichern 100.000€ ab - das ist 333x mehr Schutz!</span>
 </li>
 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">💸</span>
+<span style="color: #f59e0b; font-size: 1.25rem;">🎯</span>
 <span>Auszahlung komplett steuerfrei - volle Summe kommt beim Kind an</span>
-</li>
-<li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">👨‍🍼</span>
-<span>Schulden der Eltern absichern!</span>
 </li>
 </ul>
 </div>
@@ -2074,18 +1973,18 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 4px solid #10b981; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25); height: fit-content;">
-<h3 style="font-size: 1.200rem; color: #065f46; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+<h3 style="font-size: 1.375rem; color: #065f46; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
 <span style="font-size: 2rem;">🦷</span>
                             Warum gerade für Kinder wichtig:
                         </h3>
 <ul style="list-style: none; padding: 0; margin: 0; color: #065f46; font-weight: 600; line-height: 1.8;">
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #10b981; font-size: 1.25rem;">💸</span>
-<span>Eine Zahnspange kostet bis zu 8.000€!</span>
+<span>Ohne Versicherung: Zahnspange kostet 8.000€ - mit Versicherung nur 800€</span>
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #10b981; font-size: 1.25rem;">✨</span>
-<span>Unsichtbare Zahnspangen kosten bis zu 12.000€!</span>
+<span>Unsichtbare Zahnspangen: 12.000€ Eigenanteil wird auf 1.200€ reduziert</span>
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #10b981; font-size: 1.25rem;">⚡</span>
@@ -2129,7 +2028,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 4px solid #ec4899; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25); height: fit-content;">
-<h3 style="font-size: 1.200rem; color: #831843; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+<h3 style="font-size: 1.375rem; color: #831843; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
 <span style="font-size: 2rem;">🛡️</span>
                             Warum gerade für Kinder wichtig:
                         </h3>
@@ -2144,7 +2043,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #ec4899; font-size: 1.25rem;">🏥</span>
-<span>Bereits nach dem 6. Lebensmonat versicherbar!</span>
+<span>Verkürzte Gesundheitsfragen - später oft nicht mehr versicherbar</span>
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #ec4899; font-size: 1.25rem;">🔒</span>
@@ -2152,7 +2051,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </li>
 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #ec4899; font-size: 1.25rem;">📈</span>
-<span>Heute günstigen Beitrag sichern und tausende Euros sparen!</span>
+<span>Beitrag steigt nie - heute 20€, in 30 Jahren immer noch 20€</span>
 </li>
 </ul>
 </div>
@@ -2193,7 +2092,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 4px solid #3b82f6; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25); height: fit-content;">
-<h3 style="font-size: 1.200rem; color: #1e3a8a; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+<h3 style="font-size: 1.375rem; color: #1e3a8a; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
 <span style="font-size: 2rem;">🏥</span>
                             Warum gerade für Kinder wichtig:
                         </h3>
@@ -2211,8 +2110,8 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <span>Chefarztbehandlung: Beste medizinische Versorgung für Ihr Kind</span>
 </li>
 <li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">💯</span>
-<span>Behandlung wie ein Privatpatient!</span>
+<span style="color: #3b82f6; font-size: 1.25rem;">💰</span>
+<span>Nur 15€/Monat für lebenslangen Schutz - später unbezahlbar teuer</span>
 </li>
 <li style="display: flex; align-items: flex-start; gap: 0.75rem;">
 <span style="color: #3b82f6; font-size: 1.25rem;">🔒</span>
@@ -2256,7 +2155,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <!-- Page 6: Zusammenfassung -->
-<div class="page-content hidden" id="page-zusammenfassung">
+<div class="page-content" id="page-zusammenfassung">
 <div class="page-header">
 <h1>Ihre Beratungszusammenfassung</h1>
 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
@@ -2544,11 +2443,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
                 let breakdownHTML = '';
                 
                 if (deathPrice > 0) {
-                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🛡️ Risikoleben:</span><span>${formatCurrency(deathPrice)}/Monat</span></div>`;
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🛡️ Risikolebensversicherung:</span><span>${formatCurrency(deathPrice)}/Monat</span></div>`;
                 }
                 
                 if (dentalPrice > 0) {
-                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🦷 Zahnzusatz:</span><span>${formatCurrency(dentalPrice)}/Monat</span></div>`;
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🦷 Zahnzusatzversicherung:</span><span>${formatCurrency(dentalPrice)}/Monat</span></div>`;
                 }
                 
                 if (disabilityPrice > 0) {
@@ -2556,7 +2455,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
                 }
                 
                 if (stationaryPrice > 0) {
-                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🏥 Stationäre Absicherung:</span><span>${formatCurrency(stationaryPrice)}/Monat</span></div>`;
+                    breakdownHTML += `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><span>🏥 Stationäre Zusatzversicherung:</span><span>${formatCurrency(stationaryPrice)}/Monat</span></div>`;
                 }
                 
                 if (breakdownHTML === '') {
@@ -3414,7 +3313,9 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'965a26d86578e506',t:'MTc1MzU5ODQ5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
+  // Utilities
   const fmtPct = (v)=> new Intl.NumberFormat('de-DE',{minimumFractionDigits:2, maximumFractionDigits:2}).format(v) + " %";
+  const getPalette = (n)=> Array.from({length:n}, (_,i)=> `hsl(${Math.round((360/n)*i)} 70% 50%)`);
 
   const tbody = document.getElementById('fundTableBody');
   if(!tbody) return;
@@ -3438,19 +3339,22 @@ document.addEventListener('DOMContentLoaded', function(){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td><input type="text" value="${name}"/></td>
-      <td class="num"><input class="in-num" type="number" step="0.01" value="${w}"/></td>
-      <td class="num"><input class="in-num" type="number" step="0.01" value="${r5}"/></td>
+      <td class="num"><input type="number" step="0.01" value="${w}"/></td>
+      <td class="num"><input type="number" step="0.01" value="${r5}"/></td>
       <td class="num cell-strong portfolioReturnCell">0,00 %</td>
-      <td class="num"><button class="icon-btn btn-remove" aria-label="Zeile löschen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg></button></td>`;
+      <td class="num"><button class="btn-secondary btn-remove">Entfernen</button></td>`;
     tbody.appendChild(tr);
     tr.querySelectorAll('input').forEach(i => i.addEventListener('input', recalc));
   }
 
+  // event delegation for remove
   tbody.addEventListener('click', (e)=>{
     const b = e.target.closest('.btn-remove');
     if(b){ b.closest('tr')?.remove(); recalc(); }
   });
+
   addBtn.addEventListener('click', ()=> addRow());
+
   clearBtn.addEventListener('click', ()=> { tbody.innerHTML=''; recalc(); });
 
   function getData(){
@@ -3463,29 +3367,41 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  let eBar;
-  function renderBar3D(gross, eff, net){
-    const el = document.getElementById('chartSummaryBar');
-    if(!el) return;
-    if(!eBar){ eBar = echarts.init(el); }
-    
-    eBar.setOption({
-      backgroundColor: 'transparent',
-      grid: { left: 40, right: 20, top: 20, bottom: 40 },
-      tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, formatter: (p)=> p.map(x=> x.seriesName + ': ' + (new Intl.NumberFormat('de-DE',{ minimumFractionDigits:2, maximumFractionDigits:2 }).format(x.data)) + ' %').join('<br>') },
-      xAxis: { type: 'category', data: ['Rendite nach Kosten','Effektivkosten','Gesamte Rendite'], axisTick:{show:false}, axisLine:{lineStyle:{color:'#cbd5e1'}} },
-      yAxis: { type: 'value', axisLine:{show:false}, splitLine:{lineStyle:{color:'#e5e7eb'}}, axisLabel:{ formatter:(v)=> new Intl.NumberFormat('de-DE',{ maximumFractionDigits:0 }).format(v) + ' %' } },
-      series: [{
-        name: 'Wert',
+  let cBar, cRet, cWei, cR5;
+  function ensureCharts(labels, retByFund, weights, r5s, summaryVals){
+    const pal = getPalette(labels.length || 3);
+
+    // Bar
+    const ctxB = document.getElementById('chartSummaryBar').getContext('2d');
+    if(!cBar){
+      cBar = new Chart(ctxB, {
         type: 'bar',
-        data: [Math.max(net,0), Math.max(eff,0), Math.max(gross,0)],
-        itemStyle: { color: function(params){ return ['#1e3a8a','#64748b','#f59e0b'][params.dataIndex] } },
-        barWidth: '40%',
-        label: { show:true, position:'top', formatter:(x)=> new Intl.NumberFormat('de-DE',{ minimumFractionDigits:2, maximumFractionDigits:2 }).format(x.data) + ' %', color:'#0f172a', fontWeight:'700' }
-      }]
-    });
-    eBar.resize();
+        data: { labels: ['Rendite nach Kosten','Effektivkosten','Gesamte Rendite'],
+                datasets: [{ data: summaryVals, backgroundColor: getPalette(3) }] },
+        options: { responsive:true, maintainAspectRatio:false,
+          plugins: { legend: { display:false }, tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } } },
+          scales: { y: { beginAtZero:true, ticks:{ callback:(v)=> fmtPct(v) } } }
+        }
+      });
+    } else {
+      cBar.data.datasets[0].data = summaryVals; cBar.update();
     }
+
+    // Doughnuts
+    function doughnut(ctx, ref, data){
+      if(!ref){
+        return new Chart(ctx, { type:'doughnut',
+          data: { labels, datasets:[{ data, backgroundColor: pal }] },
+          options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom' } } }
+        });
+      } else {
+        ref.data.labels = labels; ref.data.datasets[0].data = data; ref.data.datasets[0].backgroundColor = pal; ref.update(); return ref;
+      }
+    }
+    cRet = doughnut(document.getElementById('chartTotalReturnByFund').getContext('2d'), cRet, retByFund);
+    cWei = doughnut(document.getElementById('chartWeights').getContext('2d'), cWei, weights);
+    cR5  = doughnut(document.getElementById('chart5YReturns').getContext('2d'), cR5, r5s);
+  }
 
   function recalc(){
     const data = getData();
@@ -3496,75 +3412,33 @@ document.addEventListener('DOMContentLoaded', function(){
       if(cell) cell.textContent = fmtPct(v);
     });
 
-    const gross = data.reduce((a,b)=> a+b.contrib, 0);
-    const wsum = data.reduce((a,b)=> a+b.weight, 0);
-    sumPortfolioCell.textContent = fmtPct(gross);
-    sumWeightsCell.textContent = fmtPct(wsum);
-    sumEl.textContent = fmtPct(gross);
+    const totalContrib = data.reduce((a,b)=> a+b.contrib, 0);
+    const totalWeights = data.reduce((a,b)=> a+b.weight, 0);
+    sumPortfolioCell.textContent = fmtPct(totalContrib);
+    sumWeightsCell.textContent = fmtPct(totalWeights);
+    sumEl.textContent = fmtPct(totalContrib);
 
     const eff = readEff();
     effDisp.textContent = fmtPct(eff);
-    const net = gross - eff;
+    const net = totalContrib - eff;
     netDisp.textContent = fmtPct(net);
 
-    renderBar3D(gross, eff, net);
+    ensureCharts(
+      data.map(d=>d.name),
+      data.map(d=>d.contrib),
+      data.map(d=>d.weight),
+      data.map(d=>d.r5y),
+      [Math.max(net,0), Math.max(eff,0), Math.max(totalContrib,0)]
+    );
   }
 
+  // Keep in sync with page 2 costs
   const effInput = document.getElementById('effectiveCosts');
   effInput?.addEventListener('input', recalc);
+
+  // Initial calc
   recalc();
-  window.addEventListener('resize', ()=>{ eBar?.resize(); });
-
-
-  // --- Krisen Beispiele ---
-  const fillBtn = document.getElementById('fillExamplesBtn');
-  const clrBtn = document.getElementById('clearExamplesBtn');
-  const ktBody = document.querySelector('#krisenTable tbody');
-
-  function setRow(tr, year, ev, dd, fwd){
-    const ins = tr.querySelectorAll('input');
-    if(ins[0]) ins[0].value = year;
-    if(ins[1]) ins[1].value = ev;
-    if(ins[2]) ins[2].value = dd;
-    if(ins[3]) ins[3].value = fwd;
-  }
-
-  fillBtn?.addEventListener('click', ()=>{
-    const rows = ktBody.querySelectorAll('tr');
-    if(rows[0]) setRow(rows[0], '2020', 'COVID‑19 Crash', '-34 %', '+xx %');
-    if(rows[1]) setRow(rows[1], '2022', 'Ukraine/Inflation (Bärenmarkt)', '-25 %', '+xx %');
-    if(rows[2]) setRow(rows[2], '2023', 'Bankenturbulenzen (SVB/CS)', '-10 %', '+xx %');
-  });
-  clrBtn?.addEventListener('click', ()=>{
-    ktBody.querySelectorAll('input').forEach(i=> i.value='');
-  });
-
 });
-</script>
-<script>
-// Robust page switcher: match by page id suffix and sync active tab.
-(function(){
-  function qs(sel){ return document.querySelector(sel); }
-  function qsa(sel){ return Array.from(document.querySelectorAll(sel)); }
-  function hideAll(){
-    qsa('[id^="page-"]').forEach(el=> el.classList.add('hidden'));
-  }
-  window.showPage = function(key){
-    try{
-      const id = key.startsWith('page-') ? key : ('page-' + key);
-      hideAll();
-      const page = qs('#'+id);
-      if(page){ page.classList.remove('hidden'); }
-      // update nav active state by matching onclick target
-      qsa('.nav-tab').forEach(tab=> {
-        const oc = tab.getAttribute('onclick') || '';
-        tab.classList.toggle('active', oc.includes("showPage('"+key+"')") || oc.includes("showPage(\'"+key+"\')"));
-      });
-      // scroll to top for better UX
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }catch(e){ console.error('showPage error:', e); }
-  };
-})();
 </script>
 </body>
 </html>
