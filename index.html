@@ -1024,55 +1024,329 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 }
 
 </style>
+<style>
+@media print {
+  .no-print { display: none !important; }
+  .print-footer {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background-color: white;
+    border-top: 1px solid #ccc;
+  }
+}
+</style>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f0e6c0 50%, #d4af37 100%);
+        }
+        
+        .gold-text {
+            background: linear-gradient(135deg, #d4af37 0%, #f0e6c0 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .luxury-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .luxury-card:hover {
+            box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(212, 175, 55, 0.2);
+        }
+        
+        .luxury-input {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            background-color: #f8fafc;
+        }
+        
+        .luxury-input:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .luxury-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.75rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        .luxury-button {
+            background: linear-gradient(135deg, #d4af37 0%, #f0e6c0 50%, #d4af37 100%);
+            color: #0a2f5c;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(212, 175, 55, 0.25);
+            border: none;
+        }
+        
+        .luxury-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        .luxury-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(212, 175, 55, 0.2);
+        }
+        
+        .luxury-button-secondary {
+            background: transparent;
+            color: #0a2f5c;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            border: 1px solid #d4af37;
+        }
+        
+        .luxury-button-secondary:hover {
+            background-color: rgba(212, 175, 55, 0.1);
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background-color: #e2e8f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37 0%, #f0e6c0 100%);
+            transition: width 0.5s ease;
+        }
+        
+        .checkbox-gold {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1px solid #d4af37;
+            border-radius: 0.25rem;
+            background-color: white;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .checkbox-gold:checked {
+            background-color: #d4af37;
+            border-color: #d4af37;
+        }
+        
+        .checkbox-gold:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.75rem;
+        }
+        
+        .checkbox-gold:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .radio-gold {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 1px solid #d4af37;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .radio-gold:checked {
+            border-color: #d4af37;
+            border-width: 4px;
+        }
+        
+        .radio-gold:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+        
+        .page-transition {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .page-enter {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        
+        .page-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            .print-break-inside-avoid {
+                break-inside: avoid;
+            }
+            
+            .print-break-before {
+                break-before: page;
+            }
+            
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .luxury-card {
+                box-shadow: none !important;
+                border: 1px solid #e2e8f0 !important;
+                break-inside: avoid;
+                margin-bottom: 2rem !important;
+            }
+        }
+    
+@media print {
+  .print-footer {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 2rem;
+    background-color: white;
+    border-top: 1px solid #ccc;
+  }
+}
+
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+  }
+  .font-quicksand {
+    font-family: 'Quicksand', sans-serif;
+  }
+  .gold-text {
+    color: #d4af37;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style id="gold-button-map">
+/* Map existing buttons to your gold design (no HTML changes) */
+.btn-primary{
+  background: linear-gradient(135deg, #d4af37 0%, #f0e6c0 50%, #d4af37 100%) !important;
+  color:#0a2f5c !important;
+  font-weight:600 !important;
+  box-shadow:0 4px 6px rgba(212,175,55,.25) !important;
+  border:none !important;
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 12px rgba(212,175,55,.3) !important;
+}
+.btn-primary:active{
+  transform:translateY(0);
+  box-shadow:0 2px 4px rgba(212,175,55,.2) !important;
+}
+.btn-secondary{
+  background:transparent !important;
+  color:#0a2f5c !important;
+  font-weight:500 !important;
+  border:1px solid #d4af37 !important;
+}
+.btn-secondary:hover{
+  background-color:rgba(212,175,55,.1) !important;
+}
+</style>
+<style id="gold-progress-anim">
+.progress-bar{ position: relative; overflow: hidden; }
+.progress-fill{
+  background: linear-gradient(90deg, #d4af37 0%, #f0e6c0 50%, #d4af37 100%) !important;
+  background-size: 200% 100%;
+  animation: goldshine 2.5s linear infinite;
+  height: 100%;
+}
+@keyframes goldshine{
+  0%{ background-position: 0% 0; }
+  100%{ background-position: 200% 0; }
+}
+</style>
+
+<style id="summary-chart-fixes">
+#page-zusammenfassung canvas#summaryChart { display:block; width:100% !important; }
+#page-zusammenfassung .card div[style*="position: relative"] { width:100% !important; min-height:360px; }
+</style>
+
 </head>
-<body>
-<!-- Header -->
-<header class="header-main">
-<div class="container-main">
-<div class="logo-container">
-<div style="display: flex; align-items: center;">
-<img alt="SmartKidsInvest Logo" src="smartkids-logo.png" style="height:48px;"/>
-<div>
-<div class="logo-text">
-<span class="logo-smart">Smart</span><span class="logo-kids">Kids</span><span class="logo-invest">Invest</span>
+<body class="bg-gray-50">
+<header class="bg-gray-100 py-4 border-b border-gray-300 shadow-sm">
+<div class="max-w-6xl mx-auto flex items-center justify-between px-4">
+<div class="flex items-center space-x-4">
+<img alt="SmartKidsInvest Logo" class="h-10 w-auto" src="smartkids-logo.png"/>
+<h1 class="text-2xl font-bold font-quicksand">
+<span class="text-[#d4af37] font-quicksand">SmartKids</span><span class="text-gray-800 font-quicksand">Invest</span>
+</h1>
 </div>
-</div>
-</div>
-<div class="logo-subtitle">Professionelle Investmentberatung für Kinder</div>
-</div>
+<p class="text-sm text-gray-600 font-quicksand">Exklusive Finanzberatung für Familien</p>
 </div>
 </header>
-<!-- Navigation -->
-<nav class="nav-container">
-<div class="container-main">
-<div class="nav-tabs">
-<div class="nav-tab active" onclick="showPage('kundendaten')">
-<span class="nav-step">1</span>
-<div class="nav-label">Kundendaten</div>
+<div class="container mx-auto px-4 py-8 max-w-5xl">
+<!-- Header -->
+<!-- Progress Bar -->
+<div class="mb-4 no-print">
+<div class="flex justify-between text-sm text-gray-500 mb-2">
+<span>Start</span>
+<span>Abschluss</span>
 </div>
-<div class="nav-tab" onclick="showPage('berechnung')">
-<span class="nav-step">2</span>
-<div class="nav-label">Berechnung</div>
-</div><div class="nav-tab" onclick="showPage('fondsportfolio')"><span class="nav-step">3</span><div class="nav-label">Fondsportfolio</div></div>
-<div class="nav-tab" onclick="showPage('gesellschaft')">
-<span class="nav-step">4</span>
-<div class="nav-label">Gesellschaft</div>
-</div>
-<div class="nav-tab" onclick="showPage('vorteile')">
-<span class="nav-step">5</span>
-<div class="nav-label">Vorteile</div>
-</div>
-<div class="nav-tab" onclick="showPage('zusatzabsicherungen')">
-<span class="nav-step">6</span>
-<div class="nav-label">Absicherungen</div>
-</div>
-<div class="nav-tab" onclick="showPage('zusammenfassung')">
-<span class="nav-step">7</span>
-<div class="nav-label">Zusammenfassung</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progress-fill" style="width: 0%"></div>
 </div>
 </div>
 </div>
-</nav>
 <!-- Main Content -->
 <main class="container-main">
 <!-- Page 1: Kundendaten -->
@@ -1279,7 +1553,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
                     Neu berechnen
                 </button>
-<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('gesellschaft')">
+<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
                     Weiter
                     <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
 <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
@@ -1288,7 +1562,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <!-- Page 3: Company Information -->
-
 <!-- Page 3: Fondsportfolio -->
 <div class="page-content hidden" id="page-fondsportfolio">
 <div class="page-header">
@@ -1361,17 +1634,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 <div class="card">
 <h2 class="card-title">Gesamtübersicht</h2>
-<div class="chart-wrap"><canvas id="chartSummaryBar" width="420" height="420"></canvas></div></div>
-
-<div class="card w-full max-w-none">
-  <h2 class="card-title">SmartKidsInvest Vorteile</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-  <div class="card">
-<div class="card-title"><span class="pill spar">Sparbuch</span></div>
-  </div>
-</div>
-
-</div>
+<div class="chart-wrap"><canvas height="420" id="chartSummaryBar" width="420"></canvas></div></div>
 </div>
 <div class="text-center mt-8 space-x-4">
 <button class="btn-secondary" onclick="showPage('berechnung')">Zurück</button>
@@ -1845,317 +2108,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
                     Zurück
                 </button>
-<button class="btn-primary" onclick="showPage('zusatzabsicherungen')">
-                    Weiter
-                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
-</svg>
-</button>
-</div>
-</div>
-<!-- Page 5: Zusatzabsicherungen -->
-<div class="page-content" id="page-zusatzabsicherungen">
-<div class="page-header">
-<h1>Zusätzlicher Schutz</h1>
-<p>Umfassende Sicherheit für Ihre Familie</p>
-</div>
-<!-- Risikolebensversicherung -->
-<div class="insurance-section">
-<div class="insurance-header">Risikolebensversicherung für Eltern</div>
-<div class="grid-2" style="gap: 2rem; align-items: start;">
-<div class="recommendation-box">
-<div class="recommendation-title">Wir empfehlen:</div>
-<div class="form-group">
-<label class="form-label">Gesellschaft</label>
-<input class="form-input" id="deathInsuranceCompany" placeholder="Allianz Leben" type="text"/>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Monatlicher Beitrag (€)</label>
-<input class="form-input" id="deathInsurancePrice" onchange="updateTotalInsuranceCost()" placeholder="25" step="5" type="number" value="25"/>
-</div>
-<div class="form-group">
-<label class="form-label">Absicherungshöhe (€)</label>
-<input class="form-input" id="deathInsuranceAmount" onchange="formatInsuranceAmount('deathInsuranceAmount')" placeholder="100.000" type="text" value="100.000"/>
-</div>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Laufzeit (Jahre)</label>
-<select class="form-select" id="deathInsuranceDuration">
-<option value="10">10 Jahre</option>
-<option value="15">15 Jahre</option>
-<option selected="" value="20">20 Jahre</option>
-<option value="25">25 Jahre</option>
-</select>
-</div>
-<div class="form-group">
-<label class="form-label">Verlauf</label>
-<select class="form-select" id="deathInsuranceType">
-<option selected="" value="konstant">Konstant</option>
-<option value="linear-fallend">Linear fallend</option>
-</select>
-</div>
-</div>
-</div>
-<div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 4px solid #f59e0b; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(245, 158, 11, 0.25); height: fit-content;">
-<h3 style="font-size: 1.375rem; color: #92400e; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
-<span style="font-size: 2rem;">⚠️</span>
-                            Warum gerade für Kinder wichtig:
-                        </h3>
-<ul style="list-style: none; padding: 0; margin: 0; color: #92400e; font-weight: 600; line-height: 1.8;">
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">💰</span>
-<span>Studienkosten: 50.000-80.000€ pro Kind sind ohne Eltern nicht finanzierbar</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">🏠</span>
-<span>Lebensunterhalt: 1.200€/Monat für 18 Jahre = 259.200€ Gesamtkosten</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">📈</span>
-<span>Nur 25€/Monat sichern 100.000€ ab - das ist 333x mehr Schutz!</span>
-</li>
-<li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #f59e0b; font-size: 1.25rem;">🎯</span>
-<span>Auszahlung komplett steuerfrei - volle Summe kommt beim Kind an</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Zahnzusatzversicherung -->
-<div class="insurance-section">
-<div class="insurance-header">Zahnzusatzversicherung für Kinder</div>
-<div class="grid-2" style="gap: 2rem; align-items: start;">
-<div class="recommendation-box">
-<div class="recommendation-title">Wir empfehlen:</div>
-<div class="form-group">
-<label class="form-label">Gesellschaft</label>
-<input class="form-input" id="dentalInsuranceCompany" placeholder="ERGO Direkt" type="text"/>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Monatlicher Beitrag (€)</label>
-<input class="form-input" id="dentalInsurancePrice" onchange="calculateDentalTotal()" placeholder="12" step="1" type="number" value="12"/>
-</div>
-<div class="form-group">
-<label class="form-label">Zahnersatz</label>
-<select class="form-select" id="dentalInsuranceLevel">
-<option value="100">100% Zahnersatz</option>
-<option selected="" value="90">90% Zahnersatz</option>
-<option value="80">80% Zahnersatz</option>
-<option value="70">70% Zahnersatz</option>
-<option value="50">50% Zahnersatz</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="form-label">Übernahme Kieferorthopädie</label>
-<select class="form-select" id="dentalOrthodonticsLevel">
-<option value="100">100% Kieferorthopädie</option>
-<option selected="" value="90">90% Kieferorthopädie</option>
-<option value="80">80% Kieferorthopädie</option>
-<option value="70">70% Kieferorthopädie</option>
-<option value="50">50% Kieferorthopädie</option>
-</select>
-</div>
-<div class="checkbox-container">
-<input class="checkbox-input" id="dentalBeitragsanstieg" onchange="toggleBeitragsanstieg()" type="checkbox"/>
-<label class="checkbox-label" for="dentalBeitragsanstieg">Beitragsanstieg?</label>
-</div>
-<div id="beitragsanstiegFields" style="display: none; margin-top: 1rem;">
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Ab wann (Alter des Kindes)</label>
-<input class="form-input" id="dentalIncreaseYear" max="18" min="1" onchange="calculateDentalTotal()" placeholder="10" type="number" value="10"/>
-</div>
-<div class="form-group">
-<label class="form-label">Neuer monatlicher Beitrag (€)</label>
-<input class="form-input" id="dentalNewPrice" onchange="calculateDentalTotal()" placeholder="18" step="1" type="number" value="18"/>
-</div>
-</div>
-</div>
-<div style="background: #f0fdf4; border: 1px solid #22c55e; border-radius: 6px; padding: 1rem; margin-top: 1rem;">
-<p style="font-size: 0.875rem; color: #059669; margin: 0; font-weight: 600;">
-<strong>Gesamtbeitrag bis zum 18. Lebensjahr:</strong> <span id="dentalTotalCost">-</span>
-</p>
-</div>
-</div>
-<div style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); border: 4px solid #10b981; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.25); height: fit-content;">
-<h3 style="font-size: 1.375rem; color: #065f46; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
-<span style="font-size: 2rem;">🦷</span>
-                            Warum gerade für Kinder wichtig:
-                        </h3>
-<ul style="list-style: none; padding: 0; margin: 0; color: #065f46; font-weight: 600; line-height: 1.8;">
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #10b981; font-size: 1.25rem;">💸</span>
-<span>Ohne Versicherung: Zahnspange kostet 8.000€ - mit Versicherung nur 800€</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #10b981; font-size: 1.25rem;">✨</span>
-<span>Unsichtbare Zahnspangen: 12.000€ Eigenanteil wird auf 1.200€ reduziert</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #10b981; font-size: 1.25rem;">⚡</span>
-<span>Keine Wartezeiten vor dem 8. Lebensjahr - sofortiger Schutz</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #10b981; font-size: 1.25rem;">📊</span>
-<span>85% aller Kinder brauchen eine Zahnspange - Wahrscheinlichkeit sehr hoch</span>
-</li>
-<li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #10b981; font-size: 1.25rem;">🎯</span>
-<span>12€/Monat sparen bis zu 10.800€ Behandlungskosten - 900x Rendite!</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Schüler-BU -->
-<div class="insurance-section">
-<div class="insurance-header">Schüler-BU für Kinder</div>
-<div class="grid-2" style="gap: 2rem; align-items: start;">
-<div class="recommendation-box">
-<div class="recommendation-title">Wir empfehlen:</div>
-<div class="form-group">
-<label class="form-label">Gesellschaft</label>
-<input class="form-input" id="disabilityInsuranceCompany" placeholder="Continentale" type="text"/>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Monatlicher Beitrag (€)</label>
-<input class="form-input" id="disabilityInsurancePrice" onchange="updateTotalInsuranceCost()" placeholder="20" step="5" type="number" value="20"/>
-</div>
-<div class="form-group">
-<label class="form-label">BU-Rente (€)</label>
-<input class="form-input" id="disabilityInsuranceRent" placeholder="1500" step="100" type="number" value="1500"/>
-</div>
-</div>
-<div class="form-group" style="margin-bottom: 0;">
-<label class="form-label">Endalter ab</label>
-<input class="form-input" id="disabilityInsuranceAge" max="70" min="60" placeholder="67" type="number" value="67"/>
-</div>
-</div>
-<div style="background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); border: 4px solid #ec4899; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25); height: fit-content;">
-<h3 style="font-size: 1.375rem; color: #831843; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
-<span style="font-size: 2rem;">🛡️</span>
-                            Warum gerade für Kinder wichtig:
-                        </h3>
-<ul style="list-style: none; padding: 0; margin: 0; color: #831843; font-weight: 600; line-height: 1.8;">
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #ec4899; font-size: 1.25rem;">⚠️</span>
-<span>Jeder 4. wird berufsunfähig - das sind 25% Wahrscheinlichkeit!</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #ec4899; font-size: 1.25rem;">💰</span>
-<span>1.500€ BU-Rente = 810.000€ Gesamtleistung bis 67 (45 Jahre)</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #ec4899; font-size: 1.25rem;">🏥</span>
-<span>Verkürzte Gesundheitsfragen - später oft nicht mehr versicherbar</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #ec4899; font-size: 1.25rem;">🔒</span>
-<span>Lebenslange Versicherbarkeit garantiert - auch bei Krankheit</span>
-</li>
-<li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #ec4899; font-size: 1.25rem;">📈</span>
-<span>Beitrag steigt nie - heute 20€, in 30 Jahren immer noch 20€</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Stationäre Zusatzversicherung -->
-<div class="insurance-section">
-<div class="insurance-header">Stationäre Zusatzversicherung für Kinder</div>
-<div class="grid-2" style="gap: 2rem; align-items: start;">
-<div class="recommendation-box">
-<div class="recommendation-title">Wir empfehlen:</div>
-<div class="form-group">
-<label class="form-label">Gesellschaft</label>
-<input class="form-input" id="stationaryInsuranceCompany" placeholder="DKV" type="text"/>
-</div>
-<div class="grid-2">
-<div class="form-group">
-<label class="form-label">Monatlicher Beitrag (€)</label>
-<input class="form-input" id="stationaryInsurancePrice" onchange="updateTotalInsuranceCost()" placeholder="15" step="1" type="number" value="15"/>
-</div>
-<div class="form-group">
-<label class="form-label">Leistungen</label>
-<select class="form-select" id="stationaryInsuranceLevel">
-<option selected="" value="1-bett">1-Bett-Zimmer</option>
-<option value="2-bett">2-Bett-Zimmer</option>
-<option value="chefarzt">Chefarztbehandlung</option>
-<option value="komplett">Komplett-Schutz</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label class="form-label">Erstattung</label>
-<select class="form-select" id="stationaryInsuranceReimbursement">
-<option selected="" value="100">100% Erstattung</option>
-<option value="90">90% Erstattung</option>
-<option value="80">80% Erstattung</option>
-</select>
-</div>
-</div>
-<div style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border: 4px solid #3b82f6; border-radius: 20px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25); height: fit-content;">
-<h3 style="font-size: 1.375rem; color: #1e3a8a; margin: 0 0 1.5rem 0; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
-<span style="font-size: 2rem;">🏥</span>
-                            Warum gerade für Kinder wichtig:
-                        </h3>
-<ul style="list-style: none; padding: 0; margin: 0; color: #1e3a8a; font-weight: 600; line-height: 1.8;">
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">👶</span>
-<span>Kinder sind häufiger krank - 3x mehr Krankenhausaufenthalte als Erwachsene</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">🛏️</span>
-<span>1-Bett-Zimmer: Ruhe für schnellere Genesung und weniger Ansteckungsrisiko</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">👨‍⚕️</span>
-<span>Chefarztbehandlung: Beste medizinische Versorgung für Ihr Kind</span>
-</li>
-<li style="margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">💰</span>
-<span>Nur 15€/Monat für lebenslangen Schutz - später unbezahlbar teuer</span>
-</li>
-<li style="display: flex; align-items: flex-start; gap: 0.75rem;">
-<span style="color: #3b82f6; font-size: 1.25rem;">🔒</span>
-<span>Keine Gesundheitsprüfung bei Kindern - später oft Ausschlüsse</span>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<!-- Total Insurance Cost Summary -->
-<div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #0ea5e9; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
-<h3 style="color: #0369a1; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-<span style="font-size: 1.25rem;">💰</span>
-                    Gesamtkosten aller Absicherungen
-                </h3>
-<div style="display: flex; justify-content: space-between; align-items: center;">
-<div>
-<div id="totalInsuranceCost" style="font-size: 1.5rem; font-weight: 800; color: #0369a1;">-</div>
-<p style="font-size: 0.875rem; color: #374151; font-weight: 600; margin: 0;">Monatlicher Gesamtbeitrag</p>
-</div>
-<div style="background: rgba(255, 255, 255, 0.8); padding: 1rem; border-radius: 8px; border: 1px solid #0ea5e9; max-width: 60%;">
-<div id="insuranceBreakdown" style="color: #374151; font-weight: 600; line-height: 1.6; font-size: 0.875rem;">
-<!-- Dynamic content will be inserted here -->
-</div>
-</div>
-</div>
-</div>
-<div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('vorteile')">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
-</svg>
-                    Zurück
-                </button>
 <button class="btn-primary" onclick="showPage('zusammenfassung')">
                     Weiter
                     <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
@@ -2163,7 +2115,8 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
 </button>
 </div>
-</div>
+</div><!-- Page 5: Zusatzabsicherungen -->
+
 <!-- Page 6: Zusammenfassung -->
 <div class="page-content" id="page-zusammenfassung">
 <div class="page-header">
@@ -2248,32 +2201,32 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="card mb-6" id="summaryFundsCard">
-  <h2 class="card-title">Fondsportfolio (aus Seite&nbsp;3)</h2>
-  <div class="summary-section">
-    <div style="overflow-x:auto">
-      <table class="pro-table" id="summaryFundTable">
-        <thead>
-          <tr>
-            <th>Fondsname</th>
-            <th class="num">Anteil (%)</th>
-            <th class="num">Rendite 5J (%)</th>
-            <th class="num">Rendite Portfolio (%)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- rows injected -->
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>Summen</td>
-            <td class="num" id="summarySumWeights">0,00 %</td>
-            <td class="num">Gesamtrendite:</td>
-            <td class="num" id="summarySumPortfolio">0,00 %</td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
+<h2 class="card-title">Fondsportfolio (aus Seite 3)</h2>
+<div class="summary-section">
+<div style="overflow-x:auto">
+<table class="pro-table" id="summaryFundTable">
+<thead>
+<tr>
+<th>Fondsname</th>
+<th class="num">Anteil (%)</th>
+<th class="num">Rendite 5J (%)</th>
+<th class="num">Rendite Portfolio (%)</th>
+</tr>
+</thead>
+<tbody>
+<!-- rows injected -->
+</tbody>
+<tfoot>
+<tr>
+<td>Summen</td>
+<td class="num" id="summarySumWeights">0,00 %</td>
+<td class="num">Gesamtrendite:</td>
+<td class="num" id="summarySumPortfolio">0,00 %</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
 </div>
 <div class="card mb-6">
 <h2 class="card-title">Ihre gewählte Gesellschaft</h2>
@@ -2357,7 +2310,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
                 </p>
 </div>
 <div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('zusatzabsicherungen')">
+<button class="btn-secondary" onclick="showPage('zusammenfassung')">
 <svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20">
 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
 </svg>
@@ -3515,5 +3468,218 @@ ensureCharts(
   recalc();
 });
 </script>
+<!-- Professioneller Footer -->
+<footer class="bg-[#0e1e3a] text-white mt-12 py-8 px-4 no-print">
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+<div class="flex items-center space-x-4">
+<img alt="Lion Finance Logo" class="h-12 w-auto" src="Logo_transparent-removebg-preview (1).png"/>
+<div>
+<p class="font-bold text-lg">SmartKidsInvest</p>
+<p class="text-sm">Lise-Meitner-Straße 9<br/>24223 Schwentinental</p>
+</div>
+</div>
+<div class="text-center md:text-right">
+<p class="text-sm">Kontakt: <a class="text-gold hover:underline" href="mailto:info@smartkidsinvest.de">info@smartkidsinvest.de</a></p>
+<p class="text-xs text-gray-400 mt-1">© SmartKidsInvest – Alle Rechte vorbehalten</p>
+</div>
+</div>
+</footer>
+<!-- Footer für Druckversion auf letzter Seite -->
+<footer class="print-footer hidden no-print:block">
+<div class="text-center text-sm text-gray-600 mt-12 border-t pt-4">
+<img alt="SmartKidsInvest Logo" class="h-10 mx-auto mb-2" src="Logo_transparent-removebg-preview (1).png"/>
+<p>SmartKidsInvest – Lise-Meitner-Straße 9, 24223 Schwentinental</p>
+<p>info@smartkidsinvest.de</p>
+</div>
+</footer>
+<script id="progress-controller">
+(function(){
+  const order = ["kundendaten","berechnung","fondsportfolio","gesellschaft","vorteile","zusatzabsicherungen","zusammenfassung"];
+  const total = order.length;
+  function setProgressByPage(pageId){
+    const el = document.getElementById("progress-fill");
+    if(!el) return;
+    const idx = Math.max(0, order.indexOf(pageId));
+    // progress goes from first step (min 1) to total
+    const step = idx >= 0 ? (idx+1) : 1;
+    const pct = Math.round((step/total)*100);
+    el.style.width = pct + "%";
+    el.setAttribute("aria-valuenow", String(pct));
+    el.setAttribute("aria-valuemin","0");
+    el.setAttribute("aria-valuemax","100");
+  }
+  // Try to patch showPage to call setProgressByPage without breaking existing logic
+  const scriptPatch = function(){
+    try{
+      const orig = window.showPage;
+      if (typeof orig === "function") {
+        window.showPage = function(pageId){
+          const r = orig.apply(this, arguments);
+          setProgressByPage(pageId);
+          return r;
+        };
+      }
+    }catch(e){/* noop */}
+  };
+  document.addEventListener("DOMContentLoaded", function(){
+    // initial state: detect visible page-content id
+    const visible = document.querySelector('.page-content:not(.hidden)');
+    const id = visible ? (visible.id||"page-kundendaten") : "page-kundendaten";
+    const pageId = id.replace(/^page-/, "");
+    setProgressByPage(pageId);
+    scriptPatch();
+  });
+  // expose for manual use if needed
+  window.__setProgressByPage = setProgressByPage;
+})();
+</script>
+
+<script id="chartjs-3d-bars">
+(function(){
+  const ThreeDBar = {
+    id: 'bar3d',
+    afterDatasetDraw(chart, args) {
+      const ds = chart.data.datasets[args.index];
+      if (!ds) return;
+      const type = (ds.type || chart.config.type);
+      if (type !== 'bar') return;
+      const {ctx} = chart;
+      const meta = args.meta;
+      const offset = 6;
+      ctx.save();
+      meta.data.forEach((bar, i) => {
+        const p = bar.getProps(['x','y','base','width','height'], true);
+        const x = p.x - p.width/2, y = p.y, w = p.width, h = Math.max(0, p.base - p.y);
+        if (w<=0 || h<=0) return;
+        const fill = Array.isArray(ds.backgroundColor)? ds.backgroundColor[i] : (ds.backgroundColor || '#d4af37');
+        function shade(c, d){
+          let m = (''+c).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+          let r,g,b;
+          if (m){ r=+m[1]; g=+m[2]; b=+m[3]; }
+          else { const v=parseInt((''+c).replace('#',''),16); r=(v>>16)&255; g=(v>>8)&255; b=v&255; }
+          r=Math.min(255,Math.max(0,r+d)); g=Math.min(255,Math.max(0,g+d)); b=Math.min(255,Math.max(0,b+d));
+          return 'rgb('+r+','+g+','+b+')';
+        }
+        // top
+        ctx.fillStyle = shade(fill,-8);
+        ctx.beginPath();
+        ctx.moveTo(x,y); ctx.lineTo(x+offset,y-offset); ctx.lineTo(x+w+offset,y-offset); ctx.lineTo(x+w,y); ctx.closePath(); ctx.fill();
+        // side
+        ctx.fillStyle = shade(fill,-18);
+        ctx.beginPath();
+        ctx.moveTo(x+w,y); ctx.lineTo(x+w+offset,y-offset); ctx.lineTo(x+w+offset,y-offset+h); ctx.lineTo(x+w,y+h); ctx.closePath(); ctx.fill();
+        // front
+        ctx.fillStyle = shade(fill,-4);
+        ctx.fillRect(x,y,w,h);
+      });
+      ctx.restore();
+    }
+  };
+  if (window.Chart && !Chart.registry.getPlugin('bar3d')) Chart.register(ThreeDBar);
+})();
+</script>
+
+<script id="bar-style-enforcer">
+document.addEventListener('DOMContentLoaded', function(){
+  if (!window.Chart || !Chart.instances) return;
+  Object.values(Chart.instances).forEach(function(inst){
+    try{
+      const isBar = (inst.config.type === 'bar') || inst.config.data.datasets.some(ds => (ds.type||inst.config.type)==='bar');
+      if (!isBar) return;
+      inst.config.data.datasets.forEach(function(ds){
+        if ((ds.type||inst.config.type)==='bar'){
+          if (typeof ds.borderSkipped === 'undefined') ds.borderSkipped = false;
+          ds.borderColor = ds.borderColor || '#b28a00';
+          ds.backgroundColor = ds.backgroundColor || '#d4af37';
+          ds.borderWidth = ds.borderWidth || 1;
+        }
+      });
+      inst.update('none');
+    }catch(e){}
+  });
+});
+</script>
+
+<script id="summary-chart-patch">
+(function(){
+  function rebuildSummaryLater(){
+    if (typeof createSummaryChart !== 'function') return;
+    // Rebuild after the page is visible and layout settled
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        try{
+          createSummaryChart();
+          if (window.summaryChart && typeof window.summaryChart.resize === 'function'){
+            window.summaryChart.resize();
+          }
+        }catch(e){}
+      });
+    });
+  }
+  // Patch showPage so that after switching to zusammenfassung, we rebuild chart
+  if (!window.__showPagePatched) {
+    window.__showPagePatched = true;
+    var orig = window.showPage;
+    if (typeof orig === 'function'){
+      window.showPage = function(pageId){
+        var r = orig.apply(this, arguments);
+        if (pageId === 'zusammenfassung') rebuildSummaryLater();
+        return r;
+      };
+    } else {
+      // Fallback: on DOM ready, if already on zusammenfassung, rebuild
+      document.addEventListener('DOMContentLoaded', function(){
+        var visible = document.querySelector('#page-zusammenfassung:not(.hidden)');
+        if (visible) rebuildSummaryLater();
+      });
+    }
+  }
+  // Also rebuild on window resize
+  window.addEventListener('resize', function(){ 
+    var visible = document.querySelector('#page-zusammenfassung:not(.hidden)');
+    if (visible) rebuildSummaryLater();
+  });
+})();
+</script>
+
+
+<script id="summary-safe-guards">
+(function(){
+  // If insurance summary container was removed, prevent JS errors
+  function safeUpdateInsuranceSummary(){
+    try{
+      var el = document.getElementById('insuranceSummary');
+      if (!el) return; // nothing to do if the section doesn't exist
+      // If it exists, call original if available
+      if (typeof window.__origUpdateInsuranceSummary === 'function'){
+        window.__origUpdateInsuranceSummary();
+      }
+    }catch(e){ /* swallow to keep summary running */ }
+  }
+  // Save original if present
+  if (typeof window.updateInsuranceSummary === 'function' && !window.__origUpdateInsuranceSummary){
+    window.__origUpdateInsuranceSummary = window.updateInsuranceSummary;
+  }
+  // Override with safe version
+  window.updateInsuranceSummary = safeUpdateInsuranceSummary;
+
+  // Additionally, guard direct DOM touches in updateSummary related to insurance
+  if (typeof window.updateSummary === 'function' && !window.__summaryGuarded){
+    window.__summaryGuarded = true;
+    var origUpdateSummary = window.updateSummary;
+    window.updateSummary = function(){
+      try{
+        return origUpdateSummary.apply(this, arguments);
+      } catch(e){
+        // If there is an error, try to at least build the chart
+        try{
+          if (typeof window.createSummaryChart === 'function') window.createSummaryChart();
+        }catch(_){}
+      }
+    };
+  }
+})();
+</script>
+
 </body>
 </html>
