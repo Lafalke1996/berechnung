@@ -177,6 +177,10 @@
             padding: 2rem 1.5rem;
         }
 
+        .print-footer-sheet {
+            display: none;
+        }
+
         .print-footer .footer-inner {
             max-width: 960px;
             margin: 0 auto;
@@ -813,7 +817,20 @@
                 flex-direction: column;
                 min-height: 100vh;
             }
-            
+
+            .print-footer-sheet {
+                display: flex !important;
+                flex-direction: column;
+                min-height: 100vh;
+                page-break-before: always;
+                page-break-after: avoid;
+            }
+
+            .print-footer-sheet::before {
+                content: '';
+                flex: 1 1 auto;
+            }
+
             .nav-container, .btn-primary, .btn-secondary {
                 display: none !important;
             }
@@ -989,6 +1006,28 @@
     padding: 1.5rem;
     border-radius: 16px;
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-advantages-row .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    margin-bottom: 0;
+}
+
+.summary-advantages-row .card-title .pill {
+    white-space: nowrap;
+}
+
+.summary-advantages-row .feature-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1 1 auto;
 }
 
 .summary-advantages-row .feature-row {
@@ -1051,6 +1090,10 @@
         padding: 0.75rem 0.9rem;
         box-shadow: none;
         border: 1px solid #dbe1f1;
+    }
+
+    .summary-advantages-row .card-title {
+        min-height: 2.25rem;
     }
 
     .summary-advantages-row .feature-row {
@@ -4385,15 +4428,27 @@ document.addEventListener('DOMContentLoaded', function(){
   placeholder.style.display = 'none';
   homeParent.insertBefore(placeholder, footer.nextSibling);
 
+  var footerSheet = document.createElement('div');
+  footerSheet.className = 'print-footer-sheet';
+
   function moveFooterForPrint(){
-    if (summaryPage.contains(footer)) return;
+    if (footerSheet.contains(footer)) return;
     footer.classList.add('print-footer-inline');
-    summaryPage.appendChild(footer);
+    if (!summaryPage.contains(footerSheet)) {
+      summaryPage.appendChild(footerSheet);
+    }
+    footerSheet.appendChild(footer);
   }
 
   function restoreFooterAfterPrint(){
     if (footer.parentNode === homeParent) return;
     footer.classList.remove('print-footer-inline');
+    if (footerSheet.contains(footer)) {
+      footerSheet.removeChild(footer);
+    }
+    if (footerSheet.parentNode) {
+      footerSheet.parentNode.removeChild(footerSheet);
+    }
     if (placeholder.parentNode) {
       placeholder.parentNode.insertBefore(footer, placeholder);
     } else {
