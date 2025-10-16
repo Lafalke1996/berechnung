@@ -793,6 +793,11 @@
                 visibility: visible;
             }
 
+            .page-content:not(#page-zusammenfassung),
+            .page-content:not(#page-zusammenfassung) * {
+                display: none !important;
+            }
+
             .print-footer,
             .print-footer * {
                 visibility: visible;
@@ -878,10 +883,17 @@
             h1, h2, h3 {
                 page-break-after: avoid;
             }
-            
+
             .summary-section {
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+
+            .print-footer.print-footer-inline {
+                page-break-before: avoid;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
         }
     
