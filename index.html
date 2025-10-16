@@ -2225,6 +2225,12 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
+<div class="card mb-6">
+    <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
+    <div style="position: relative; height: 400px; width: 100%;">
+        <canvas id="summaryChart"></canvas>
+    </div>
+</div>
 <div class="card mb-6" id="summaryFundsCard">
 <h2 class="card-title">Fondsportfolio</h2>
 <div class="summary-section">
@@ -2267,12 +2273,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <h2 class="card-title">Ihre gewählte Gesellschaft</h2>
 <div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
 <!-- Company info will be dynamically inserted here -->
-</div>
-</div>
-<div class="card mb-6">
-<h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
-<div style="position: relative; height: 400px; width: 100%;">
-<canvas id="summaryChart"></canvas>
 </div>
 </div>
 <!-- Zusatzabsicherungen Summary -->
@@ -3327,6 +3327,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 document.addEventListener('DOMContentLoaded', function(){
   // Utilities
   const fmtPct = (v)=> new Intl.NumberFormat('de-DE',{minimumFractionDigits:2, maximumFractionDigits:2}).format(v) + " %";
+  window.__fmtPct = fmtPct;
   const paletteBase = ['#2563eb','#d97706','#059669','#9333ea','#f97316','#0ea5e9','#f43f5e','#6366f1','#22c55e','#d946ef'];
   const getPalette = (n)=> Array.from({length:n}, (_,i)=> paletteBase[i % paletteBase.length]);
 
@@ -3484,7 +3485,14 @@ document.addEventListener('DOMContentLoaded', function(){
           },
           plugins: {
             legend: { display:false },
-            tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } }
+            tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } },
+            valueLabels: {
+              color: '#0f172a',
+              outlineColor: 'rgba(255,255,255,0.85)',
+              outlineWidth: 4,
+              font: { weight: 700, size: 12 },
+              formatter: (value)=> fmtPct(value)
+            }
           },
           scales: {
             x: {
@@ -3553,6 +3561,14 @@ document.addEventListener('DOMContentLoaded', function(){
               callbacks: {
                 label: (ctx) => `${ctx.label}: ${fmtPct(ctx.parsed)}`
               }
+            },
+            valueLabels: {
+              color: '#0f172a',
+              outlineColor: 'rgba(255,255,255,0.85)',
+              outlineWidth: 4,
+              font: { weight: 700, size: 12 },
+              formatter: (value)=> fmtPct(value),
+              pieFormatter: (_, context)=> fmtPct(context.percentage)
             }
           }
         }
@@ -3701,6 +3717,137 @@ ensureCharts(
   });
   // expose for manual use if needed
   window.__setProgressByPage = setProgressByPage;
+})();
+</script>
+
+<script id="chart-value-labels">
+(function(){
+  function formatPercent(value){
+    if (typeof window.__fmtPct === 'function') {
+      return window.__fmtPct(value);
+    }
+    const numeric = Number(value) || 0;
+    return `${numeric.toFixed(2).replace('.', ',')} %`;
+  }
+
+  function resolveFont(options){
+    const defaults = (window.Chart && Chart.defaults && Chart.defaults.font) || {};
+    const weight = options?.weight || '600';
+    const size = options?.size || defaults.size || 12;
+    const family = options?.family || defaults.family || 'sans-serif';
+    const style = options?.style ? options.style + ' ' : '';
+    return {
+      string: `${style}${weight} ${size}px ${family}`,
+      size,
+      weight,
+      family
+    };
+  }
+
+  const plugin = {
+    id: 'valueLabels',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const opts = pluginOptions || {};
+      if (opts.display === false) return;
+
+      const { ctx, chartArea } = chart;
+      if (!ctx || !chartArea) return;
+
+      const color = opts.color || '#0f172a';
+      const outlineColor = opts.outlineColor || 'rgba(255,255,255,0.85)';
+      const outlineWidth = opts.outlineWidth ?? 3;
+      const offset = opts.offset ?? 12;
+      const font = resolveFont(opts.font || {});
+
+      ctx.save();
+      ctx.font = font.string;
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+
+      chart.data.datasets.forEach((dataset, datasetIndex) => {
+        const meta = chart.getDatasetMeta(datasetIndex);
+        if (!meta || meta.hidden) return;
+        const type = (dataset.type || meta.type || chart.config.type);
+
+        if (type === 'bar') {
+          meta.data.forEach((element, index) => {
+            const rawValue = dataset.data[index];
+            const numeric = Number(rawValue);
+            if (!isFinite(numeric)) return;
+
+            const formatter = typeof opts.formatter === 'function' ? opts.formatter : formatPercent;
+            const text = formatter(numeric, { chart, dataset, dataIndex: index, datasetIndex });
+            if (!text) return;
+
+            const { x, y } = element.tooltipPosition();
+            const isNegative = numeric < 0;
+            let labelY = y + (isNegative ? offset : -offset);
+            if (!isNegative && labelY < chartArea.top + 10) {
+              labelY = chartArea.top + 10;
+            }
+            if (isNegative && labelY > chartArea.bottom - 4) {
+              labelY = chartArea.bottom - 4;
+            }
+
+            ctx.textBaseline = isNegative ? 'top' : 'bottom';
+
+            if (outlineWidth > 0) {
+              ctx.lineWidth = outlineWidth;
+              ctx.strokeStyle = outlineColor;
+              ctx.strokeText(text, x, labelY);
+            }
+            ctx.fillText(text, x, labelY);
+          });
+        } else if (type === 'pie' || type === 'doughnut') {
+          const total = dataset.data.reduce((sum, value) => {
+            const numericValue = Number(value);
+            return sum + (isFinite(numericValue) ? numericValue : 0);
+          }, 0);
+          meta.data.forEach((element, index) => {
+            const rawValue = dataset.data[index];
+            const numeric = Number(rawValue);
+            if (!isFinite(numeric) || numeric === 0) return;
+
+            const percentage = total === 0 ? 0 : (numeric / total) * 100;
+            const formatter = typeof opts.pieFormatter === 'function'
+              ? opts.pieFormatter
+              : (value, context) => formatPercent(context.percentage);
+            const text = formatter(numeric, {
+              chart,
+              dataset,
+              dataIndex: index,
+              datasetIndex,
+              percentage
+            });
+            if (!text) return;
+
+            const angle = element.startAngle + (element.endAngle - element.startAngle) / 2;
+            const radius = element.innerRadius + (element.outerRadius - element.innerRadius) * 0.65;
+            const x = element.x + Math.cos(angle) * radius;
+            const y = element.y + Math.sin(angle) * radius;
+
+            ctx.textBaseline = 'middle';
+
+            if (outlineWidth > 0) {
+              ctx.lineWidth = outlineWidth;
+              ctx.strokeStyle = outlineColor;
+              ctx.strokeText(text, x, y);
+            }
+            ctx.fillText(text, x, y);
+          });
+        }
+      });
+
+      ctx.restore();
+    }
+  };
+
+  if (window.Chart) {
+    const existing = Chart.registry?.getPlugin?.('valueLabels');
+    if (!existing) {
+      Chart.register(plugin);
+    }
+  }
 })();
 </script>
 
