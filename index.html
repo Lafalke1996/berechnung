@@ -175,10 +175,8 @@
             background: #0e1e3a;
             color: #f8fafc;
             padding: 2rem 1.5rem;
-        }
-
-        .print-footer-sheet {
-            display: none;
+            margin-top: auto;
+            width: 100%;
         }
 
         .print-footer .footer-inner {
@@ -808,9 +806,9 @@
             }
 
             #page-zusammenfassung {
-                position: absolute;
-                left: 0;
-                top: 0;
+                position: static;
+                left: auto;
+                top: auto;
                 width: 100%;
                 padding-bottom: 0;
                 display: flex;
@@ -818,17 +816,27 @@
                 min-height: 100vh;
             }
 
-            .print-footer-sheet {
-                display: flex !important;
+            #page-zusammenfassung .summary-print-body {
+                flex: 1 1 auto;
+                display: flex;
                 flex-direction: column;
-                min-height: 100vh;
-                page-break-before: always;
-                page-break-after: avoid;
+                gap: 1.25rem;
             }
 
-            .print-footer-sheet::before {
-                content: '';
-                flex: 1 1 auto;
+            #page-zusammenfassung .mb-6 {
+                margin-bottom: 1.25rem !important;
+            }
+
+            #page-zusammenfassung .card:not(.card-compact) {
+                padding: 1.25rem;
+            }
+
+            #page-zusammenfassung .summary-advantages-card {
+                padding: 1.5rem 1.75rem;
+            }
+
+            #page-zusammenfassung .text-center.mt-8 {
+                margin-top: 1.5rem !important;
             }
 
             .nav-container, .btn-primary, .btn-secondary {
@@ -906,11 +914,35 @@
                 page-break-inside: avoid;
             }
 
+            .summary-advantages-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                overflow: visible;
+                margin: 0;
+                padding-bottom: 0;
+            }
+
+            .summary-advantages-row .card {
+                height: 100%;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .summary-advantages-row .card-title .pill {
+                font-size: 0.85rem;
+                padding: 0.35rem 1rem;
+            }
+
             .print-footer.print-footer-inline {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
                 page-break-before: avoid;
                 page-break-after: avoid;
                 page-break-inside: avoid;
                 break-inside: avoid;
+                padding-top: 1.5rem;
             }
         }
     
@@ -1020,7 +1052,13 @@
 }
 
 .summary-advantages-row .card-title .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1.25rem;
+    min-height: 2.25rem;
     white-space: nowrap;
+    text-align: center;
 }
 
 .summary-advantages-row .feature-rows {
@@ -1038,6 +1076,12 @@
 .summary-advantages-row .feature-row svg {
     width: 16px;
     height: 16px;
+}
+
+.summary-print-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .summary-advantages-row::-webkit-scrollbar {
@@ -1330,6 +1374,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
   }
   .print-footer.print-footer-inline .footer-inner {
     flex-direction: column;
+    max-width: 720px;
   }
 }
 </style>
@@ -2405,6 +2450,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 
 <!-- Page 6: Zusammenfassung -->
 <div class="page-content" id="page-zusammenfassung">
+<div class="summary-print-body">
 <div class="page-header">
 <h1>Ihre Beratungszusammenfassung</h1>
 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
@@ -2625,6 +2671,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </svg>
                     Drucken / PDF
                 </button>
+</div>
 </div>
 </div>
 </main>
@@ -4428,27 +4475,15 @@ document.addEventListener('DOMContentLoaded', function(){
   placeholder.style.display = 'none';
   homeParent.insertBefore(placeholder, footer.nextSibling);
 
-  var footerSheet = document.createElement('div');
-  footerSheet.className = 'print-footer-sheet';
-
   function moveFooterForPrint(){
-    if (footerSheet.contains(footer)) return;
+    if (footer.parentNode === summaryPage) return;
     footer.classList.add('print-footer-inline');
-    if (!summaryPage.contains(footerSheet)) {
-      summaryPage.appendChild(footerSheet);
-    }
-    footerSheet.appendChild(footer);
+    summaryPage.appendChild(footer);
   }
 
   function restoreFooterAfterPrint(){
     if (footer.parentNode === homeParent) return;
     footer.classList.remove('print-footer-inline');
-    if (footerSheet.contains(footer)) {
-      footerSheet.removeChild(footer);
-    }
-    if (footerSheet.parentNode) {
-      footerSheet.parentNode.removeChild(footerSheet);
-    }
     if (placeholder.parentNode) {
       placeholder.parentNode.insertBefore(footer, placeholder);
     } else {
