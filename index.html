@@ -818,6 +818,34 @@
 #fundTable .total-return-label { font-size: 0.85rem; color: #475569; }
 #fundTable .total-return-value { font-variant-numeric: tabular-nums; }
 
+        .portfolio-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .chart-shell {
+            position: relative;
+            height: 320px;
+        }
+
+        .chart-shell canvas {
+            position: absolute;
+            inset: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            .chart-shell {
+                height: 280px;
+            }
+            .portfolio-chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
 /* Smaller, subtler trash icon */
 .icon-btn { height: 1.75rem; width: 1.75rem; display:inline-flex; align-items:center; justify-content:center; border-radius: .5rem; }
 .icon-btn svg { width: 14px; height: 14px; opacity: .7; }
@@ -1606,7 +1634,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </table>
 </div>
 </div>
-<div class="grid-2">
 <div class="card">
 <h2 class="card-title">Zusammenfassung</h2>
 <div class="summary-section strong">
@@ -1624,9 +1651,15 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
+<div class="portfolio-chart-grid">
 <div class="card">
 <h2 class="card-title">Gesamtübersicht</h2>
-<div class="chart-wrap"><canvas height="420" id="chartSummaryBar" width="420"></canvas></div></div>
+<div class="chart-shell"><canvas id="chartSummaryBar"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="chartAllocationPie"></canvas></div>
+</div>
 </div>
 <div class="text-center mt-8 space-x-4">
 <button class="btn-secondary" onclick="showPage('berechnung')">Zurück</button>
@@ -2193,7 +2226,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 <div class="card mb-6" id="summaryFundsCard">
-<h2 class="card-title">Fondsportfolio (aus Seite 3)</h2>
+<h2 class="card-title">Fondsportfolio</h2>
 <div class="summary-section">
 <div style="overflow-x:auto">
 <table class="pro-table" id="summaryFundTable">
@@ -2218,6 +2251,16 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </tfoot>
 </table>
 </div>
+</div>
+</div>
+<div class="portfolio-chart-grid mb-6" id="summaryPortfolioCharts">
+<div class="card">
+<h2 class="card-title">Gesamtübersicht</h2>
+<div class="chart-shell"><canvas id="summaryPortfolioBar"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
 </div>
 </div>
 <div class="card mb-6">
@@ -2280,6 +2323,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         let calculationData = {};
         let chart = null;
         let summaryChart = null;
+        const chartStore = {};
 
         const performancePalette = {
             contributions: {
@@ -3331,6 +3375,20 @@ document.addEventListener('DOMContentLoaded', function(){
     return gradient;
   }
 
+  function createArcGradient(ctx, color){
+    const width = ctx.canvas.clientWidth || ctx.canvas.width || 320;
+    const height = ctx.canvas.clientHeight || ctx.canvas.height || 320;
+    const radius = Math.max(width, height) / 2;
+    const cx = width / 2;
+    const cy = height / 2;
+    const gradient = ctx.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius);
+    gradient.addColorStop(0, shadeColor(color, 0.35));
+    gradient.addColorStop(0.45, shadeColor(color, 0.05));
+    gradient.addColorStop(0.75, shadeColor(color, -0.1));
+    gradient.addColorStop(1, shadeColor(color, -0.35));
+    return gradient;
+  }
+
   const tbody = document.getElementById('fundTableBody');
   if(!tbody) return;
 
@@ -3389,31 +3447,30 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  let cBar, cRet, cWei, cR5;
-  function ensureCharts(labels, retByFund, weights, r5s, summaryVals){
-    const pal = getPalette(labels.length || 3);
+  function syncBarChart(canvasId, palette, summaryVals){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return;
 
-    // Bar
-    const ctxB = document.getElementById('chartSummaryBar').getContext('2d');
-    const summaryPalette = getPalette(summaryVals.length || 3);
-    const gradientFills = summaryPalette.map(color => create3DGradient(ctxB, color));
-    const borderColors = summaryPalette.map(color => shadeColor(color, -0.4));
+    const ctx = canvas.getContext('2d');
+    const gradients = palette.map(color => create3DGradient(ctx, color));
+    const borders = palette.map(color => shadeColor(color, -0.4));
+    const datasetConfig = {
+      data: summaryVals,
+      backgroundColor: gradients,
+      borderColor: borders,
+      borderWidth: 1.5,
+      borderRadius: 8,
+      hoverBackgroundColor: gradients,
+      maxBarThickness: 64,
+      bar3dBaseColors: palette
+    };
 
-    if(!cBar){
-      cBar = new Chart(ctxB, {
+    if(!chartStore[canvasId]){
+      chartStore[canvasId] = new Chart(ctx, {
         type: 'bar',
         data: {
           labels: ['Gesamte Rendite','Effektivkosten','Rendite nach Kosten'],
-          datasets: [{
-            data: summaryVals,
-            backgroundColor: gradientFills,
-            borderColor: borderColors,
-            borderWidth: 1.5,
-            borderRadius: 8,
-            hoverBackgroundColor: gradientFills,
-            maxBarThickness: 64,
-            bar3dBaseColors: summaryPalette
-          }]
+          datasets: [datasetConfig]
         },
         options: {
           responsive:true,
@@ -3443,28 +3500,83 @@ document.addEventListener('DOMContentLoaded', function(){
         }
       });
     } else {
-      const dataset = cBar.data.datasets[0];
+      const chartInstance = chartStore[canvasId];
+      const dataset = chartInstance.data.datasets[0];
       dataset.data = summaryVals;
-      dataset.backgroundColor = gradientFills;
-      dataset.borderColor = borderColors;
-      dataset.maxBarThickness = 64;
-      dataset.borderRadius = 8;
-      dataset.bar3dBaseColors = summaryPalette;
-      cBar.update();
+      dataset.backgroundColor = gradients;
+      dataset.borderColor = borders;
+      dataset.hoverBackgroundColor = gradients;
+      dataset.bar3dBaseColors = palette;
+      chartInstance.update();
     }
+  }
 
-    // Doughnuts
-    function doughnut(ctx, ref, data){
-      if(!ref){
-        return new Chart(ctx, { type:'doughnut',
-          data: { labels, datasets:[{ data, backgroundColor: pal }] },
-          options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } }
-        });
-      } else {
-        ref.data.labels = labels; ref.data.datasets[0].data = data; ref.data.datasets[0].backgroundColor = pal; ref.update(); return ref;
-      }
+  function syncPieChart(canvasId, labels, palette, data){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const fills = palette.map(color => createArcGradient(ctx, color));
+    const borders = palette.map(color => shadeColor(color, -0.35));
+
+    if(!chartStore[canvasId]){
+      chartStore[canvasId] = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            backgroundColor: fills,
+            hoverBackgroundColor: fills,
+            borderColor: borders,
+            borderWidth: 1.5,
+            hoverOffset: 12
+          }]
+        },
+        options: {
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                usePointStyle: true,
+                boxWidth: 12,
+                padding: 16,
+                color: '#0f172a',
+                font: {
+                  weight: 600
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.label}: ${fmtPct(ctx.parsed)}`
+              }
+            }
+          }
+        }
+      });
+    } else {
+      const chartInstance = chartStore[canvasId];
+      chartInstance.data.labels = labels;
+      chartInstance.data.datasets[0].data = data;
+      chartInstance.data.datasets[0].backgroundColor = fills;
+      chartInstance.data.datasets[0].hoverBackgroundColor = fills;
+      chartInstance.data.datasets[0].borderColor = borders;
+      chartInstance.update();
     }
-    
+  }
+
+  function ensureCharts(labels, retByFund, weights, r5s, summaryVals){
+    const palette = getPalette(labels.length || 3);
+    const summaryPalette = getPalette(summaryVals.length || 3);
+
+    syncBarChart('chartSummaryBar', summaryPalette, summaryVals);
+    syncBarChart('summaryPortfolioBar', summaryPalette, summaryVals);
+
+    syncPieChart('chartAllocationPie', labels, palette, weights);
+    syncPieChart('summaryAllocationPie', labels, palette, weights);
   }
 
   function recalc(){
