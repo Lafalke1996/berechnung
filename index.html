@@ -990,7 +990,8 @@ body,button,input,select{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoo
 @media print{
   body{background:#fff!important}
   .card,.page-header,.summary-section,.insurance-section{box-shadow:none!important;border:1px solid #dfe3e8!important}
-  .result-value{font-size:1.1rem!important}
+  .result-card h3{font-size:1.1rem!important}
+  .result-value{font-size:1rem!important}
 }
 
 /* Focus-visible for accessibility */
@@ -2193,6 +2194,14 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <span class="summary-label">📈 Erwartete Rendite:</span>
 <span class="summary-value" id="summaryReturn">-</span>
 </div>
+<div class="summary-item">
+<span class="summary-label">💸 Effektivkosten:</span>
+<span class="summary-value" id="summaryEffectiveCosts">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">🧾 Abschlusskosten:</span>
+<span class="summary-value" id="summaryClosingCosts">-</span>
+</div>
 </div>
 </div>
 </div>
@@ -2231,6 +2240,12 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         <canvas id="summaryChart"></canvas>
     </div>
 </div>
+<div class="card mb-6">
+<h2 class="card-title">Ihre gewählte Gesellschaft</h2>
+<div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+<!-- Company info will be dynamically inserted here -->
+</div>
+</div>
 <div class="card mb-6" id="summaryFundsCard">
 <h2 class="card-title">Fondsportfolio</h2>
 <div class="summary-section">
@@ -2267,12 +2282,6 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <div class="card">
 <h2 class="card-title">Anteilsverteilung</h2>
 <div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
-</div>
-</div>
-<div class="card mb-6">
-<h2 class="card-title">Ihre gewählte Gesellschaft</h2>
-<div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-<!-- Company info will be dynamically inserted here -->
 </div>
 </div>
 <!-- Zusatzabsicherungen Summary -->
@@ -2970,11 +2979,23 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
             document.getElementById('summaryMonthly').textContent = formatCurrency(monthlyAmount);
             document.getElementById('summaryDuration').textContent = duration + ' Jahre';
             document.getElementById('summarySmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
-            
+
             // Calculate and display return
             const smartKidsReturn = ((smartKidsTarget - totalContributions) / totalContributions * 100).toFixed(1);
             document.getElementById('summaryReturn').textContent = `+${smartKidsReturn}%`;
-            
+
+            const effectiveCostsRate = parseFloat(document.getElementById('effectiveCosts').value) || 0;
+            const durationTo40 = Math.max(0, Math.min(40 - childAge, duration));
+            const totalContributionsTo40 = startCapital + (monthlyAmount * 12 * durationTo40);
+            const closingCosts = totalContributionsTo40 * 0.025;
+
+            const percentFormatter = typeof window.__fmtPct === 'function'
+                ? window.__fmtPct
+                : (value) => `${(Number(value) || 0).toFixed(2).replace('.', ',')} %`;
+
+            document.getElementById('summaryEffectiveCosts').textContent = `${percentFormatter(effectiveCostsRate)} p.a.`;
+            document.getElementById('summaryClosingCosts').textContent = formatCurrency(closingCosts);
+
             // Update result cards
             if (calculationData.totalContributions) {
                 document.getElementById('summaryContributions').textContent = formatCurrency(calculationData.totalContributions);
@@ -3484,7 +3505,46 @@ document.addEventListener('DOMContentLoaded', function(){
             }
           },
           plugins: {
-            legend: { display:false },
+            legend: {
+              position: 'bottom',
+              onClick(evt, legendItem, legend) {
+                const chart = legend?.chart;
+                if (!chart) return;
+                chart.toggleDataVisibility(legendItem.index);
+                chart.update();
+              },
+              labels: {
+                usePointStyle: true,
+                boxWidth: 12,
+                padding: 16,
+                color: '#0f172a',
+                font: {
+                  weight: 600
+                },
+                generateLabels(chart) {
+                  const dataset = chart.data.datasets?.[0];
+                  if (!dataset) {
+                    return [];
+                  }
+                  return chart.data.labels.map((label, index) => {
+                    const value = Array.isArray(dataset.data) ? dataset.data[index] : undefined;
+                    const baseColors = dataset.bar3dBaseColors || dataset.backgroundColor || [];
+                    const fill = Array.isArray(baseColors) ? baseColors[index] : baseColors;
+                    const borderColors = dataset.borderColor || [];
+                    const stroke = Array.isArray(borderColors) ? borderColors[index] : borderColors;
+                    return {
+                      text: `${label} – ${fmtPct(Number(value) || 0)}`,
+                      fillStyle: fill || '#0f172a',
+                      strokeStyle: stroke || '#0f172a',
+                      lineWidth: 1,
+                      hidden: chart.getDataVisibility(index) === false,
+                      index,
+                      datasetIndex: 0
+                    };
+                  });
+                }
+              }
+            },
             tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } },
             valueLabels: {
               color: '#0f172a',
@@ -3538,7 +3598,8 @@ document.addEventListener('DOMContentLoaded', function(){
             hoverBackgroundColor: fills,
             borderColor: borders,
             borderWidth: 1.5,
-            hoverOffset: 12
+            hoverOffset: 12,
+            legendBaseColors: palette
           }]
         },
         options: {
@@ -3547,6 +3608,12 @@ document.addEventListener('DOMContentLoaded', function(){
           plugins: {
             legend: {
               position: 'bottom',
+              onClick(evt, legendItem, legend) {
+                const chart = legend?.chart;
+                if (!chart) return;
+                chart.toggleDataVisibility(legendItem.index);
+                chart.update();
+              },
               labels: {
                 usePointStyle: true,
                 boxWidth: 12,
@@ -3554,6 +3621,34 @@ document.addEventListener('DOMContentLoaded', function(){
                 color: '#0f172a',
                 font: {
                   weight: 600
+                },
+                generateLabels(chart) {
+                  const dataset = chart.data.datasets?.[0];
+                  if (!dataset) {
+                    return [];
+                  }
+                  const totals = Array.isArray(dataset.data) ? dataset.data : [];
+                  const totalValue = totals.reduce((sum, value) => {
+                    const numeric = Number(value);
+                    return sum + (isFinite(numeric) ? numeric : 0);
+                  }, 0);
+                  return chart.data.labels.map((label, index) => {
+                    const value = Number(totals[index]) || 0;
+                    const percentage = totalValue === 0 ? 0 : (value / totalValue) * 100;
+                    const baseColors = dataset.legendBaseColors || dataset.backgroundColor || [];
+                    const fill = Array.isArray(baseColors) ? baseColors[index] : baseColors;
+                    const borderColors = dataset.borderColor || [];
+                    const stroke = Array.isArray(borderColors) ? borderColors[index] : borderColors;
+                    return {
+                      text: `${label} – ${fmtPct(percentage)}`,
+                      fillStyle: fill || '#0f172a',
+                      strokeStyle: stroke || '#0f172a',
+                      lineWidth: 1,
+                      hidden: chart.getDataVisibility(index) === false,
+                      index,
+                      datasetIndex: 0
+                    };
+                  });
                 }
               }
             },
@@ -3580,6 +3675,7 @@ document.addEventListener('DOMContentLoaded', function(){
       chartInstance.data.datasets[0].backgroundColor = fills;
       chartInstance.data.datasets[0].hoverBackgroundColor = fills;
       chartInstance.data.datasets[0].borderColor = borders;
+      chartInstance.data.datasets[0].legendBaseColors = palette;
       chartInstance.update();
     }
   }
