@@ -7,13 +7,11 @@
 <title>SmartKidsInvest - Professionelle Investmentberatung</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://html2canvas.herokuapp.com/dist/html2canvas.min.js"></script>
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
         * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
@@ -156,7 +154,7 @@
             border-bottom-color: #fbbf24;
             transform: translateY(-2px);
         }
-        
+
         .nav-step {
             display: inline-flex;
             align-items: center;
@@ -170,6 +168,33 @@
             font-weight: 700;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .print-footer {
+            display: none;
+            background: #0e1e3a;
+            color: #f8fafc;
+            padding: 2rem 1.5rem;
+        }
+
+        .print-footer .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
+        }
+
+        .print-footer img {
+            height: 48px;
+            width: auto;
+        }
+
+        .print-footer .footer-text {
+            font-size: 0.85rem;
+            color: rgba(248, 250, 252, 0.9);
         }
         
         .nav-tab.active .nav-step {
@@ -194,6 +219,33 @@
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
+        }
+
+        .card.card-compact {
+            padding: 1.75rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .card.card-compact .card-title {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .card.card-compact .summary-section {
+            padding: 1.1rem 1.4rem;
+            margin-bottom: 0;
+            border-radius: 12px;
+            box-shadow: none;
+        }
+
+        .card.card-compact .summary-item {
+            padding: 0.55rem 0;
+        }
+
+        .card.card-compact .summary-label,
+        .card.card-compact .summary-value {
+            font-size: 0.85rem;
         }
         
         .card::before {
@@ -388,7 +440,12 @@
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
-        
+
+        .result-icon {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+        }
+
         .result-card.primary {
             border-color: #1e40af;
             background: linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
@@ -433,7 +490,26 @@
         .result-card.neutral .result-value {
             color: #64748b;
         }
-        
+
+        .summary-results-card .result-card {
+            padding: 1.1rem 0.75rem;
+            min-height: 150px;
+        }
+
+        .summary-results-card .result-icon {
+            font-size: 2.3rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .summary-results-card h3 {
+            font-size: 1.1rem !important;
+            margin-bottom: 0.85rem !important;
+        }
+
+        .summary-results-card .result-value {
+            font-size: 1.4rem;
+        }
+
         .advantage-highlight {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 50%, #1e40af 100%);
             color: #ffffff;
@@ -712,16 +788,25 @@
             body * {
                 visibility: hidden;
             }
-            
+
             #page-zusammenfassung, #page-zusammenfassung * {
                 visibility: visible;
             }
-            
+
+            .print-footer,
+            .print-footer * {
+                visibility: visible;
+            }
+
             #page-zusammenfassung {
                 position: absolute;
                 left: 0;
                 top: 0;
                 width: 100%;
+                padding-bottom: 0;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
             }
             
             .nav-container, .btn-primary, .btn-secondary {
@@ -746,6 +831,19 @@
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
                 padding: 1rem;
+            }
+
+            .card.card-compact {
+                padding: 0.6rem 0.75rem;
+            }
+
+            .card.card-compact .summary-section {
+                padding: 0.6rem 0.75rem;
+            }
+
+            .card.card-compact .summary-label,
+            .card.card-compact .summary-value {
+                font-size: 0.8rem;
             }
             
             .insurance-section {
@@ -793,7 +891,7 @@
 .pro-table thead th{background:#f8fafc; padding:.75rem 1rem; font-weight:700; font-size:.9rem; color:#0f172a; border-bottom:1px solid #e5e7eb; text-align:left}
 .pro-table tbody td{padding:.5rem 1rem; border-bottom:1px solid #f1f5f9; vertical-align:middle}
 .pro-table tbody tr:last-child td{border-bottom:0}
-.pro-table td.num, .pro-table th.num{text-align:right}
+.pro-table td.num, .pro-table th.num{text-align:center}
 .pro-table input{height:38px; padding:.5rem .75rem; border:1px solid #e5e7eb; border-radius:10px; background:#f9fafb; width:100%}
 .pro-table tfoot td{background:#f9fafb; font-weight:700; padding:.75rem 1rem; border-top:1px solid #e5e7eb}
 .summary-section.strong{border:2px solid #1e3a8a; background:linear-gradient(180deg,#f8fbff, #f0f7ff)}
@@ -812,6 +910,40 @@
 /* Center-align numeric inputs in fund table */
 #fundTable td.num input[type="number"] { text-align: center; }
 
+#fundTable .portfolioReturnCell { text-align: center; }
+#fundTable .summary-label-cell { text-align: center; font-weight: 600; }
+#fundTable .total-return-cell { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; font-weight: 700; }
+#fundTable .total-return-label { font-size: 0.85rem; color: #475569; }
+#fundTable .total-return-value { font-variant-numeric: tabular-nums; }
+
+        .portfolio-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .chart-shell {
+            position: relative;
+            height: 320px;
+        }
+
+        .chart-shell canvas {
+            position: absolute;
+            inset: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            .chart-shell {
+                height: 280px;
+            }
+            .portfolio-chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
 /* Smaller, subtler trash icon */
 .icon-btn { height: 1.75rem; width: 1.75rem; display:inline-flex; align-items:center; justify-content:center; border-radius: .5rem; }
 .icon-btn svg { width: 14px; height: 14px; opacity: .7; }
@@ -821,7 +953,104 @@
 
 /* Ensure Vorteile grid spans full width and cards can sit in columns */
 #page-summary .card.w-full.max-w-none { max-width: none; }
-#page-summary .card .card { width: 100%; }
+.summary-advantages-card {
+    overflow: hidden;
+    padding: 1.75rem 2rem;
+}
+
+.summary-advantages-card h2 {
+    margin-bottom: 1.25rem !important;
+}
+
+.summary-advantages-row {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 0.75rem;
+    margin: 0 -0.5rem;
+    scroll-snap-type: x proximity;
+}
+
+.summary-advantages-row .card {
+    flex: 1 0 260px;
+    scroll-snap-align: start;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+.summary-advantages-row .feature-row {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+}
+
+.summary-advantages-row .feature-row svg {
+    width: 16px;
+    height: 16px;
+}
+
+.summary-advantages-row::-webkit-scrollbar {
+    height: 8px;
+}
+
+    
+.summary-advantages-row::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.35);
+    border-radius: 9999px;
+}
+
+@media (max-width: 768px) {
+    .summary-advantages-card {
+        padding: 1.5rem;
+    }
+
+    .summary-advantages-row {
+        margin: 0;
+    }
+}
+
+@media (min-width: 1024px) {
+    .summary-advantages-row {
+        margin: 0;
+        overflow-x: visible;
+    }
+
+    .summary-advantages-row .card {
+        flex: 1 1 0;
+    }
+}
+
+@media print {
+    .summary-advantages-row {
+        margin: 0;
+        overflow: visible;
+    }
+
+    .summary-advantages-card {
+        padding: 1rem 1.25rem !important;
+    }
+
+    .summary-advantages-row {
+        gap: 0.75rem;
+    }
+
+    .summary-advantages-row .card {
+        flex: 1 1 0;
+        padding: 0.75rem 0.9rem;
+        box-shadow: none;
+        border: 1px solid #dbe1f1;
+    }
+
+    .summary-advantages-row .feature-row {
+        font-size: 0.75rem;
+        padding: 0.25rem 0;
+    }
+
+    .summary-advantages-row .feature-row svg {
+        width: 14px;
+        height: 14px;
+    }
+}
 </style>
 <!-- Professional redesign overrides (no HTML changes) -->
 <style>
@@ -956,7 +1185,8 @@ body,button,input,select{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoo
 @media print{
   body{background:#fff!important}
   .card,.page-header,.summary-section,.insurance-section{box-shadow:none!important;border:1px solid #dfe3e8!important}
-  .result-value{font-size:1.1rem!important}
+  .result-card h3{font-size:1.1rem!important}
+  .result-value{font-size:1rem!important}
 }
 
 /* Focus-visible for accessibility */
@@ -1027,15 +1257,24 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <style>
 @media print {
   .no-print { display: none !important; }
-  .print-footer {
-    display: block !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem 2rem;
-    background-color: white;
-    border-top: 1px solid #ccc;
+  .print-footer { display: none !important; }
+  .print-footer.print-footer-inline {
+    display: flex !important;
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2rem 1.5rem !important;
+    margin-top: auto;
+    background: #0e1e3a !important;
+    color: #f8fafc !important;
+    border-top: none;
+    justify-content: center;
+  }
+  .print-footer.print-footer-inline .footer-inner {
+    flex-direction: column;
   }
 }
 </style>
@@ -1220,21 +1459,26 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
             .no-print {
                 display: none !important;
             }
-            
+
             .print-break-inside-avoid {
                 break-inside: avoid;
             }
-            
+
             .print-break-before {
                 break-before: page;
             }
-            
+
+            html {
+                zoom: 0.9;
+            }
+
             body {
                 background-color: white;
                 padding: 0;
                 margin: 0;
+                padding-bottom: 200px;
             }
-            
+
             .container {
                 max-width: 100% !important;
                 width: 100% !important;
@@ -1251,15 +1495,11 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         }
     
 @media print {
-  .print-footer {
-    display: block !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem 2rem;
-    background-color: white;
-    border-top: 1px solid #ccc;
+  .print-footer.print-footer-inline {
+    padding: 1.5rem 2rem !important;
+    background-color: #0e1e3a !important;
+    color: #f8fafc !important;
+    border-top: none;
   }
 }
 
@@ -1587,34 +1827,19 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <th class="num"></th>
 </tr>
 </thead>
-<tbody id="fundTableBody">
+<tbody id="fundTableBody"></tbody>
+<tfoot>
 <tr>
-<td><input type="text" value="MSCI World ETF"/></td>
-<td class="num"><input step="0.01" type="number" value="50"/></td>
-<td class="num"><input step="0.01" type="number" value="8.0"/></td>
-<td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
+<td class="summary-label-cell">Summen:</td>
+<td class="num" id="sumWeightsCell">0,00 %</td>
+<td class="num"></td>
+<td class="num total-return-cell"><span class="total-return-label">Gesamtrendite</span><span class="total-return-value" id="sumPortfolioCell">0,00 %</span></td>
+<td></td>
 </tr>
-<tr>
-<td><input type="text" value="Europe Value Fund"/></td>
-<td class="num"><input step="0.01" type="number" value="30"/></td>
-<td class="num"><input step="0.01" type="number" value="6.5"/></td>
-<td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
-</tr>
-<tr>
-<td><input type="text" value="Emerging Markets ETF"/></td>
-<td class="num"><input step="0.01" type="number" value="20"/></td>
-<td class="num"><input step="0.01" type="number" value="9.5"/></td>
-<td class="num cell-strong portfolioReturnCell">0,00 %</td>
-<td class="num"><button aria-label="Zeile löschen" class="icon-btn btn-remove"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path></svg></button></td>
-</tr>
-</tbody>
-<tfoot><tr><td>Summen:</td><td class="num" id="sumWeightsCell">0,00 %</td><td class="num">Gesamtrendite:</td><td class="num" id="sumPortfolioCell">0,00 %</td><td></td></tr></tfoot>
+</tfoot>
 </table>
 </div>
 </div>
-<div class="grid-2">
 <div class="card">
 <h2 class="card-title">Zusammenfassung</h2>
 <div class="summary-section strong">
@@ -1632,9 +1857,15 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
+<div class="portfolio-chart-grid">
 <div class="card">
 <h2 class="card-title">Gesamtübersicht</h2>
-<div class="chart-wrap"><canvas height="420" id="chartSummaryBar" width="420"></canvas></div></div>
+<div class="chart-shell"><canvas id="chartSummaryBar"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="chartAllocationPie"></canvas></div>
+</div>
 </div>
 <div class="text-center mt-8 space-x-4">
 <button class="btn-secondary" onclick="showPage('berechnung')">Zurück</button>
@@ -2124,7 +2355,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
 </div>
 <div class="grid-2 mb-6">
-<div class="card">
+<div class="card card-compact">
 <h2 class="card-title">Beratungsdetails</h2>
 <div class="summary-section">
 <div class="summary-item">
@@ -2145,7 +2376,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
-<div class="card">
+<div class="card card-compact">
 <h2 class="card-title">Anlageparameter</h2>
 <div class="summary-section">
 <div class="summary-item">
@@ -2168,40 +2399,101 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <span class="summary-label">📈 Erwartete Rendite:</span>
 <span class="summary-value" id="summaryReturn">-</span>
 </div>
+<div class="summary-item">
+<span class="summary-label">💸 Effektivkosten:</span>
+<span class="summary-value" id="summaryEffectiveCosts">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">🧾 Abschlusskosten:</span>
+<span class="summary-value" id="summaryClosingCosts">-</span>
+</div>
+</div>
+</div>
+</div>
+<div class="card summary-advantages-card mb-6">
+    <h2 class="card-title">Warum SmartKidsInvest?</h2>
+    <div class="summary-advantages-row">
+        <div class="card">
+            <div class="card-title"><span class="pill spar">Sparbuch</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="pill depot">Depot</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="pill ski">SmartKidsInvest Konzept</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+    </div>
+</div>
+<div class="card mb-6 summary-results-card">
+<h2 class="card-title">Berechnungsergebnisse</h2>
+<div class="grid-4 mb-3">
+<div class="result-card neutral">
+<div aria-hidden="true" class="result-icon">💰</div>
+<h3 style="font-weight: 800;">Ihre Einzahlungen</h3>
+<div class="result-value" id="summaryContributions">-</div>
+<p style="font-size: 0.95rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
+</div>
+<div class="result-card primary">
+<img alt="SmartKidsInvest" src="smartkids-logo.png" style="height:60px; margin: 0 auto 1rem auto; display:block;"/>
+<h3 style="font-weight: 800;">SmartKidsInvest</h3>
+<div class="result-value" id="summarySmartKids">-</div>
+<p id="smartKidsReturn" style="font-size: 1rem; color: #1e3a8a; font-weight: 700;">-</p>
+</div>
+<div class="result-card success">
+<div aria-hidden="true" class="result-icon">🏦</div>
+<h3 style="font-weight: 800;">Sparbuch</h3>
+<div class="result-value" id="summarySavings">-</div>
+<p id="savingsReturn" style="font-size: 1rem; color: #059669; font-weight: 700;">-</p>
+</div>
+<div class="result-card warning">
+<div aria-hidden="true" class="result-icon">🏠</div>
+<h3 style="font-weight: 800;">Bausparvertrag</h3>
+<div class="result-value" id="summaryBuilding">-</div>
+<p id="buildingReturn" style="font-size: 1rem; color: #d97706; font-weight: 700;">-</p>
 </div>
 </div>
 </div>
 <div class="card mb-6">
-<h2 class="card-title">Berechnungsergebnisse</h2>
-<div class="grid-4 mb-4">
-<div class="result-card neutral">
-<div style="font-size: 3.5rem; margin-bottom: 1.5rem;">💰</div>
-<h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Ihre Einzahlungen</h3>
-<div class="result-value" id="summaryContributions">-</div>
-<p style="font-size: 1.125rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
+    <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
+    <div style="position: relative; height: 340px; width: 100%;">
+        <canvas id="summaryChart"></canvas>
+    </div>
 </div>
-<div class="result-card primary">
-<img alt="SmartKidsInvest" src="smartkids-logo.png" style="height:70px; margin: 0 auto 1.5rem auto; display:block;"/>
-<h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">SmartKidsInvest</h3>
-<div class="result-value" id="summarySmartKids">-</div>
-<p id="smartKidsReturn" style="font-size: 1.125rem; color: #1e3a8a; font-weight: 700;">-</p>
-</div>
-<div class="result-card success">
-<div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🏦</div>
-<h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Sparbuch</h3>
-<div class="result-value" id="summarySavings">-</div>
-<p id="savingsReturn" style="font-size: 1.125rem; color: #059669; font-weight: 700;">-</p>
-</div>
-<div class="result-card warning">
-<div style="font-size: 3.5rem; margin-bottom: 1.5rem;">🏠</div>
-<h3 style="font-weight: 800; margin-bottom: 1.5rem; font-size: 1.375rem;">Bausparvertrag</h3>
-<div class="result-value" id="summaryBuilding">-</div>
-<p id="buildingReturn" style="font-size: 1.125rem; color: #d97706; font-weight: 700;">-</p>
-</div>
+<div class="card mb-6">
+<h2 class="card-title">Ihre gewählte Gesellschaft</h2>
+<div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+<!-- Company info will be dynamically inserted here -->
 </div>
 </div>
 <div class="card mb-6" id="summaryFundsCard">
-<h2 class="card-title">Fondsportfolio (aus Seite 3)</h2>
+<h2 class="card-title">Fondsportfolio</h2>
 <div class="summary-section">
 <div style="overflow-x:auto">
 <table class="pro-table" id="summaryFundTable">
@@ -2228,16 +2520,14 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
-<div class="card mb-6">
-<h2 class="card-title">Ihre gewählte Gesellschaft</h2>
-<div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-<!-- Company info will be dynamically inserted here -->
+<div class="portfolio-chart-grid mb-6" id="summaryPortfolioCharts">
+<div class="card">
+<h2 class="card-title">Gesamtübersicht</h2>
+<div class="chart-shell"><canvas id="summaryPortfolioBar"></canvas></div>
 </div>
-</div>
-<div class="card mb-6">
-<h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
-<div style="position: relative; height: 400px; width: 100%;">
-<canvas id="summaryChart"></canvas>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
 </div>
 </div>
 <!-- Zusatzabsicherungen Summary -->
@@ -2268,7 +2558,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
                 </p>
 </div>
 <div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('zusammenfassung')">
+<button class="btn-secondary" onclick="showPage('vorteile')">
 <svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20">
 <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
 </svg>
@@ -2288,6 +2578,313 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         let calculationData = {};
         let chart = null;
         let summaryChart = null;
+        const chartStore = {};
+
+        const performancePalette = {
+            contributions: {
+                border: '#475569',
+                gradient: ['rgba(148, 163, 184, 0.35)', 'rgba(100, 116, 139, 0.05)']
+            },
+            smartKids: {
+                border: '#1d4ed8',
+                point: '#2563eb',
+                gradient: ['rgba(37, 99, 235, 0.35)', 'rgba(37, 99, 235, 0.05)']
+            },
+            savings: {
+                border: '#059669',
+                point: '#10b981',
+                gradient: ['rgba(16, 185, 129, 0.3)', 'rgba(16, 185, 129, 0.05)']
+            },
+            building: {
+                border: '#d97706',
+                point: '#f59e0b',
+                gradient: ['rgba(245, 158, 11, 0.28)', 'rgba(245, 158, 11, 0.05)']
+            }
+        };
+
+        const performanceAreaBackground = {
+            id: 'performanceAreaBackground',
+            beforeDraw(chartInstance) {
+                const { ctx: chartCtx, chartArea } = chartInstance;
+                if (!chartArea) return;
+                const { top, bottom, left, right } = chartArea;
+                const gradient = chartCtx.createLinearGradient(0, top, 0, bottom);
+                gradient.addColorStop(0, 'rgba(226, 232, 240, 0.25)');
+                gradient.addColorStop(1, 'rgba(248, 250, 252, 0.05)');
+
+                chartCtx.save();
+                chartCtx.fillStyle = gradient;
+                chartCtx.fillRect(left, top, right - left, bottom - top);
+                chartCtx.restore();
+            }
+        };
+
+        const performanceGlow = {
+            id: 'performanceGlow',
+            afterDatasetsDraw(chartInstance) {
+                const { ctx: chartCtx } = chartInstance;
+                chartCtx.save();
+                chartInstance.data.datasets.forEach((dataset, index) => {
+                    if (!dataset.enableGlow) return;
+                    const meta = chartInstance.getDatasetMeta(index);
+                    if (meta.hidden) return;
+
+                    chartCtx.shadowColor = dataset.borderColor;
+                    chartCtx.shadowBlur = 14;
+                    chartCtx.shadowOffsetX = 0;
+                    chartCtx.shadowOffsetY = 0;
+                    meta.dataset.draw(chartCtx);
+                });
+                chartCtx.restore();
+            }
+        };
+
+        function buildPerformanceGradient(context, colors) {
+            const { chart } = context;
+            const { ctx: gradientCtx, chartArea } = chart || {};
+            if (!chartArea) {
+                return colors[0];
+            }
+            const gradient = gradientCtx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, colors[0]);
+            gradient.addColorStop(1, colors[1]);
+            return gradient;
+        }
+
+        function generatePerformanceSeries() {
+            if (!calculationData || !('duration' in calculationData)) {
+                return null;
+            }
+
+            const years = [];
+            const smartKidsData = [];
+            const savingsData = [];
+            const buildingData = [];
+            const contributionsData = [];
+
+            const {
+                childAge = 0,
+                startCapital = 0,
+                monthlyAmount = 0,
+                smartKidsTarget = 0,
+                duration = 0
+            } = calculationData;
+
+            for (let year = 0; year <= duration; year++) {
+                years.push(childAge + year);
+
+                const contributions = startCapital + monthlyAmount * 12 * year;
+                contributionsData.push(contributions);
+
+                const progress = duration === 0 ? 0 : year / duration;
+                const smartKidsValue = startCapital + (smartKidsTarget - startCapital) * progress;
+                smartKidsData.push(smartKidsValue);
+
+                let savingsValue = startCapital;
+                for (let y = 0; y < year; y++) {
+                    savingsValue = savingsValue * 1.005 + monthlyAmount * 12;
+                }
+                savingsData.push(savingsValue);
+
+                let buildingValue = startCapital * 0.99;
+                for (let y = 0; y < year; y++) {
+                    buildingValue = buildingValue * 1.01 + monthlyAmount * 12;
+                }
+                buildingData.push(buildingValue);
+            }
+
+            return { years, smartKidsData, savingsData, buildingData, contributionsData };
+        }
+
+        function createPerformanceDatasets(series) {
+            return [
+                {
+                    label: 'Ihre Einzahlungen',
+                    data: series.contributionsData,
+                    borderColor: performancePalette.contributions.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.contributions.gradient),
+                    borderWidth: 2,
+                    borderDash: [8, 6],
+                    pointRadius: 0,
+                    tension: 0.35,
+                    fill: true,
+                    enableGlow: false
+                },
+                {
+                    label: 'SmartKidsInvest',
+                    data: series.smartKidsData,
+                    borderColor: performancePalette.smartKids.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.smartKids.gradient),
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    pointHoverBorderWidth: 3,
+                    pointHoverBackgroundColor: performancePalette.smartKids.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.38,
+                    fill: true,
+                    enableGlow: true
+                },
+                {
+                    label: 'Sparbuch',
+                    data: series.savingsData,
+                    borderColor: performancePalette.savings.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.savings.gradient),
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: performancePalette.savings.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.32,
+                    fill: true,
+                    enableGlow: true
+                },
+                {
+                    label: 'Bausparvertrag',
+                    data: series.buildingData,
+                    borderColor: performancePalette.building.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.building.gradient),
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: performancePalette.building.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.32,
+                    fill: true,
+                    enableGlow: true
+                }
+            ];
+        }
+
+        function buildPerformanceConfig(series) {
+            return {
+                type: 'line',
+                data: {
+                    labels: series.years,
+                    datasets: createPerformanceDatasets(series)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#0f172a',
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                padding: 18
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: '#0f172a',
+                            borderWidth: 0,
+                            padding: 14,
+                            cornerRadius: 12,
+                            titleFont: {
+                                weight: '700',
+                                size: 14
+                            },
+                            bodyFont: {
+                                weight: '600',
+                                size: 13
+                            },
+                            callbacks: {
+                                label(context) {
+                                    return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Alter des Kindes',
+                                font: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                color: '#0f172a'
+                            },
+                            ticks: {
+                                color: '#475569',
+                                font: {
+                                    weight: '600'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.2)',
+                                drawBorder: false
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Vermögen (€)',
+                                font: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                color: '#0f172a'
+                            },
+                            ticks: {
+                                color: '#475569',
+                                font: {
+                                    weight: '600'
+                                },
+                                callback(value) {
+                                    return formatCurrency(value);
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.18)',
+                                drawBorder: false
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    elements: {
+                        line: {
+                            capBezierPoints: true
+                        }
+                    }
+                },
+                plugins: [performanceAreaBackground, performanceGlow]
+            };
+        }
+
+        function renderPerformanceChart(canvasId, existingChart) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                return existingChart;
+            }
+
+            const ctx = canvas.getContext('2d');
+            if (existingChart) {
+                existingChart.destroy();
+            }
+
+            const series = generatePerformanceSeries();
+            if (!series) {
+                return null;
+            }
+
+            return new Chart(ctx, buildPerformanceConfig(series));
+        }
+
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -2584,156 +3181,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         }
 
         function createComparisonChart() {
-            const ctx = document.getElementById('comparisonChart').getContext('2d');
-            
-            if (chart) {
-                chart.destroy();
-            }
-            
-            const years = [];
-            const smartKidsData = [];
-            const savingsData = [];
-            const buildingData = [];
-            const contributionsData = [];
-            
-            const { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
-            
-            // Generate data points for each year
-            for (let year = 0; year <= duration; year++) {
-                years.push(childAge + year);
-                
-                // Contributions (linear growth)
-                const contributions = startCapital + (monthlyAmount * 12 * year);
-                contributionsData.push(contributions);
-                
-                // SmartKidsInvest (exponential growth towards target)
-                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
-                smartKidsData.push(smartKidsValue);
-                
-                // Savings book (compound interest)
-                let savingsValue = startCapital;
-                for (let y = 0; y < year; y++) {
-                    savingsValue = savingsValue * 1.005 + (monthlyAmount * 12);
-                }
-                savingsData.push(savingsValue);
-                
-                // Building savings (compound interest with fees)
-                let buildingValue = startCapital * 0.99; // Apply closing fee
-                for (let y = 0; y < year; y++) {
-                    buildingValue = buildingValue * 1.01 + (monthlyAmount * 12);
-                }
-                buildingData.push(buildingValue);
-            }
-            
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        {
-                            label: 'Ihre Einzahlungen',
-                            data: contributionsData,
-                            borderColor: '#64748b',
-                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'SmartKidsInvest',
-                            data: smartKidsData,
-                            borderColor: '#1e40af',
-                            backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                            borderWidth: 4,
-                            fill: false,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Sparbuch',
-                            data: savingsData,
-                            borderColor: '#059669',
-                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Bausparvertrag',
-                            data: buildingData,
-                            borderColor: '#d97706',
-                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                },
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Alter des Kindes',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        y: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Vermögen (€)',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
-                }
-            });
+            chart = renderPerformanceChart('comparisonChart', chart);
         }
 
         function updateSummary() {
@@ -2748,11 +3196,16 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
                 const date = new Date(dateValue);
                 const formattedDate = date.toLocaleDateString('de-DE');
                 document.getElementById('summaryDate').textContent = formattedDate;
-            
-  try { if (typeof recalc === 'function') recalc(); } catch(e) {}
-}
-else {
+            } else {
                 document.getElementById('summaryDate').textContent = '-';
+            }
+
+            try {
+                if (typeof recalc === 'function') {
+                    recalc();
+                }
+            } catch (e) {
+                console.error('Recalc failed inside updateSummary', e);
             }
             
             // Update company info in summary
@@ -2773,11 +3226,23 @@ else {
             document.getElementById('summaryMonthly').textContent = formatCurrency(monthlyAmount);
             document.getElementById('summaryDuration').textContent = duration + ' Jahre';
             document.getElementById('summarySmartKidsTarget').textContent = formatCurrency(smartKidsTarget);
-            
+
             // Calculate and display return
             const smartKidsReturn = ((smartKidsTarget - totalContributions) / totalContributions * 100).toFixed(1);
             document.getElementById('summaryReturn').textContent = `+${smartKidsReturn}%`;
-            
+
+            const effectiveCostsRate = parseFloat(document.getElementById('effectiveCosts').value) || 0;
+            const durationTo40 = Math.max(0, Math.min(40 - childAge, duration));
+            const totalContributionsTo40 = startCapital + (monthlyAmount * 12 * durationTo40);
+            const closingCosts = totalContributionsTo40 * 0.025;
+
+            const percentFormatter = typeof window.__fmtPct === 'function'
+                ? window.__fmtPct
+                : (value) => `${(Number(value) || 0).toFixed(2).replace('.', ',')} %`;
+
+            document.getElementById('summaryEffectiveCosts').textContent = `${percentFormatter(effectiveCostsRate)} p.a.`;
+            document.getElementById('summaryClosingCosts').textContent = formatCurrency(closingCosts);
+
             // Update result cards
             if (calculationData.totalContributions) {
                 document.getElementById('summaryContributions').textContent = formatCurrency(calculationData.totalContributions);
@@ -2962,160 +3427,17 @@ else {
         }
 
         function createSummaryChart() {
-            const ctx = document.getElementById('summaryChart').getContext('2d');
-            
-            if (summaryChart) {
-                summaryChart.destroy();
-            }
-            
-            if (!calculationData.duration) {
+            const canvas = document.getElementById('summaryChart');
+            if (!canvas) {
                 return;
             }
-            
-            const years = [];
-            const smartKidsData = [];
-            const savingsData = [];
-            const buildingData = [];
-            const contributionsData = [];
-            
-            const { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
-            
-            // Generate data points for each year
-            for (let year = 0; year <= duration; year++) {
-                years.push(childAge + year);
-                
-                // Contributions (linear growth)
-                const contributions = startCapital + (monthlyAmount * 12 * year);
-                contributionsData.push(contributions);
-                
-                // SmartKidsInvest (exponential growth towards target)
-                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
-                smartKidsData.push(smartKidsValue);
-                
-                // Savings book (compound interest)
-                let savingsValue = startCapital;
-                for (let y = 0; y < year; y++) {
-                    savingsValue = savingsValue * 1.005 + (monthlyAmount * 12);
-                }
-                savingsData.push(savingsValue);
-                
-                // Building savings (compound interest with fees)
-                let buildingValue = startCapital * 0.99; // Apply closing fee
-                for (let y = 0; y < year; y++) {
-                    buildingValue = buildingValue * 1.01 + (monthlyAmount * 12);
-                }
-                buildingData.push(buildingValue);
+
+            if (!('duration' in calculationData) || calculationData.duration === undefined) {
+                return;
             }
-            
-            summaryChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        {
-                            label: 'Ihre Einzahlungen',
-                            data: contributionsData,
-                            borderColor: '#64748b',
-                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'SmartKidsInvest',
-                            data: smartKidsData,
-                            borderColor: '#1e40af',
-                            backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                            borderWidth: 4,
-                            fill: false,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Sparbuch',
-                            data: savingsData,
-                            borderColor: '#059669',
-                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Bausparvertrag',
-                            data: buildingData,
-                            borderColor: '#d97706',
-                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                },
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Alter des Kindes',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        y: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Vermögen (€)',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
-                }
-            });
+
+            summaryChart = renderPerformanceChart('summaryChart', summaryChart);
+            window.summaryChart = summaryChart || null;
         }
 
         function updateSummaryCompanyInfo() {
@@ -3273,7 +3595,68 @@ else {
 document.addEventListener('DOMContentLoaded', function(){
   // Utilities
   const fmtPct = (v)=> new Intl.NumberFormat('de-DE',{minimumFractionDigits:2, maximumFractionDigits:2}).format(v) + " %";
-  const getPalette = (n)=> Array.from({length:n}, (_,i)=> `hsl(${Math.round((360/n)*i)} 70% 50%)`);
+  window.__fmtPct = fmtPct;
+  const paletteBase = ['#2563eb','#d97706','#059669','#9333ea','#f97316','#0ea5e9','#f43f5e','#6366f1','#22c55e','#d946ef'];
+  const getPalette = (n)=> Array.from({length:n}, (_,i)=> paletteBase[i % paletteBase.length]);
+
+  const colorNormalizerCtx = document.createElement('canvas').getContext('2d');
+  function normalizeColor(color){
+    try {
+      colorNormalizerCtx.fillStyle = '#000000';
+      colorNormalizerCtx.fillStyle = color;
+      return colorNormalizerCtx.fillStyle;
+    } catch (e) {
+      return '#d4af37';
+    }
+  }
+
+  function shadeColor(color, percent){
+    const normalized = normalizeColor(color).trim();
+    let r = 212, g = 175, b = 55;
+    if (normalized.startsWith('#')) {
+      const hex = normalized.slice(1);
+      const value = parseInt(hex.length === 3 ? hex.split('').map(ch => ch + ch).join('') : hex, 16);
+      r = (value >> 16) & 255;
+      g = (value >> 8) & 255;
+      b = value & 255;
+    } else {
+      const match = normalized.match(/rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+      if (match) {
+        r = parseInt(match[1], 10);
+        g = parseInt(match[2], 10);
+        b = parseInt(match[3], 10);
+      }
+    }
+    const t = percent < 0 ? 0 : 255;
+    const p = Math.min(1, Math.max(0, Math.abs(percent)));
+    const R = Math.round((t - r) * p) + r;
+    const G = Math.round((t - g) * p) + g;
+    const B = Math.round((t - b) * p) + b;
+    return `rgb(${R}, ${G}, ${B})`;
+  }
+
+  function create3DGradient(ctx, color){
+    const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height || 300);
+    gradient.addColorStop(0, shadeColor(color, 0.35));
+    gradient.addColorStop(0.3, shadeColor(color, 0.1));
+    gradient.addColorStop(0.65, shadeColor(color, -0.05));
+    gradient.addColorStop(1, shadeColor(color, -0.3));
+    return gradient;
+  }
+
+  function createArcGradient(ctx, color){
+    const width = ctx.canvas.clientWidth || ctx.canvas.width || 320;
+    const height = ctx.canvas.clientHeight || ctx.canvas.height || 320;
+    const radius = Math.max(width, height) / 2;
+    const cx = width / 2;
+    const cy = height / 2;
+    const gradient = ctx.createRadialGradient(cx, cy, radius * 0.15, cx, cy, radius);
+    gradient.addColorStop(0, shadeColor(color, 0.35));
+    gradient.addColorStop(0.45, shadeColor(color, 0.05));
+    gradient.addColorStop(0.75, shadeColor(color, -0.1));
+    gradient.addColorStop(1, shadeColor(color, -0.35));
+    return gradient;
+  }
 
   const tbody = document.getElementById('fundTableBody');
   if(!tbody) return;
@@ -3333,38 +3716,226 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  let cBar, cRet, cWei, cR5;
-  function ensureCharts(labels, retByFund, weights, r5s, summaryVals){
-    const pal = getPalette(labels.length || 3);
+  function syncBarChart(canvasId, palette, summaryVals){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return;
 
-    // Bar
-    const ctxB = document.getElementById('chartSummaryBar').getContext('2d');
-    if(!cBar){
-      cBar = new Chart(ctxB, {
+    const ctx = canvas.getContext('2d');
+    const gradients = palette.map(color => create3DGradient(ctx, color));
+    const borders = palette.map(color => shadeColor(color, -0.4));
+    const datasetConfig = {
+      data: summaryVals,
+      backgroundColor: gradients,
+      borderColor: borders,
+      borderWidth: 1.5,
+      borderRadius: 8,
+      hoverBackgroundColor: gradients,
+      maxBarThickness: 64,
+      bar3dBaseColors: palette
+    };
+
+    if(!chartStore[canvasId]){
+      chartStore[canvasId] = new Chart(ctx, {
         type: 'bar',
-        data: { labels: ['Gesamte Rendite','Effektivkosten','Rendite nach Kosten'],
-                datasets: [{ data: summaryVals, backgroundColor: getPalette(3) }] },
-        options: { responsive:true, maintainAspectRatio:false,
-          plugins: { legend: { display:false }, tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } } },
-          scales: { y: { beginAtZero:true, ticks:{ callback:(v)=> fmtPct(v) } } }
+        data: {
+          labels: ['Gesamte Rendite','Effektivkosten','Rendite nach Kosten'],
+          datasets: [datasetConfig]
+        },
+        options: {
+          responsive:true,
+          maintainAspectRatio:false,
+          datasets: {
+            bar: {
+              borderSkipped: false,
+              categoryPercentage: 0.58,
+              barPercentage: 0.58
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              onClick(evt, legendItem, legend) {
+                const chart = legend?.chart;
+                if (!chart) return;
+                chart.toggleDataVisibility(legendItem.index);
+                chart.update();
+              },
+              labels: {
+                usePointStyle: true,
+                boxWidth: 12,
+                padding: 16,
+                color: '#0f172a',
+                font: {
+                  weight: 600
+                },
+                generateLabels(chart) {
+                  const dataset = chart.data.datasets?.[0];
+                  if (!dataset) {
+                    return [];
+                  }
+                  return chart.data.labels.map((label, index) => {
+                    const value = Array.isArray(dataset.data) ? dataset.data[index] : undefined;
+                    const baseColors = dataset.bar3dBaseColors || dataset.backgroundColor || [];
+                    const fill = Array.isArray(baseColors) ? baseColors[index] : baseColors;
+                    const borderColors = dataset.borderColor || [];
+                    const stroke = Array.isArray(borderColors) ? borderColors[index] : borderColors;
+                    return {
+                      text: `${label} – ${fmtPct(Number(value) || 0)}`,
+                      fillStyle: fill || '#0f172a',
+                      strokeStyle: stroke || '#0f172a',
+                      lineWidth: 1,
+                      hidden: chart.getDataVisibility(index) === false,
+                      index,
+                      datasetIndex: 0
+                    };
+                  });
+                }
+              }
+            },
+            tooltip:{ callbacks:{ label:(ctx)=> fmtPct(ctx.parsed.y) } },
+            valueLabels: {
+              color: '#0f172a',
+              outlineColor: 'rgba(255,255,255,0.85)',
+              outlineWidth: 4,
+              font: { weight: 700, size: 12 },
+              formatter: (value)=> fmtPct(value)
+            }
+          },
+          scales: {
+            x: {
+              grid: { display:false },
+              ticks: { color: '#334155', font: { weight: 600 } }
+            },
+            y: {
+              beginAtZero:true,
+              grid: { color: 'rgba(148, 163, 184, 0.25)' },
+              ticks:{ color: '#475569', callback:(v)=> fmtPct(v) }
+            }
+          }
         }
       });
     } else {
-      cBar.data.datasets[0].data = summaryVals; cBar.update();
+      const chartInstance = chartStore[canvasId];
+      const dataset = chartInstance.data.datasets[0];
+      dataset.data = summaryVals;
+      dataset.backgroundColor = gradients;
+      dataset.borderColor = borders;
+      dataset.hoverBackgroundColor = gradients;
+      dataset.bar3dBaseColors = palette;
+      chartInstance.update();
     }
+  }
 
-    // Doughnuts
-    function doughnut(ctx, ref, data){
-      if(!ref){
-        return new Chart(ctx, { type:'doughnut',
-          data: { labels, datasets:[{ data, backgroundColor: pal }] },
-          options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } } }
-        });
-      } else {
-        ref.data.labels = labels; ref.data.datasets[0].data = data; ref.data.datasets[0].backgroundColor = pal; ref.update(); return ref;
-      }
+  function syncPieChart(canvasId, labels, palette, data){
+    const canvas = document.getElementById(canvasId);
+    if(!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const fills = palette.map(color => createArcGradient(ctx, color));
+    const borders = palette.map(color => shadeColor(color, -0.35));
+
+    if(!chartStore[canvasId]){
+      chartStore[canvasId] = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            backgroundColor: fills,
+            hoverBackgroundColor: fills,
+            borderColor: borders,
+            borderWidth: 1.5,
+            hoverOffset: 12,
+            legendBaseColors: palette
+          }]
+        },
+        options: {
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              onClick(evt, legendItem, legend) {
+                const chart = legend?.chart;
+                if (!chart) return;
+                chart.toggleDataVisibility(legendItem.index);
+                chart.update();
+              },
+              labels: {
+                usePointStyle: true,
+                boxWidth: 12,
+                padding: 16,
+                color: '#0f172a',
+                font: {
+                  weight: 600
+                },
+                generateLabels(chart) {
+                  const dataset = chart.data.datasets?.[0];
+                  if (!dataset) {
+                    return [];
+                  }
+                  const totals = Array.isArray(dataset.data) ? dataset.data : [];
+                  const totalValue = totals.reduce((sum, value) => {
+                    const numeric = Number(value);
+                    return sum + (isFinite(numeric) ? numeric : 0);
+                  }, 0);
+                  return chart.data.labels.map((label, index) => {
+                    const value = Number(totals[index]) || 0;
+                    const percentage = totalValue === 0 ? 0 : (value / totalValue) * 100;
+                    const baseColors = dataset.legendBaseColors || dataset.backgroundColor || [];
+                    const fill = Array.isArray(baseColors) ? baseColors[index] : baseColors;
+                    const borderColors = dataset.borderColor || [];
+                    const stroke = Array.isArray(borderColors) ? borderColors[index] : borderColors;
+                    return {
+                      text: `${label} – ${fmtPct(percentage)}`,
+                      fillStyle: fill || '#0f172a',
+                      strokeStyle: stroke || '#0f172a',
+                      lineWidth: 1,
+                      hidden: chart.getDataVisibility(index) === false,
+                      index,
+                      datasetIndex: 0
+                    };
+                  });
+                }
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.label}: ${fmtPct(ctx.parsed)}`
+              }
+            },
+            valueLabels: {
+              color: '#0f172a',
+              outlineColor: 'rgba(255,255,255,0.85)',
+              outlineWidth: 4,
+              font: { weight: 700, size: 12 },
+              formatter: (value)=> fmtPct(value),
+              pieFormatter: (_, context)=> fmtPct(context.percentage)
+            }
+          }
+        }
+      });
+    } else {
+      const chartInstance = chartStore[canvasId];
+      chartInstance.data.labels = labels;
+      chartInstance.data.datasets[0].data = data;
+      chartInstance.data.datasets[0].backgroundColor = fills;
+      chartInstance.data.datasets[0].hoverBackgroundColor = fills;
+      chartInstance.data.datasets[0].borderColor = borders;
+      chartInstance.data.datasets[0].legendBaseColors = palette;
+      chartInstance.update();
     }
-    
+  }
+
+  function ensureCharts(labels, retByFund, weights, r5s, summaryVals){
+    const palette = getPalette(labels.length || 3);
+    const summaryPalette = getPalette(summaryVals.length || 3);
+
+    syncBarChart('chartSummaryBar', summaryPalette, summaryVals);
+    syncBarChart('summaryPortfolioBar', summaryPalette, summaryVals);
+
+    syncPieChart('chartAllocationPie', labels, palette, weights);
+    syncPieChart('summaryAllocationPie', labels, palette, weights);
   }
 
   function recalc(){
@@ -3443,11 +4014,12 @@ ensureCharts(
 </div>
 </footer>
 <!-- Footer für Druckversion auf letzter Seite -->
-<footer class="print-footer hidden no-print:block">
-<div class="text-center text-sm text-gray-600 mt-12 border-t pt-4">
-<img alt="SmartKidsInvest Logo" class="h-10 mx-auto mb-2" src="Logo_transparent-removebg-preview (1).png"/>
-<p>SmartKidsInvest – Lise-Meitner-Straße 9, 24223 Schwentinental</p>
-<p>info@smartkidsinvest.de</p>
+<footer class="print-footer">
+<div class="footer-inner">
+<img alt="SmartKidsInvest Logo" src="smartkids-logo.png"/>
+<p class="font-bold text-lg">SmartKidsInvest</p>
+<p class="footer-text">Lise-Meitner-Straße 9 · 24223 Schwentinental</p>
+<p class="footer-text">info@smartkidsinvest.de · © SmartKidsInvest – Alle Rechte vorbehalten</p>
 </div>
 </footer>
 <script id="progress-controller">
@@ -3492,6 +4064,137 @@ ensureCharts(
 })();
 </script>
 
+<script id="chart-value-labels">
+(function(){
+  function formatPercent(value){
+    if (typeof window.__fmtPct === 'function') {
+      return window.__fmtPct(value);
+    }
+    const numeric = Number(value) || 0;
+    return `${numeric.toFixed(2).replace('.', ',')} %`;
+  }
+
+  function resolveFont(options){
+    const defaults = (window.Chart && Chart.defaults && Chart.defaults.font) || {};
+    const weight = options?.weight || '600';
+    const size = options?.size || defaults.size || 12;
+    const family = options?.family || defaults.family || 'sans-serif';
+    const style = options?.style ? options.style + ' ' : '';
+    return {
+      string: `${style}${weight} ${size}px ${family}`,
+      size,
+      weight,
+      family
+    };
+  }
+
+  const plugin = {
+    id: 'valueLabels',
+    afterDatasetsDraw(chart, args, pluginOptions) {
+      const opts = pluginOptions || {};
+      if (opts.display === false) return;
+
+      const { ctx, chartArea } = chart;
+      if (!ctx || !chartArea) return;
+
+      const color = opts.color || '#0f172a';
+      const outlineColor = opts.outlineColor || 'rgba(255,255,255,0.85)';
+      const outlineWidth = opts.outlineWidth ?? 3;
+      const offset = opts.offset ?? 12;
+      const font = resolveFont(opts.font || {});
+
+      ctx.save();
+      ctx.font = font.string;
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+
+      chart.data.datasets.forEach((dataset, datasetIndex) => {
+        const meta = chart.getDatasetMeta(datasetIndex);
+        if (!meta || meta.hidden) return;
+        const type = (dataset.type || meta.type || chart.config.type);
+
+        if (type === 'bar') {
+          meta.data.forEach((element, index) => {
+            const rawValue = dataset.data[index];
+            const numeric = Number(rawValue);
+            if (!isFinite(numeric)) return;
+
+            const formatter = typeof opts.formatter === 'function' ? opts.formatter : formatPercent;
+            const text = formatter(numeric, { chart, dataset, dataIndex: index, datasetIndex });
+            if (!text) return;
+
+            const { x, y } = element.tooltipPosition();
+            const isNegative = numeric < 0;
+            let labelY = y + (isNegative ? offset : -offset);
+            if (!isNegative && labelY < chartArea.top + 10) {
+              labelY = chartArea.top + 10;
+            }
+            if (isNegative && labelY > chartArea.bottom - 4) {
+              labelY = chartArea.bottom - 4;
+            }
+
+            ctx.textBaseline = isNegative ? 'top' : 'bottom';
+
+            if (outlineWidth > 0) {
+              ctx.lineWidth = outlineWidth;
+              ctx.strokeStyle = outlineColor;
+              ctx.strokeText(text, x, labelY);
+            }
+            ctx.fillText(text, x, labelY);
+          });
+        } else if (type === 'pie' || type === 'doughnut') {
+          const total = dataset.data.reduce((sum, value) => {
+            const numericValue = Number(value);
+            return sum + (isFinite(numericValue) ? numericValue : 0);
+          }, 0);
+          meta.data.forEach((element, index) => {
+            const rawValue = dataset.data[index];
+            const numeric = Number(rawValue);
+            if (!isFinite(numeric) || numeric === 0) return;
+
+            const percentage = total === 0 ? 0 : (numeric / total) * 100;
+            const formatter = typeof opts.pieFormatter === 'function'
+              ? opts.pieFormatter
+              : (value, context) => formatPercent(context.percentage);
+            const text = formatter(numeric, {
+              chart,
+              dataset,
+              dataIndex: index,
+              datasetIndex,
+              percentage
+            });
+            if (!text) return;
+
+            const angle = element.startAngle + (element.endAngle - element.startAngle) / 2;
+            const radius = element.innerRadius + (element.outerRadius - element.innerRadius) * 0.65;
+            const x = element.x + Math.cos(angle) * radius;
+            const y = element.y + Math.sin(angle) * radius;
+
+            ctx.textBaseline = 'middle';
+
+            if (outlineWidth > 0) {
+              ctx.lineWidth = outlineWidth;
+              ctx.strokeStyle = outlineColor;
+              ctx.strokeText(text, x, y);
+            }
+            ctx.fillText(text, x, y);
+          });
+        }
+      });
+
+      ctx.restore();
+    }
+  };
+
+  if (window.Chart) {
+    const existing = Chart.registry?.getPlugin?.('valueLabels');
+    if (!existing) {
+      Chart.register(plugin);
+    }
+  }
+})();
+</script>
+
 <script id="chartjs-3d-bars">
 (function(){
   const ThreeDBar = {
@@ -3503,31 +4206,50 @@ ensureCharts(
       if (type !== 'bar') return;
       const {ctx} = chart;
       const meta = args.meta;
-      const offset = 6;
+      const offset = 8;
       ctx.save();
       meta.data.forEach((bar, i) => {
         const p = bar.getProps(['x','y','base','width','height'], true);
         const x = p.x - p.width/2, y = p.y, w = p.width, h = Math.max(0, p.base - p.y);
         if (w<=0 || h<=0) return;
-        const fill = Array.isArray(ds.backgroundColor)? ds.backgroundColor[i] : (ds.backgroundColor || '#d4af37');
+
+        const baseColor = Array.isArray(ds.bar3dBaseColors)
+          ? ds.bar3dBaseColors[i % ds.bar3dBaseColors.length]
+          : (ds.bar3dBaseColor || ds.bar3dColor || (Array.isArray(ds.backgroundColor) ? ds.backgroundColor[i] : ds.backgroundColor) || '#d4af37');
+
+        const background = Array.isArray(ds.backgroundColor)
+          ? ds.backgroundColor[i % ds.backgroundColor.length]
+          : ds.backgroundColor;
+
         function shade(c, d){
-          let m = (''+c).match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+          if (!c || typeof c !== 'string') return '#d4af37';
+          let m = c.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
           let r,g,b;
           if (m){ r=+m[1]; g=+m[2]; b=+m[3]; }
-          else { const v=parseInt((''+c).replace('#',''),16); r=(v>>16)&255; g=(v>>8)&255; b=v&255; }
+          else {
+            const hex = c.replace('#','');
+            if (!/^[0-9a-fA-F]+$/.test(hex)) return '#d4af37';
+            const v=parseInt(hex.length===3 ? hex.split('').map(ch=>ch+ch).join('') : hex,16);
+            r=(v>>16)&255; g=(v>>8)&255; b=v&255;
+          }
           r=Math.min(255,Math.max(0,r+d)); g=Math.min(255,Math.max(0,g+d)); b=Math.min(255,Math.max(0,b+d));
           return 'rgb('+r+','+g+','+b+')';
         }
+
+        const frontFill = background && typeof background === 'object' && typeof background.addColorStop === 'function'
+          ? background
+          : shade(String(baseColor), -6);
+
         // top
-        ctx.fillStyle = shade(fill,-8);
+        ctx.fillStyle = shade(String(baseColor),12);
         ctx.beginPath();
         ctx.moveTo(x,y); ctx.lineTo(x+offset,y-offset); ctx.lineTo(x+w+offset,y-offset); ctx.lineTo(x+w,y); ctx.closePath(); ctx.fill();
         // side
-        ctx.fillStyle = shade(fill,-18);
+        ctx.fillStyle = shade(String(baseColor),-25);
         ctx.beginPath();
         ctx.moveTo(x+w,y); ctx.lineTo(x+w+offset,y-offset); ctx.lineTo(x+w+offset,y-offset+h); ctx.lineTo(x+w,y+h); ctx.closePath(); ctx.fill();
         // front
-        ctx.fillStyle = shade(fill,-4);
+        ctx.fillStyle = frontFill;
         ctx.fillRect(x,y,w,h);
       });
       ctx.restore();
@@ -3635,6 +4357,52 @@ document.addEventListener('DOMContentLoaded', function(){
         }catch(_){}
       }
     };
+  }
+})();
+</script>
+
+<script id="print-footer-relocator">
+(function(){
+  var footer = document.querySelector('.print-footer');
+  var summaryPage = document.getElementById('page-zusammenfassung');
+  if (!footer || !summaryPage || !footer.parentNode) return;
+
+  var homeParent = footer.parentNode;
+  var placeholder = document.createElement('div');
+  placeholder.className = 'print-footer-placeholder';
+  placeholder.style.display = 'none';
+  homeParent.insertBefore(placeholder, footer.nextSibling);
+
+  function moveFooterForPrint(){
+    if (summaryPage.contains(footer)) return;
+    footer.classList.add('print-footer-inline');
+    summaryPage.appendChild(footer);
+  }
+
+  function restoreFooterAfterPrint(){
+    if (footer.parentNode === homeParent) return;
+    footer.classList.remove('print-footer-inline');
+    if (placeholder.parentNode) {
+      placeholder.parentNode.insertBefore(footer, placeholder);
+    } else {
+      homeParent.appendChild(footer);
+    }
+  }
+
+  window.addEventListener('beforeprint', moveFooterForPrint);
+  window.addEventListener('afterprint', restoreFooterAfterPrint);
+
+  if (window.matchMedia) {
+    var mediaQuery = window.matchMedia('print');
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', function(event){
+        event.matches ? moveFooterForPrint() : restoreFooterAfterPrint();
+      });
+    } else if (typeof mediaQuery.addListener === 'function') {
+      mediaQuery.addListener(function(event){
+        event.matches ? moveFooterForPrint() : restoreFooterAfterPrint();
+      });
+    }
   }
 })();
 </script>
