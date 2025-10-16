@@ -10,10 +10,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://html2canvas.herokuapp.com/dist/html2canvas.min.js"></script>
 <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
         * {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
         
         body {
@@ -2281,6 +2281,311 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         let chart = null;
         let summaryChart = null;
 
+        const performancePalette = {
+            contributions: {
+                border: '#475569',
+                gradient: ['rgba(148, 163, 184, 0.35)', 'rgba(100, 116, 139, 0.05)']
+            },
+            smartKids: {
+                border: '#1d4ed8',
+                point: '#2563eb',
+                gradient: ['rgba(37, 99, 235, 0.35)', 'rgba(37, 99, 235, 0.05)']
+            },
+            savings: {
+                border: '#059669',
+                point: '#10b981',
+                gradient: ['rgba(16, 185, 129, 0.3)', 'rgba(16, 185, 129, 0.05)']
+            },
+            building: {
+                border: '#d97706',
+                point: '#f59e0b',
+                gradient: ['rgba(245, 158, 11, 0.28)', 'rgba(245, 158, 11, 0.05)']
+            }
+        };
+
+        const performanceAreaBackground = {
+            id: 'performanceAreaBackground',
+            beforeDraw(chartInstance) {
+                const { ctx: chartCtx, chartArea } = chartInstance;
+                if (!chartArea) return;
+                const { top, bottom, left, right } = chartArea;
+                const gradient = chartCtx.createLinearGradient(0, top, 0, bottom);
+                gradient.addColorStop(0, 'rgba(226, 232, 240, 0.25)');
+                gradient.addColorStop(1, 'rgba(248, 250, 252, 0.05)');
+
+                chartCtx.save();
+                chartCtx.fillStyle = gradient;
+                chartCtx.fillRect(left, top, right - left, bottom - top);
+                chartCtx.restore();
+            }
+        };
+
+        const performanceGlow = {
+            id: 'performanceGlow',
+            afterDatasetsDraw(chartInstance) {
+                const { ctx: chartCtx } = chartInstance;
+                chartCtx.save();
+                chartInstance.data.datasets.forEach((dataset, index) => {
+                    if (!dataset.enableGlow) return;
+                    const meta = chartInstance.getDatasetMeta(index);
+                    if (meta.hidden) return;
+
+                    chartCtx.shadowColor = dataset.borderColor;
+                    chartCtx.shadowBlur = 14;
+                    chartCtx.shadowOffsetX = 0;
+                    chartCtx.shadowOffsetY = 0;
+                    meta.dataset.draw(chartCtx);
+                });
+                chartCtx.restore();
+            }
+        };
+
+        function buildPerformanceGradient(context, colors) {
+            const { chart } = context;
+            const { ctx: gradientCtx, chartArea } = chart || {};
+            if (!chartArea) {
+                return colors[0];
+            }
+            const gradient = gradientCtx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, colors[0]);
+            gradient.addColorStop(1, colors[1]);
+            return gradient;
+        }
+
+        function generatePerformanceSeries() {
+            if (!calculationData || !('duration' in calculationData)) {
+                return null;
+            }
+
+            const years = [];
+            const smartKidsData = [];
+            const savingsData = [];
+            const buildingData = [];
+            const contributionsData = [];
+
+            const {
+                childAge = 0,
+                startCapital = 0,
+                monthlyAmount = 0,
+                smartKidsTarget = 0,
+                duration = 0
+            } = calculationData;
+
+            for (let year = 0; year <= duration; year++) {
+                years.push(childAge + year);
+
+                const contributions = startCapital + monthlyAmount * 12 * year;
+                contributionsData.push(contributions);
+
+                const progress = duration === 0 ? 0 : year / duration;
+                const smartKidsValue = startCapital + (smartKidsTarget - startCapital) * progress;
+                smartKidsData.push(smartKidsValue);
+
+                let savingsValue = startCapital;
+                for (let y = 0; y < year; y++) {
+                    savingsValue = savingsValue * 1.005 + monthlyAmount * 12;
+                }
+                savingsData.push(savingsValue);
+
+                let buildingValue = startCapital * 0.99;
+                for (let y = 0; y < year; y++) {
+                    buildingValue = buildingValue * 1.01 + monthlyAmount * 12;
+                }
+                buildingData.push(buildingValue);
+            }
+
+            return { years, smartKidsData, savingsData, buildingData, contributionsData };
+        }
+
+        function createPerformanceDatasets(series) {
+            return [
+                {
+                    label: 'Ihre Einzahlungen',
+                    data: series.contributionsData,
+                    borderColor: performancePalette.contributions.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.contributions.gradient),
+                    borderWidth: 2,
+                    borderDash: [8, 6],
+                    pointRadius: 0,
+                    tension: 0.35,
+                    fill: true,
+                    enableGlow: false
+                },
+                {
+                    label: 'SmartKidsInvest',
+                    data: series.smartKidsData,
+                    borderColor: performancePalette.smartKids.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.smartKids.gradient),
+                    borderWidth: 4,
+                    pointRadius: 0,
+                    pointHoverRadius: 6,
+                    pointHoverBorderWidth: 3,
+                    pointHoverBackgroundColor: performancePalette.smartKids.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.38,
+                    fill: true,
+                    enableGlow: true
+                },
+                {
+                    label: 'Sparbuch',
+                    data: series.savingsData,
+                    borderColor: performancePalette.savings.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.savings.gradient),
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: performancePalette.savings.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.32,
+                    fill: true,
+                    enableGlow: true
+                },
+                {
+                    label: 'Bausparvertrag',
+                    data: series.buildingData,
+                    borderColor: performancePalette.building.border,
+                    backgroundColor: context => buildPerformanceGradient(context, performancePalette.building.gradient),
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: performancePalette.building.point,
+                    pointHoverBorderColor: '#fff',
+                    tension: 0.32,
+                    fill: true,
+                    enableGlow: true
+                }
+            ];
+        }
+
+        function buildPerformanceConfig(series) {
+            return {
+                type: 'line',
+                data: {
+                    labels: series.years,
+                    datasets: createPerformanceDatasets(series)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#0f172a',
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                font: {
+                                    size: 14,
+                                    weight: '600'
+                                },
+                                padding: 18
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: '#0f172a',
+                            borderWidth: 0,
+                            padding: 14,
+                            cornerRadius: 12,
+                            titleFont: {
+                                weight: '700',
+                                size: 14
+                            },
+                            bodyFont: {
+                                weight: '600',
+                                size: 13
+                            },
+                            callbacks: {
+                                label(context) {
+                                    return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Alter des Kindes',
+                                font: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                color: '#0f172a'
+                            },
+                            ticks: {
+                                color: '#475569',
+                                font: {
+                                    weight: '600'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.2)',
+                                drawBorder: false
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Vermögen (€)',
+                                font: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                color: '#0f172a'
+                            },
+                            ticks: {
+                                color: '#475569',
+                                font: {
+                                    weight: '600'
+                                },
+                                callback(value) {
+                                    return formatCurrency(value);
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.18)',
+                                drawBorder: false
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    elements: {
+                        line: {
+                            capBezierPoints: true
+                        }
+                    }
+                },
+                plugins: [performanceAreaBackground, performanceGlow]
+            };
+        }
+
+        function renderPerformanceChart(canvasId, existingChart) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                return existingChart;
+            }
+
+            const ctx = canvas.getContext('2d');
+            if (existingChart) {
+                existingChart.destroy();
+            }
+
+            const series = generatePerformanceSeries();
+            if (!series) {
+                return null;
+            }
+
+            return new Chart(ctx, buildPerformanceConfig(series));
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
     showPage('kundendaten');
@@ -2576,291 +2881,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         }
 
         function createComparisonChart() {
-            const canvas = document.getElementById('comparisonChart');
-            if (!canvas) {
-                return;
-            }
-
-            const ctx = canvas.getContext('2d');
-
-            if (chart) {
-                chart.destroy();
-            }
-
-            const years = [];
-            const smartKidsData = [];
-            const savingsData = [];
-            const buildingData = [];
-            const contributionsData = [];
-
-            const { childAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
-
-            const palette = {
-                contributions: {
-                    border: '#475569',
-                    gradient: ['rgba(148, 163, 184, 0.35)', 'rgba(100, 116, 139, 0.05)']
-                },
-                smartKids: {
-                    border: '#1d4ed8',
-                    point: '#2563eb',
-                    gradient: ['rgba(37, 99, 235, 0.35)', 'rgba(37, 99, 235, 0.05)']
-                },
-                savings: {
-                    border: '#059669',
-                    point: '#10b981',
-                    gradient: ['rgba(16, 185, 129, 0.3)', 'rgba(16, 185, 129, 0.05)']
-                },
-                building: {
-                    border: '#d97706',
-                    point: '#f59e0b',
-                    gradient: ['rgba(245, 158, 11, 0.28)', 'rgba(245, 158, 11, 0.05)']
-                }
-            };
-
-            // Generate data points for each year
-            for (let year = 0; year <= duration; year++) {
-                years.push(childAge + year);
-
-                // Contributions (linear growth)
-                const contributions = startCapital + monthlyAmount * 12 * year;
-                contributionsData.push(contributions);
-
-                // SmartKidsInvest (exponential growth towards target)
-                const smartKidsValue = startCapital + (smartKidsTarget - startCapital) * (year / duration);
-                smartKidsData.push(smartKidsValue);
-
-                // Savings book (compound interest)
-                let savingsValue = startCapital;
-                for (let y = 0; y < year; y++) {
-                    savingsValue = savingsValue * 1.005 + monthlyAmount * 12;
-                }
-                savingsData.push(savingsValue);
-
-                // Building savings (compound interest with fees)
-                let buildingValue = startCapital * 0.99; // Apply closing fee
-                for (let y = 0; y < year; y++) {
-                    buildingValue = buildingValue * 1.01 + monthlyAmount * 12;
-                }
-                buildingData.push(buildingValue);
-            }
-
-            const comparisonAreaBackground = {
-                id: 'comparisonAreaBackground',
-                beforeDraw(chartInstance) {
-                    const { ctx: chartCtx, chartArea } = chartInstance;
-                    if (!chartArea) return;
-                    const { top, bottom, left, right } = chartArea;
-                    const gradient = chartCtx.createLinearGradient(0, top, 0, bottom);
-                    gradient.addColorStop(0, 'rgba(226, 232, 240, 0.25)');
-                    gradient.addColorStop(1, 'rgba(248, 250, 252, 0.05)');
-
-                    chartCtx.save();
-                    chartCtx.fillStyle = gradient;
-                    chartCtx.fillRect(left, top, right - left, bottom - top);
-                    chartCtx.restore();
-                }
-            };
-
-            const comparisonGlow = {
-                id: 'comparisonGlow',
-                afterDatasetsDraw(chartInstance) {
-                    const { ctx: chartCtx } = chartInstance;
-                    chartCtx.save();
-                    chartInstance.data.datasets.forEach((dataset, index) => {
-                        if (!dataset.enableGlow) return;
-                        const meta = chartInstance.getDatasetMeta(index);
-                        if (meta.hidden) return;
-
-                        chartCtx.shadowColor = dataset.borderColor;
-                        chartCtx.shadowBlur = 14;
-                        chartCtx.shadowOffsetX = 0;
-                        chartCtx.shadowOffsetY = 0;
-                        meta.dataset.draw(chartCtx);
-                    });
-                    chartCtx.restore();
-                }
-            };
-
-            const buildGradient = (context, colors) => {
-                const { chart } = context;
-                const { ctx: gradientCtx, chartArea } = chart || {};
-                if (!chartArea) {
-                    return colors[0];
-                }
-                const gradient = gradientCtx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-                gradient.addColorStop(0, colors[0]);
-                gradient.addColorStop(1, colors[1]);
-                return gradient;
-            };
-
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        {
-                            label: 'Ihre Einzahlungen',
-                            data: contributionsData,
-                            borderColor: palette.contributions.border,
-                            backgroundColor: context => buildGradient(context, palette.contributions.gradient),
-                            borderWidth: 2,
-                            borderDash: [8, 6],
-                            pointRadius: 0,
-                            tension: 0.35,
-                            fill: true,
-                            enableGlow: false
-                        },
-                        {
-                            label: 'SmartKidsInvest',
-                            data: smartKidsData,
-                            borderColor: palette.smartKids.border,
-                            backgroundColor: context => buildGradient(context, palette.smartKids.gradient),
-                            borderWidth: 4,
-                            pointRadius: 0,
-                            pointHoverRadius: 6,
-                            pointHoverBorderWidth: 3,
-                            pointHoverBackgroundColor: palette.smartKids.point,
-                            tension: 0.45,
-                            fill: true,
-                            enableGlow: true
-                        },
-                        {
-                            label: 'Sparbuch',
-                            data: savingsData,
-                            borderColor: palette.savings.border,
-                            backgroundColor: context => buildGradient(context, palette.savings.gradient),
-                            borderWidth: 3,
-                            pointRadius: 0,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: palette.savings.point,
-                            tension: 0.3,
-                            fill: true,
-                            enableGlow: true
-                        },
-                        {
-                            label: 'Bausparvertrag',
-                            data: buildingData,
-                            borderColor: palette.building.border,
-                            backgroundColor: context => buildGradient(context, palette.building.gradient),
-                            borderWidth: 3,
-                            pointRadius: 0,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: palette.building.point,
-                            tension: 0.3,
-                            fill: true,
-                            enableGlow: true
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    layout: {
-                        padding: {
-                            top: 24,
-                            right: 24,
-                            bottom: 8,
-                            left: 12
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                usePointStyle: true,
-                                pointStyle: 'circle',
-                                font: {
-                                    size: 13,
-                                    weight: '600'
-                                },
-                                color: '#0f172a',
-                                padding: 18
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: '#0f172a',
-                            borderWidth: 0,
-                            padding: 14,
-                            cornerRadius: 12,
-                            titleFont: {
-                                weight: '700',
-                                size: 14
-                            },
-                            bodyFont: {
-                                weight: '600',
-                                size: 13
-                            },
-                            callbacks: {
-                                label(context) {
-                                    return `${context.dataset.label}: ${formatCurrency(context.parsed.y)}`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Alter des Kindes',
-                                font: {
-                                    size: 14,
-                                    weight: '700'
-                                },
-                                color: '#0f172a'
-                            },
-                            ticks: {
-                                color: '#475569',
-                                font: {
-                                    weight: '600'
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(148, 163, 184, 0.2)',
-                                drawBorder: false
-                            }
-                        },
-                        y: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Vermögen (€)',
-                                font: {
-                                    size: 14,
-                                    weight: '700'
-                                },
-                                color: '#0f172a'
-                            },
-                            ticks: {
-                                color: '#475569',
-                                font: {
-                                    weight: '600'
-                                },
-                                callback(value) {
-                                    return formatCurrency(value);
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(148, 163, 184, 0.18)',
-                                drawBorder: false
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    },
-                    elements: {
-                        line: {
-                            capBezierPoints: true
-                        }
-                    }
-                },
-                plugins: [comparisonAreaBackground, comparisonGlow]
-            });
+            chart = renderPerformanceChart('comparisonChart', chart);
         }
 
         function updateSummary() {
@@ -3094,160 +3115,17 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         }
 
         function createSummaryChart() {
-            const ctx = document.getElementById('summaryChart').getContext('2d');
-            
-            if (summaryChart) {
-                summaryChart.destroy();
-            }
-            
-            if (!calculationData.duration) {
+            const canvas = document.getElementById('summaryChart');
+            if (!canvas) {
                 return;
             }
-            
-            const years = [];
-            const smartKidsData = [];
-            const savingsData = [];
-            const buildingData = [];
-            const contributionsData = [];
-            
-            const { childAge, endAge, startCapital, monthlyAmount, smartKidsTarget, duration } = calculationData;
-            
-            // Generate data points for each year
-            for (let year = 0; year <= duration; year++) {
-                years.push(childAge + year);
-                
-                // Contributions (linear growth)
-                const contributions = startCapital + (monthlyAmount * 12 * year);
-                contributionsData.push(contributions);
-                
-                // SmartKidsInvest (exponential growth towards target)
-                const smartKidsValue = startCapital + ((smartKidsTarget - startCapital) * (year / duration));
-                smartKidsData.push(smartKidsValue);
-                
-                // Savings book (compound interest)
-                let savingsValue = startCapital;
-                for (let y = 0; y < year; y++) {
-                    savingsValue = savingsValue * 1.005 + (monthlyAmount * 12);
-                }
-                savingsData.push(savingsValue);
-                
-                // Building savings (compound interest with fees)
-                let buildingValue = startCapital * 0.99; // Apply closing fee
-                for (let y = 0; y < year; y++) {
-                    buildingValue = buildingValue * 1.01 + (monthlyAmount * 12);
-                }
-                buildingData.push(buildingValue);
+
+            if (!('duration' in calculationData) || calculationData.duration === undefined) {
+                return;
             }
-            
-            summaryChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: years,
-                    datasets: [
-                        {
-                            label: 'Ihre Einzahlungen',
-                            data: contributionsData,
-                            borderColor: '#64748b',
-                            backgroundColor: 'rgba(100, 116, 139, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'SmartKidsInvest',
-                            data: smartKidsData,
-                            borderColor: '#1e40af',
-                            backgroundColor: 'rgba(30, 64, 175, 0.1)',
-                            borderWidth: 4,
-                            fill: false,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Sparbuch',
-                            data: savingsData,
-                            borderColor: '#059669',
-                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        },
-                        {
-                            label: 'Bausparvertrag',
-                            data: buildingData,
-                            borderColor: '#d97706',
-                            backgroundColor: 'rgba(217, 119, 6, 0.1)',
-                            borderWidth: 3,
-                            fill: false,
-                            tension: 0.1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                },
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Alter des Kindes',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        y: {
-                            display: true,
-                            title: {
-                                display: true,
-                                text: 'Vermögen (€)',
-                                font: {
-                                    size: 14,
-                                    weight: 'bold'
-                                }
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
-                }
-            });
+
+            summaryChart = renderPerformanceChart('summaryChart', summaryChart);
+            window.summaryChart = summaryChart || null;
         }
 
         function updateSummaryCompanyInfo() {
