@@ -195,6 +195,33 @@
             position: relative;
             overflow: hidden;
         }
+
+        .card.card-compact {
+            padding: 1.75rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .card.card-compact .card-title {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .card.card-compact .summary-section {
+            padding: 1.1rem 1.4rem;
+            margin-bottom: 0;
+            border-radius: 12px;
+            box-shadow: none;
+        }
+
+        .card.card-compact .summary-item {
+            padding: 0.55rem 0;
+        }
+
+        .card.card-compact .summary-label,
+        .card.card-compact .summary-value {
+            font-size: 0.85rem;
+        }
         
         .card::before {
             content: '';
@@ -746,6 +773,19 @@
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
                 padding: 1rem;
+            }
+
+            .card.card-compact {
+                padding: 0.6rem 0.75rem;
+            }
+
+            .card.card-compact .summary-section {
+                padding: 0.6rem 0.75rem;
+            }
+
+            .card.card-compact .summary-label,
+            .card.card-compact .summary-value {
+                font-size: 0.8rem;
             }
             
             .insurance-section {
@@ -2150,7 +2190,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
 </div>
 <div class="grid-2 mb-6">
-<div class="card">
+<div class="card card-compact">
 <h2 class="card-title">Beratungsdetails</h2>
 <div class="summary-section">
 <div class="summary-item">
@@ -2171,7 +2211,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
-<div class="card">
+<div class="card card-compact">
 <h2 class="card-title">Anlageparameter</h2>
 <div class="summary-section">
 <div class="summary-item">
