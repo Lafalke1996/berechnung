@@ -820,19 +820,37 @@
                 flex: 1 1 auto;
                 display: flex;
                 flex-direction: column;
-                gap: 1.25rem;
+                gap: 0;
             }
 
             #page-zusammenfassung .mb-6 {
-                margin-bottom: 1.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            #page-zusammenfassung .print-page {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                padding: 0.75cm 1.4cm 0.8cm;
+                page-break-after: always;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            #page-zusammenfassung .print-page:last-of-type {
+                page-break-after: auto;
+            }
+
+            #page-zusammenfassung .print-page.print-page-closing {
+                min-height: 100vh;
             }
 
             #page-zusammenfassung .card:not(.card-compact) {
-                padding: 1.25rem;
+                padding: 0.95rem 1.05rem;
             }
 
             #page-zusammenfassung .summary-advantages-card {
-                padding: 1.5rem 1.75rem;
+                padding: 0.95rem 1.1rem;
             }
 
             #page-zusammenfassung .text-center.mt-8 {
@@ -849,9 +867,19 @@
             }
             
             .page-header {
-                margin-bottom: 1rem;
-                padding: 1rem;
+                margin-bottom: 0.75rem;
+                padding: 0;
                 page-break-inside: avoid;
+            }
+
+            #page-zusammenfassung .page-header h1 {
+                font-size: 1.6rem;
+                margin-bottom: 0.3rem;
+            }
+
+            #page-zusammenfassung .page-header p {
+                font-size: 0.95rem;
+                color: #475569;
             }
             
             .card {
@@ -860,20 +888,29 @@
                 break-inside: avoid;
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
-                padding: 1rem;
+                padding: 0.95rem 1rem;
             }
 
             .card.card-compact {
-                padding: 0.6rem 0.75rem;
+                padding: 0.55rem 0.7rem;
             }
 
             .card.card-compact .summary-section {
-                padding: 0.6rem 0.75rem;
+                padding: 0.45rem 0.6rem;
             }
 
             .card.card-compact .summary-label,
             .card.card-compact .summary-value {
-                font-size: 0.8rem;
+                font-size: 0.78rem;
+            }
+
+            #page-zusammenfassung .summary-section .summary-label,
+            #page-zusammenfassung .summary-section .summary-value {
+                font-size: 0.78rem;
+            }
+
+            #page-zusammenfassung .grid-2 {
+                gap: 0.8rem;
             }
             
             .insurance-section {
@@ -884,20 +921,132 @@
                 page-break-inside: avoid;
             }
             
+            #page-zusammenfassung .summary-results-card {
+                padding: 0.9rem 1.05rem;
+            }
+
+            #page-zusammenfassung .summary-results-card .grid-4 {
+                gap: 0.75rem;
+            }
+
             .result-card {
                 break-inside: avoid;
                 page-break-inside: avoid;
                 margin-bottom: 0.5rem;
                 min-height: auto;
-                padding: 1rem;
+                padding: 0.7rem 0.75rem;
             }
-            
+
             .result-value {
+                font-size: 1.1rem;
+            }
+
+            #page-zusammenfassung .summary-results-card .result-icon {
+                width: 40px;
+                height: 40px;
                 font-size: 1.25rem;
             }
-            
+
+            #page-zusammenfassung .summary-results-card .summary-result-logo {
+                height: 42px;
+                margin-bottom: 0.5rem;
+            }
+
+            #page-zusammenfassung .summary-results-card p {
+                font-size: 0.82rem !important;
+            }
+
             canvas {
-                max-height: 300px !important;
+                max-height: 220px !important;
+            }
+
+            #page-zusammenfassung .summary-growth-card .summary-growth-chart {
+                height: 260px;
+            }
+
+            #page-zusammenfassung .summary-growth-card canvas {
+                max-height: 260px !important;
+            }
+
+            #page-zusammenfassung .summary-company-info {
+                padding: 1.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            #summaryFundTable thead th {
+                font-size: 0.75rem;
+                padding: 0.45rem 0.5rem;
+            }
+
+            #summaryFundTable tbody td {
+                font-size: 0.72rem;
+                padding: 0.35rem 0.5rem;
+            }
+
+            #summaryFundTable tfoot td {
+                font-size: 0.75rem;
+                padding: 0.45rem 0.5rem;
+            }
+
+            #summaryFundsCard .summary-section {
+                padding: 0.5rem 0.5rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-card {
+                padding: 1.1rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-text {
+                font-size: 0.75rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-icon {
+                font-size: 0.85rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total {
+                padding: 1.1rem;
+                margin-top: 1rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header {
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header h3 {
+                font-size: 1.05rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header p {
+                font-size: 0.8rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-value {
+                font-size: 1.8rem;
+                margin-bottom: 0.35rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-caption {
+                font-size: 0.75rem;
+            }
+
+            #page-zusammenfassung .print-page-closing .portfolio-chart-grid {
+                gap: 0.75rem;
+            }
+
+            #page-zusammenfassung .print-page-closing canvas {
+                max-height: 220px !important;
+            }
+
+            #page-zusammenfassung .print-page-closing .print-footer-inline {
+                margin-top: auto;
             }
             
             .container-main {
@@ -917,7 +1066,7 @@
             .summary-advantages-row {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
+                gap: 0.85rem;
                 overflow: visible;
                 margin: 0;
                 padding-bottom: 0;
@@ -927,11 +1076,22 @@
                 height: 100%;
                 break-inside: avoid;
                 page-break-inside: avoid;
+                padding: 0.65rem 0.8rem;
             }
 
             .summary-advantages-row .card-title .pill {
-                font-size: 0.85rem;
-                padding: 0.35rem 1rem;
+                font-size: 0.75rem;
+                padding: 0.3rem 0.85rem;
+            }
+
+            #page-zusammenfassung .summary-advantages-row .feature-row {
+                font-size: 0.72rem;
+                padding: 0.2rem 0;
+            }
+
+            #page-zusammenfassung .summary-advantages-row .feature-row svg {
+                width: 13px;
+                height: 13px;
             }
 
             .print-footer.print-footer-inline {
@@ -1076,6 +1236,108 @@
 .summary-advantages-row .feature-row svg {
     width: 16px;
     height: 16px;
+}
+
+.summary-print-body .print-page {
+    display: contents;
+}
+
+.summary-company-info {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.summary-growth-card .summary-growth-chart {
+    position: relative;
+    height: 340px;
+    width: 100%;
+}
+
+.summary-result-logo {
+    height: 60px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.summary-disclaimer-card {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e7eb;
+    padding: 1.5rem;
+}
+
+.summary-disclaimer-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.summary-disclaimer-icon {
+    font-size: 0.95rem;
+}
+
+.insurance-summary-total {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.insurance-summary-total-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.insurance-summary-total-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.insurance-summary-total-header h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 800;
+}
+
+.insurance-summary-total-header p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.insurance-summary-total-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #0369a1;
+    margin-bottom: 0.5rem;
+}
+
+.insurance-summary-total-caption {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1rem;
 }
 
 .summary-print-body {
@@ -1873,6 +2135,799 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <canvas id="comparisonChart"></canvas>
 </div>
 </div>
+</div>
+<div class="text-center mt-8 space-x-4">
+<button class="btn-secondary" onclick="showPage('kundendaten')">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+</svg>
+                    Zurück
+                </button>
+<button class="btn-primary" id="calculateBtn" onclick="calculateAndShowResults()">
+                    Jetzt berechnen
+                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"></path>
+</svg>
+</button>
+<button class="btn-secondary hidden" id="recalculateBtn" onclick="calculateAndShowResults()">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"></path>
+</svg>
+                    Neu berechnen
+                </button>
+<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
+                    Weiter
+                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Page 3: Company Information -->
+<!-- Page 3: Fondsportfolio -->
+<div class="page-content hidden" id="page-fondsportfolio">
+<div class="page-header">
+<h1>Fondsportfolio</h1>
+<p>Dein individuelles Fonds-Portfolio bei SmartKidsInvest</p>
+</div>
+<div class="card">
+<div class="flex items-center justify-between mb-4">
+<h2 class="card-title" style="margin-bottom:0">Fondsübersicht</h2>
+<div>
+<button class="btn-primary" id="addFundRowBtn">Fonds hinzufügen</button>
+<button class="btn-secondary" id="clearFundsBtn" style="margin-left:.5rem">Löschen</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="pro-table" id="fundTable">
+<thead>
+<tr>
+<th>Fondsname</th>
+<th class="num">Anteil (%)</th>
+<th class="num">Rendite 5J (%)</th>
+<th class="num">Rendite Portfolio (%)</th>
+<th class="num"></th>
+</tr>
+</thead>
+<tbody id="fundTableBody"></tbody>
+<tfoot>
+<tr>
+<td class="summary-label-cell">Summen:</td>
+<td class="num" id="sumWeightsCell">0,00 %</td>
+<td class="num"></td>
+<td class="num total-return-cell"><span class="total-return-label">Gesamtrendite</span><span class="total-return-value" id="sumPortfolioCell">0,00 %</span></td>
+<td></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div class="card">
+<h2 class="card-title">Zusammenfassung</h2>
+<div class="summary-section strong">
+<div class="summary-item">
+<span class="summary-label">Gesamtrendite</span>
+<span class="summary-value" id="sumPortfolioReturn">0,00 %</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">Effektivkosten</span>
+<span class="summary-value" id="effectiveCostsDisplay">0,60 %</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">Rendite nach Kosten</span>
+<span class="summary-value" id="netReturnDisplay">0,00 %</span>
+</div>
+</div>
+</div>
+<div class="portfolio-chart-grid">
+<div class="card">
+<h2 class="card-title">Gesamtübersicht</h2>
+<div class="chart-shell"><canvas id="chartSummaryBar"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="chartAllocationPie"></canvas></div>
+</div>
+</div>
+<div class="text-center mt-8 space-x-4">
+<button class="btn-secondary" onclick="showPage('berechnung')">Zurück</button>
+<button class="btn-primary" onclick="showPage('gesellschaft')">Weiter</button>
+</div>
+</div>
+<div class="page-content hidden" id="page-gesellschaft">
+<div class="page-header">
+<h1 id="companyTitle">Ihre gewählte Gesellschaft</h1>
+<p id="companySubtitle">Warum wir diese Gesellschaft empfehlen</p>
+</div>
+<!-- Baloise Information -->
+<div id="baloiseInfo">
+<div class="card">
+<div class="grid-2 mb-6">
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Baloise?</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>150+ Jahre Erfahrung</strong><br/>
+<span style="color: #6b7280;">Seit 1863 ein verlässlicher Partner für Generationen</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">💪</div>
+<div>
+<strong>Finanzstärke AAA</strong><br/>
+<span style="color: #6b7280;">Höchste Bonitätsbewertung für maximale Sicherheit</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🌍</div>
+<div>
+<strong>Europaweit tätig</strong><br/>
+<span style="color: #6b7280;">Starke Präsenz in Deutschland, Schweiz, Belgien und Luxemburg</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📈</div>
+<div>
+<strong>Überdurchschnittliche Überschüsse</strong><br/>
+<span style="color: #6b7280;">Kontinuierlich hohe Gewinnbeteiligung für Kunden</span>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🎯</div>
+<div>
+<strong>Flexible Fondsauswahl</strong><br/>
+<span style="color: #6b7280;">Über 100 Fonds zur individuellen Gestaltung</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🔄</div>
+<div>
+<strong>Kostenfreie Umschichtungen</strong><br/>
+<span style="color: #6b7280;">Unbegrenzt und ohne zusätzliche Gebühren</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🛡️</div>
+<div>
+<strong>Garantierte Beitragsrückgewähr</strong><br/>
+<span style="color: #6b7280;">100% Ihrer Einzahlungen sind garantiert</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">⚡</div>
+<div>
+<strong>Schnelle Auszahlung</strong><br/>
+<span style="color: #6b7280;">Unkomplizierte Abwicklung bei Fälligkeit</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Alte Leipziger Information -->
+<div id="alteLeipzigerInfo">
+<div class="card">
+<div class="grid-2 mb-6">
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Alte Leipziger?</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>200+ Jahre Tradition</strong><br/>
+<span style="color: #6b7280;">Seit 1819 Deutschlands ältester Lebensversicherer</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">💎</div>
+<div>
+<strong>Ausgezeichnete Ratings</strong><br/>
+<span style="color: #6b7280;">A+ Rating von Standard &amp; Poor's für Stabilität</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🎖️</div>
+<div>
+<strong>Testsieger-Qualität</strong><br/>
+<span style="color: #6b7280;">Regelmäßige Auszeichnungen von Stiftung Warentest</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📊</div>
+<div>
+<strong>Hohe Überschussbeteiligung</strong><br/>
+<span style="color: #6b7280;">Überdurchschnittliche Gewinnausschüttung an Kunden</span>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🌟</div>
+<div>
+<strong>AL_best Fonds</strong><br/>
+<span style="color: #6b7280;">Hauseigene Premiumfonds mit Top-Performance</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🔒</div>
+<div>
+<strong>Beitragsgarantie</strong><br/>
+<span style="color: #6b7280;">Ihre Einzahlungen sind zu 100% geschützt</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🎯</div>
+<div>
+<strong>Flexible Strategien</strong><br/>
+<span style="color: #6b7280;">Von konservativ bis chancenorientiert</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">👨‍💼</div>
+<div>
+<strong>Persönlicher Service</strong><br/>
+<span style="color: #6b7280;">Direkter Ansprechpartner für alle Fragen</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Nürnberger Information -->
+<div id="nuernbergerInfo">
+<div class="card">
+<div class="grid-2 mb-6">
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Nürnberger?</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>100+ Jahre Erfahrung</strong><br/>
+<span style="color: #6b7280;">Seit 1884 ein starker Partner für Familien</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">💪</div>
+<div>
+<strong>Solide Finanzstärke</strong><br/>
+<span style="color: #6b7280;">A- Rating und stabile Kapitalausstattung</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🎯</div>
+<div>
+<strong>Spezialist für Altersvorsorge</strong><br/>
+<span style="color: #6b7280;">Fokus auf langfristige Vermögensbildung</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📈</div>
+<div>
+<strong>Attraktive Überschüsse</strong><br/>
+<span style="color: #6b7280;">Konstant gute Gewinnbeteiligung für Kunden</span>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🎨</div>
+<div>
+<strong>Breite Fondspalette</strong><br/>
+<span style="color: #6b7280;">Über 80 Fonds für jede Anlagestrategie</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🔄</div>
+<div>
+<strong>Flexible Umschichtungen</strong><br/>
+<span style="color: #6b7280;">Kostenfreie Anpassung der Anlagestrategie</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🛡️</div>
+<div>
+<strong>Beitragserhalt garantiert</strong><br/>
+<span style="color: #6b7280;">Mindestens Ihre Einzahlungen sind sicher</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🏠</div>
+<div>
+<strong>Regionale Nähe</strong><br/>
+<span style="color: #6b7280;">Deutschlandweites Servicenetz</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- LV 1871 Information -->
+<div id="lv1871Info">
+<div class="card">
+<div class="grid-2 mb-6">
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum LV 1871?</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>150+ Jahre Tradition</strong><br/>
+<span style="color: #6b7280;">Seit 1871 ein verlässlicher Partner für Generationen</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">💪</div>
+<div>
+<strong>Starke Finanzstärke</strong><br/>
+<span style="color: #6b7280;">A+ Rating und solide Kapitalausstattung</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🚀</div>
+<div>
+<strong>Innovationsführer</strong><br/>
+<span style="color: #6b7280;">Moderne digitale Lösungen und Services</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📈</div>
+<div>
+<strong>Überdurchschnittliche Renditen</strong><br/>
+<span style="color: #6b7280;">Konstant hohe Überschussbeteiligung</span>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🎯</div>
+<div>
+<strong>Maxxellence Invest</strong><br/>
+<span style="color: #6b7280;">Innovative Fondspolice mit Top-Performance</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🔄</div>
+<div>
+<strong>Kostenfreie Switches</strong><br/>
+<span style="color: #6b7280;">Unbegrenzte Umschichtungen ohne Gebühren</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🛡️</div>
+<div>
+<strong>Beitragsgarantie</strong><br/>
+<span style="color: #6b7280;">100% Schutz Ihrer eingezahlten Beiträge</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📱</div>
+<div>
+<strong>Digitaler Service</strong><br/>
+<span style="color: #6b7280;">Online-Portal für einfache Verwaltung</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Allianz Information -->
+<div id="allianzInfo">
+<div class="card">
+<div class="grid-2 mb-6">
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Warum Allianz?</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>130+ Jahre Erfahrung</strong><br/>
+<span style="color: #6b7280;">Seit 1890 Deutschlands größter Lebensversicherer</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">💪</div>
+<div>
+<strong>Marktführer Deutschland</strong><br/>
+<span style="color: #6b7280;">AA Rating und höchste Finanzstärke</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🌍</div>
+<div>
+<strong>Weltweite Präsenz</strong><br/>
+<span style="color: #6b7280;">Globaler Versicherungskonzern mit lokaler Expertise</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">📈</div>
+<div>
+<strong>Konstante Überschüsse</strong><br/>
+<span style="color: #6b7280;">Verlässlich hohe Gewinnbeteiligung für Kunden</span>
+</div>
+</li>
+</ul>
+</div>
+<div>
+<h3 style="font-size: 1.125rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem;">Besondere Vorteile</h3>
+<ul class="feature-list">
+<li>
+<div class="feature-icon">🎯</div>
+<div>
+<strong>InvestFlex Konzept</strong><br/>
+<span style="color: #6b7280;">Flexible Fondspolice mit erstklassiger Performance</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🔄</div>
+<div>
+<strong>Kostenfreie Umschichtungen</strong><br/>
+<span style="color: #6b7280;">Beliebig viele Switches ohne zusätzliche Kosten</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🛡️</div>
+<div>
+<strong>Beitragsgarantie</strong><br/>
+<span style="color: #6b7280;">Vollständiger Schutz aller eingezahlten Beiträge</span>
+</div>
+</li>
+<li>
+<div class="feature-icon">🏆</div>
+<div>
+<strong>Ausgezeichneter Service</strong><br/>
+<span style="color: #6b7280;">Mehrfach prämierte Kundenbetreuung</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-8 space-x-4">
+<button class="btn-secondary" onclick="showPage('berechnung')">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+</svg>
+                    Zurück
+                </button>
+<button class="btn-primary" onclick="showPage('vorteile')">
+                    Weiter
+                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Page 4: Vorteile -->
+<div class="page-content" id="page-vorteile">
+<!-- Seite 4: nur kostenlose Extras (neues Design) -->
+<div class="page-header">
+<h1>Warum SmartKidsInvest?</h1>
+<p>⭐ Die beste Wahl für junge Eltern wie Sie</p>
+</div>
+<div class="comparison-grid mb-8">
+<!-- Sparbuch -->
+<div class="card">
+<div class="card-title"><span class="pill spar">Sparbuch</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+</div>
+<hr class="thin"/>
+</div>
+<!-- Depot -->
+<div class="card">
+<div class="card-title"><span class="pill depot">Depot</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+</div>
+<hr class="thin"/>
+</div>
+<!-- SmartKidsInvest Konzept -->
+<div class="card">
+<div class="card-title"><span class="pill ski">SmartKidsInvest Konzept</span></div>
+<div class="feature-rows">
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+<div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+</div>
+<hr class="thin"/>
+</div>
+</div>
+<div class="extras-wrap">
+<div class="card extras-card">
+<div class="card-title" style="display:flex;align-items:center;gap:.5rem;">
+<span>🎁</span><span>Kostenlose Extras</span>
+</div>
+<div class="extras-grid">
+<div class="perk">
+<span class="badge-free">kostenlos</span>
+<div class="icon">🛡️</div>
+<h3>100% sichere Einzahlungen</h3>
+<p>Ihre Beiträge sind durch gesetzliche Sicherungssysteme vollständig geschützt.</p>
+</div>
+<div class="perk">
+<span class="badge-free">kostenlos</span>
+<div class="icon">🚫</div>
+<h3>Kostenfreie BU-Option</h3>
+<p>Berufsunfähigkeitsschutz für Ihr Kind ohne zusätzliche Kosten integrierbar.</p>
+</div>
+<div class="perk">
+<span class="badge-free">kostenlos</span>
+<div class="icon">👨‍💼</div>
+<h3>Kostenlose jährliche Beratung</h3>
+<p>Regelmäßige, kostenfreie Beratungstermine mit unseren Finanzexperten.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-8 space-x-4">
+<button class="btn-secondary" onclick="showPage('gesellschaft')">
+<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+</svg>
+                    Zurück
+                </button>
+<button class="btn-primary" onclick="showPage('zusammenfassung')">
+                    Weiter
+                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+</svg>
+</button>
+</div>
+</div><!-- Page 5: Zusatzabsicherungen -->
+
+<!-- Page 6: Zusammenfassung -->
+<div class="page-content" id="page-zusammenfassung">
+<div class="summary-print-body">
+<section class="print-page print-page-overview">
+<div class="page-header">
+<h1>Ihre Beratungszusammenfassung</h1>
+<p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
+</div>
+<div class="grid-2 mb-6">
+<div class="card card-compact">
+<h2 class="card-title">Beratungsdetails</h2>
+<div class="summary-section">
+<div class="summary-item">
+<span class="summary-label">👤 Familie:</span>
+<span class="summary-value" id="summaryCustomer">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">👶 Kind:</span>
+<span class="summary-value" id="summaryChild">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">👨‍💼 Berater:</span>
+<span class="summary-value" id="summaryAdvisor">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">📅 Datum:</span>
+<span class="summary-value" id="summaryDate">-</span>
+</div>
+</div>
+</div>
+<div class="card card-compact">
+<h2 class="card-title">Anlageparameter</h2>
+<div class="summary-section">
+<div class="summary-item">
+<span class="summary-label">🏦 Startkapital:</span>
+<span class="summary-value" id="summaryStartCapital">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">💳 Monatlich:</span>
+<span class="summary-value" id="summaryMonthly">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">⏱️ Laufzeit:</span>
+<span class="summary-value" id="summaryDuration">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">🎯 Guthaben nach Kosten:</span>
+<span class="summary-value" id="summarySmartKidsTarget">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">📈 Erwartete Rendite:</span>
+<span class="summary-value" id="summaryReturn">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">💸 Effektivkosten:</span>
+<span class="summary-value" id="summaryEffectiveCosts">-</span>
+</div>
+<div class="summary-item">
+<span class="summary-label">🧾 Abschlusskosten:</span>
+<span class="summary-value" id="summaryClosingCosts">-</span>
+</div>
+</div>
+</div>
+</div>
+<div class="card summary-advantages-card mb-6">
+    <h2 class="card-title">Warum SmartKidsInvest?</h2>
+    <div class="summary-advantages-row">
+        <div class="card">
+            <div class="card-title"><span class="pill spar">Sparbuch</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="pill depot">Depot</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-x" fill="currentColor" viewbox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.41L10.59 13.41 4.29 19.7 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29 10.59 10.59 16.89 4.29z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+        <div class="card">
+            <div class="card-title"><span class="pill ski">SmartKidsInvest Konzept</span></div>
+            <div class="feature-rows">
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Flexibilität</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Hohe Rendite</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreier Strategiewechsel</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Lebenslange Konditionssicherung</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Kontrolle der Eltern mit 18</div></div>
+                <div class="feature-row"><svg class="icon-check" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg><div>Steuerfreie Auszahlung</div></div>
+            </div>
+            <hr class="thin"/>
+        </div>
+    </div>
+</div>
+</section>
+
+<section class="print-page print-page-results">
+<div class="card mb-6 summary-results-card">
+<h2 class="card-title">Berechnungsergebnisse</h2>
+<div class="grid-4 mb-3">
+<div class="result-card neutral">
+<div aria-hidden="true" class="result-icon">💰</div>
+<h3 style="font-weight: 800;">Ihre Einzahlungen</h3>
+<div class="result-value" id="summaryContributions">-</div>
+<p style="font-size: 0.95rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
+</div>
+<div class="result-card primary">
+<img alt="SmartKidsInvest" src="smartkids-logo.png" class="summary-result-logo"/>
+<h3 style="font-weight: 800;">SmartKidsInvest</h3>
+<div class="result-value" id="summarySmartKids">-</div>
+<p id="smartKidsReturn" style="font-size: 1rem; color: #1e3a8a; font-weight: 700;">-</p>
+</div>
+<div class="result-card success">
+<div aria-hidden="true" class="result-icon">🏦</div>
+<h3 style="font-weight: 800;">Sparbuch</h3>
+<div class="result-value" id="summarySavings">-</div>
+<p id="savingsReturn" style="font-size: 1rem; color: #059669; font-weight: 700;">-</p>
+</div>
+<div class="result-card warning">
+<div aria-hidden="true" class="result-icon">🏠</div>
+<h3 style="font-weight: 800;">Bausparvertrag</h3>
+<div class="result-value" id="summaryBuilding">-</div>
+<p id="buildingReturn" style="font-size: 1rem; color: #d97706; font-weight: 700;">-</p>
+</div>
+</div>
+</div>
+<div class="card mb-6 summary-growth-card">
+    <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
+    <div class="chart-container summary-growth-chart">
+        <canvas id="summaryChart"></canvas>
+    </div>
+</div>
+<div class="card mb-6 summary-company-card">
+<h2 class="card-title">Ihre gewählte Gesellschaft</h2>
+<div id="summaryCompanyInfo" class="summary-company-info">
+<!-- Company info will be dynamically inserted here -->
+</div>
+</div>
+<div class="card mb-6 summary-funds-card" id="summaryFundsCard">
+<h2 class="card-title">Fondsportfolio</h2>
+<div class="summary-section">
+<div style="overflow-x:auto">
+<table class="pro-table" id="summaryFundTable">
+<thead>
+<tr>
+<th>Fondsname</th>
+<th class="num">Anteil (%)</th>
+<th class="num">Rendite 5J (%)</th>
+<th class="num">Rendite Portfolio (%)</th>
+</tr>
+</thead>
+<tbody>
+<!-- rows injected -->
+</tbody>
+<tfoot>
+<tr>
+<td>Summen</td>
+<td class="num" id="summarySumWeights">0,00 %</td>
+<td class="num">Gesamtrendite:</td>
+<td class="num" id="summarySumPortfolio">0,00 %</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<section class="print-page print-page-closing" id="print-page-closing">
+<div class="portfolio-chart-grid mb-6" id="summaryPortfolioCharts">
+<div class="card">
+<h2 class="card-title">Gesamtübersicht</h2>
+<div class="chart-shell"><canvas id="summaryPortfolioBar"></canvas></div>
+</div>
+<div class="card">
+<h2 class="card-title">Anteilsverteilung</h2>
+<div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
+</div>
+</div>
+<!-- Zusatzabsicherungen Summary -->
+<div class="card mb-6" id="insuranceSummary" style="display: none;">
+<h2 class="card-title">Gewählte Zusatzabsicherungen</h2>
+<!-- Insurance Cards Grid -->
+<div class="grid-2 mb-6" id="insuranceCardsContainer" style="gap: 1.5rem;">
+<!-- Dynamic insurance cards will be inserted here -->
+</div>
+<!-- Total Cost Summary -->
+<div class="insurance-summary-total">
+<div class="insurance-summary-total-header">
+<div class="insurance-summary-total-icon">💰</div>
+<div>
+<h3>Gesamtkosten aller Absicherungen</h3>
+<p>Monatlicher Gesamtbeitrag für alle gewählten Versicherungen</p>
+</div>
+</div>
+<div id="summaryTotalInsuranceCost" class="insurance-summary-total-value">-</div>
+<div class="insurance-summary-total-caption">pro Monat</div>
+</div>
+</div>
+<div class="card summary-disclaimer-card">
+<p class="summary-disclaimer-text">
+<span class="summary-disclaimer-icon">⚠️</span>
+<strong>Wichtiger Hinweis:</strong> Alle Berechnungen basieren auf den eingegebenen Annahmen und erfolgen ohne Gewähr.
+                    Die tatsächliche Entwicklung kann von den Prognosen abweichen. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse.
+                </p>
+</div>
+</section>
 </div>
 <div class="text-center mt-8 space-x-4">
 <button class="btn-secondary" onclick="showPage('kundendaten')">
@@ -4469,6 +5524,9 @@ document.addEventListener('DOMContentLoaded', function(){
   var summaryPage = document.getElementById('page-zusammenfassung');
   if (!footer || !summaryPage || !footer.parentNode) return;
 
+  var closingPage = document.getElementById('print-page-closing');
+  var targetParent = closingPage || summaryPage;
+
   var homeParent = footer.parentNode;
   var placeholder = document.createElement('div');
   placeholder.className = 'print-footer-placeholder';
@@ -4476,9 +5534,9 @@ document.addEventListener('DOMContentLoaded', function(){
   homeParent.insertBefore(placeholder, footer.nextSibling);
 
   function moveFooterForPrint(){
-    if (footer.parentNode === summaryPage) return;
+    if (footer.parentNode === targetParent) return;
     footer.classList.add('print-footer-inline');
-    summaryPage.appendChild(footer);
+    targetParent.appendChild(footer);
   }
 
   function restoreFooterAfterPrint(){
