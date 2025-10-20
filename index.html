@@ -787,32 +787,31 @@
         
         /* Print styles */
         @media print {
-            body * {
-                visibility: hidden;
+            body {
+                background: #fff !important;
+                margin: 0;
             }
 
-            #page-zusammenfassung, #page-zusammenfassung * {
-                visibility: visible;
-            }
-
-            .page-content:not(#page-zusammenfassung),
-            .page-content:not(#page-zusammenfassung) * {
+            body > * {
                 display: none !important;
             }
 
-            .print-footer,
-            .print-footer * {
-                visibility: visible;
+            main.container-main {
+                display: block !important;
+            }
+
+            main.container-main > .page-content:not(#page-zusammenfassung) {
+                display: none !important;
             }
 
             #page-zusammenfassung {
+                display: flex !important;
+                flex-direction: column;
                 position: static;
                 left: auto;
                 top: auto;
                 width: 100%;
                 padding-bottom: 0;
-                display: flex;
-                flex-direction: column;
                 min-height: 100vh;
             }
 
@@ -838,13 +837,13 @@
             }
 
             #page-zusammenfassung .print-page:last-of-type {
-                page-break-after: auto;
+                page-break-after: avoid;
             }
 
             #page-zusammenfassung .print-page.print-page-closing {
-                min-height: 100vh;
+                min-height: 26.5cm;
                 position: relative;
-                padding-bottom: 4.5cm;
+                padding-bottom: 5.2cm;
             }
 
             #page-zusammenfassung .card:not(.card-compact) {
