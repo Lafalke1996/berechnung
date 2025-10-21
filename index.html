@@ -175,6 +175,8 @@
             background: #0e1e3a;
             color: #f8fafc;
             padding: 2rem 1.5rem;
+            margin-top: auto;
+            width: 100%;
         }
 
         .print-footer .footer-inner {
@@ -785,30 +787,78 @@
         
         /* Print styles */
         @media print {
-            body * {
-                visibility: hidden;
+            body {
+                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 100%) !important;
+                margin: 0;
             }
 
-            #page-zusammenfassung, #page-zusammenfassung * {
-                visibility: visible;
+            body > * {
+                display: none !important;
             }
 
-            .print-footer,
-            .print-footer * {
-                visibility: visible;
+            main.container-main {
+                display: block !important;
+            }
+
+            main.container-main > .page-content:not(#page-zusammenfassung) {
+                display: none !important;
             }
 
             #page-zusammenfassung {
-                position: absolute;
-                left: 0;
-                top: 0;
+                display: flex !important;
+                flex-direction: column;
+                position: static;
+                left: auto;
+                top: auto;
                 width: 100%;
                 padding-bottom: 0;
-                display: flex;
-                flex-direction: column;
                 min-height: 100vh;
             }
-            
+
+            #page-zusammenfassung .summary-print-body {
+                flex: 1 1 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            #page-zusammenfassung .mb-6 {
+                margin-bottom: 1rem !important;
+            }
+
+            #page-zusammenfassung .print-page {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                padding: 0.75cm 1.4cm 0.8cm;
+                background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 25%, #bae6fd 100%);
+                page-break-after: always;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            #page-zusammenfassung .print-page:last-of-type {
+                page-break-after: avoid;
+            }
+
+            #page-zusammenfassung .print-page.print-page-closing {
+                min-height: 26.5cm;
+                position: relative;
+                padding-bottom: 5.2cm;
+            }
+
+            #page-zusammenfassung .card:not(.card-compact) {
+                padding: 0.95rem 1.05rem;
+            }
+
+            #page-zusammenfassung .summary-advantages-card {
+                padding: 0.95rem 1.1rem;
+            }
+
+            #page-zusammenfassung .text-center.mt-8 {
+                margin-top: 1.5rem !important;
+            }
+
             .nav-container, .btn-primary, .btn-secondary {
                 display: none !important;
             }
@@ -819,9 +869,19 @@
             }
             
             .page-header {
-                margin-bottom: 1rem;
-                padding: 1rem;
+                margin-bottom: 0.75rem;
+                padding: 0;
                 page-break-inside: avoid;
+            }
+
+            #page-zusammenfassung .page-header h1 {
+                font-size: 1.6rem;
+                margin-bottom: 0.3rem;
+            }
+
+            #page-zusammenfassung .page-header p {
+                font-size: 0.95rem;
+                color: #475569;
             }
             
             .card {
@@ -830,20 +890,29 @@
                 break-inside: avoid;
                 page-break-inside: avoid;
                 margin-bottom: 1rem;
-                padding: 1rem;
+                padding: 0.95rem 1rem;
             }
 
             .card.card-compact {
-                padding: 0.6rem 0.75rem;
+                padding: 0.55rem 0.7rem;
             }
 
             .card.card-compact .summary-section {
-                padding: 0.6rem 0.75rem;
+                padding: 0.45rem 0.6rem;
             }
 
             .card.card-compact .summary-label,
             .card.card-compact .summary-value {
-                font-size: 0.8rem;
+                font-size: 0.78rem;
+            }
+
+            #page-zusammenfassung .summary-section .summary-label,
+            #page-zusammenfassung .summary-section .summary-value {
+                font-size: 0.78rem;
+            }
+
+            #page-zusammenfassung .grid-2 {
+                gap: 0.8rem;
             }
             
             .insurance-section {
@@ -854,20 +923,138 @@
                 page-break-inside: avoid;
             }
             
+            #page-zusammenfassung .summary-results-card {
+                padding: 0.9rem 1.05rem;
+            }
+
+            #page-zusammenfassung .summary-results-card .grid-4 {
+                gap: 0.75rem;
+            }
+
             .result-card {
                 break-inside: avoid;
                 page-break-inside: avoid;
                 margin-bottom: 0.5rem;
                 min-height: auto;
-                padding: 1rem;
+                padding: 0.7rem 0.75rem;
             }
-            
+
             .result-value {
+                font-size: 1.1rem;
+            }
+
+            #page-zusammenfassung .summary-results-card .result-icon {
+                width: 40px;
+                height: 40px;
                 font-size: 1.25rem;
             }
-            
+
+            #page-zusammenfassung .summary-results-card .summary-result-logo {
+                height: 42px;
+                margin-bottom: 0.5rem;
+            }
+
+            #page-zusammenfassung .summary-results-card p {
+                font-size: 0.82rem !important;
+            }
+
             canvas {
-                max-height: 300px !important;
+                max-height: 220px !important;
+            }
+
+            #page-zusammenfassung .summary-growth-card .summary-growth-chart {
+                height: 260px;
+            }
+
+            #page-zusammenfassung .summary-growth-card canvas {
+                max-height: 260px !important;
+            }
+
+            #page-zusammenfassung .summary-company-info {
+                padding: 1.2rem;
+                margin-bottom: 0.75rem;
+            }
+
+            #summaryFundTable thead th {
+                font-size: 0.75rem;
+                padding: 0.45rem 0.5rem;
+            }
+
+            #summaryFundTable tbody td {
+                font-size: 0.72rem;
+                padding: 0.35rem 0.5rem;
+            }
+
+            #summaryFundTable tfoot td {
+                font-size: 0.75rem;
+                padding: 0.45rem 0.5rem;
+            }
+
+            #summaryFundsCard .summary-section {
+                padding: 0.5rem 0.5rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-card {
+                padding: 1.1rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-text {
+                font-size: 0.75rem;
+            }
+
+            #page-zusammenfassung .summary-disclaimer-icon {
+                font-size: 0.85rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total {
+                padding: 1.1rem;
+                margin-top: 1rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header {
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header h3 {
+                font-size: 1.05rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-header p {
+                font-size: 0.8rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-value {
+                font-size: 1.8rem;
+                margin-bottom: 0.35rem;
+            }
+
+            #page-zusammenfassung .insurance-summary-total-caption {
+                font-size: 0.75rem;
+            }
+
+            #page-zusammenfassung .print-page-closing .portfolio-chart-grid {
+                gap: 0.75rem;
+            }
+
+            #page-zusammenfassung .print-page-closing canvas {
+                max-height: 220px !important;
+            }
+
+            #page-zusammenfassung .print-page-closing .print-footer-inline {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: 0;
+                padding: 1.6rem 1.4cm 1.8rem;
+                box-sizing: border-box;
             }
             
             .container-main {
@@ -878,10 +1065,55 @@
             h1, h2, h3 {
                 page-break-after: avoid;
             }
-            
+
             .summary-section {
                 break-inside: avoid;
                 page-break-inside: avoid;
+            }
+
+            .summary-advantages-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.85rem;
+                overflow: visible;
+                margin: 0;
+                padding-bottom: 0;
+            }
+
+            .summary-advantages-row .card {
+                height: 100%;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                padding: 0.65rem 0.8rem;
+            }
+
+            .summary-advantages-row .card-title .pill {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.85rem;
+            }
+
+            #page-zusammenfassung .summary-advantages-row .feature-row {
+                font-size: 0.72rem;
+                padding: 0.2rem 0;
+            }
+
+            #page-zusammenfassung .summary-advantages-row .feature-row svg {
+                width: 13px;
+                height: 13px;
+            }
+
+            .print-footer.print-footer-inline {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                page-break-before: avoid;
+                page-break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                padding: 1.6rem 1.4cm 1.8rem;
+                margin: 0;
+                width: 100%;
+                box-sizing: border-box;
             }
         }
     
@@ -977,6 +1209,34 @@
     padding: 1.5rem;
     border-radius: 16px;
     box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-advantages-row .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    margin-bottom: 0;
+}
+
+.summary-advantages-row .card-title .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 1.25rem;
+    min-height: 2.25rem;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.summary-advantages-row .feature-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1 1 auto;
 }
 
 .summary-advantages-row .feature-row {
@@ -987,6 +1247,114 @@
 .summary-advantages-row .feature-row svg {
     width: 16px;
     height: 16px;
+}
+
+.summary-print-body .print-page {
+    display: contents;
+}
+
+.summary-company-info {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.summary-growth-card .summary-growth-chart {
+    position: relative;
+    height: 340px;
+    width: 100%;
+}
+
+.summary-result-logo {
+    height: 60px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.summary-disclaimer-card {
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    border: 2px solid #e5e7eb;
+    padding: 1.5rem;
+}
+
+.summary-disclaimer-text {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.summary-disclaimer-icon {
+    font-size: 0.95rem;
+}
+
+.insurance-summary-total {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.insurance-summary-total-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.insurance-summary-total-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.insurance-summary-total-header h3 {
+    font-size: 1.25rem;
+    color: #1e293b;
+    margin: 0;
+    font-weight: 800;
+}
+
+.insurance-summary-total-header p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+.insurance-summary-total-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #0369a1;
+    margin-bottom: 0.5rem;
+}
+
+.insurance-summary-total-caption {
+    color: #64748b;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.summary-print-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .summary-advantages-row::-webkit-scrollbar {
@@ -1039,6 +1407,10 @@
         padding: 0.75rem 0.9rem;
         box-shadow: none;
         border: 1px solid #dbe1f1;
+    }
+
+    .summary-advantages-row .card-title {
+        min-height: 2.25rem;
     }
 
     .summary-advantages-row .feature-row {
@@ -1183,7 +1555,7 @@ body,button,input,select{ -webkit-font-smoothing:antialiased; -moz-osx-font-smoo
 
 /* Print polish */
 @media print{
-  body{background:#fff!important}
+  body{background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 25%,#bae6fd 100%)!important}
   .card,.page-header,.summary-section,.insurance-section{box-shadow:none!important;border:1px solid #dfe3e8!important}
   .result-card h3{font-size:1.1rem!important}
   .result-value{font-size:1rem!important}
@@ -1260,14 +1632,14 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
   .print-footer { display: none !important; }
   .print-footer.print-footer-inline {
     display: flex !important;
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100%;
     box-sizing: border-box;
-    padding: 2rem 1.5rem !important;
-    margin-top: auto;
+    padding: 1.6rem 1.4cm 1.8rem !important;
+    margin: 0 !important;
     background: #0e1e3a !important;
     color: #f8fafc !important;
     border-top: none;
@@ -1275,6 +1647,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
   }
   .print-footer.print-footer-inline .footer-inner {
     flex-direction: column;
+    max-width: 720px;
   }
 }
 </style>
@@ -1496,7 +1869,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
     
 @media print {
   .print-footer.print-footer-inline {
-    padding: 1.5rem 2rem !important;
+    padding: 1.6rem 1.4cm 1.8rem !important;
     background-color: #0e1e3a !important;
     color: #f8fafc !important;
     border-top: none;
@@ -1774,32 +2147,32 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
-<div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('kundendaten')">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
-</svg>
-                    Zurück
-                </button>
-<button class="btn-primary" id="calculateBtn" onclick="calculateAndShowResults()">
-                    Jetzt berechnen
-                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"></path>
-</svg>
-</button>
-<button class="btn-secondary hidden" id="recalculateBtn" onclick="calculateAndShowResults()">
-<svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"></path>
-</svg>
-                    Neu berechnen
-                </button>
-<button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
-                    Weiter
-                    <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
-<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
-</svg>
-</button>
-</div>
+        <div class="text-center mt-8 space-x-4">
+            <button class="btn-secondary" onclick="showPage('kundendaten')">
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+                </svg>
+                Zurück
+            </button>
+            <button class="btn-primary" id="calculateBtn" onclick="calculateAndShowResults()">
+                Jetzt berechnen
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"></path>
+                </svg>
+            </button>
+            <button class="btn-secondary hidden" id="recalculateBtn" onclick="calculateAndShowResults()">
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"></path>
+                </svg>
+                Neu berechnen
+            </button>
+            <button class="btn-primary hidden" id="nextToVorteileBtn" onclick="showPage('fondsportfolio')">
+                Weiter
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+                </svg>
+            </button>
+        </div>
 </div>
 <!-- Page 3: Company Information -->
 <!-- Page 3: Fondsportfolio -->
@@ -2350,6 +2723,8 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 
 <!-- Page 6: Zusammenfassung -->
 <div class="page-content" id="page-zusammenfassung">
+<div class="summary-print-body">
+<section class="print-page print-page-overview">
 <div class="page-header">
 <h1>Ihre Beratungszusammenfassung</h1>
 <p>📋 Alles auf einen Blick für Ihre Unterlagen</p>
@@ -2451,6 +2826,9 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
         </div>
     </div>
 </div>
+</section>
+
+<section class="print-page print-page-results">
 <div class="card mb-6 summary-results-card">
 <h2 class="card-title">Berechnungsergebnisse</h2>
 <div class="grid-4 mb-3">
@@ -2461,7 +2839,7 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <p style="font-size: 0.95rem; color: #6b7280; font-weight: 600;">Ohne Zinsen</p>
 </div>
 <div class="result-card primary">
-<img alt="SmartKidsInvest" src="smartkids-logo.png" style="height:60px; margin: 0 auto 1rem auto; display:block;"/>
+<img alt="SmartKidsInvest" src="smartkids-logo.png" class="summary-result-logo"/>
 <h3 style="font-weight: 800;">SmartKidsInvest</h3>
 <div class="result-value" id="summarySmartKids">-</div>
 <p id="smartKidsReturn" style="font-size: 1rem; color: #1e3a8a; font-weight: 700;">-</p>
@@ -2480,56 +2858,59 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 </div>
 </div>
 </div>
-<div class="card mb-6">
+<div class="card mb-6 summary-growth-card">
     <h2 class="card-title">Wertentwicklung im Zeitverlauf</h2>
-    <div style="position: relative; height: 340px; width: 100%;">
+    <div class="chart-container summary-growth-chart">
         <canvas id="summaryChart"></canvas>
     </div>
 </div>
-<div class="card mb-6">
+<div class="card mb-6 summary-company-card">
 <h2 class="card-title">Ihre gewählte Gesellschaft</h2>
-<div id="summaryCompanyInfo" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+<div id="summaryCompanyInfo" class="summary-company-info">
 <!-- Company info will be dynamically inserted here -->
 </div>
 </div>
-<div class="card mb-6" id="summaryFundsCard">
-<h2 class="card-title">Fondsportfolio</h2>
-<div class="summary-section">
-<div style="overflow-x:auto">
-<table class="pro-table" id="summaryFundTable">
-<thead>
-<tr>
-<th>Fondsname</th>
-<th class="num">Anteil (%)</th>
-<th class="num">Rendite 5J (%)</th>
-<th class="num">Rendite Portfolio (%)</th>
-</tr>
-</thead>
-<tbody>
-<!-- rows injected -->
-</tbody>
-<tfoot>
-<tr>
-<td>Summen</td>
-<td class="num" id="summarySumWeights">0,00 %</td>
-<td class="num">Gesamtrendite:</td>
-<td class="num" id="summarySumPortfolio">0,00 %</td>
-</tr>
-</tfoot>
-</table>
-</div>
-</div>
-</div>
-<div class="portfolio-chart-grid mb-6" id="summaryPortfolioCharts">
-<div class="card">
-<h2 class="card-title">Gesamtübersicht</h2>
-<div class="chart-shell"><canvas id="summaryPortfolioBar"></canvas></div>
-</div>
-<div class="card">
-<h2 class="card-title">Anteilsverteilung</h2>
-<div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
-</div>
-</div>
+    </section>
+
+    <section class="print-page print-page-closing" id="print-page-closing">
+        <div class="card mb-6 summary-funds-card" id="summaryFundsCard">
+            <h2 class="card-title">Fondsportfolio</h2>
+            <div class="summary-section">
+                <div style="overflow-x:auto">
+                    <table class="pro-table" id="summaryFundTable">
+                        <thead>
+                            <tr>
+                                <th>Fondsname</th>
+                                <th class="num">Anteil (%)</th>
+                                <th class="num">Rendite 5J (%)</th>
+                                <th class="num">Rendite Portfolio (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- rows injected -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Summen</td>
+                                <td class="num" id="summarySumWeights">0,00 %</td>
+                                <td class="num">Gesamtrendite:</td>
+                                <td class="num" id="summarySumPortfolio">0,00 %</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-chart-grid mb-6" id="summaryPortfolioCharts">
+            <div class="card">
+                <h2 class="card-title">Gesamtübersicht</h2>
+                <div class="chart-shell"><canvas id="summaryPortfolioBar"></canvas></div>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Anteilsverteilung</h2>
+                <div class="chart-shell"><canvas id="summaryAllocationPie"></canvas></div>
+            </div>
+        </div>
 <!-- Zusatzabsicherungen Summary -->
 <div class="card mb-6" id="insuranceSummary" style="display: none;">
 <h2 class="card-title">Gewählte Zusatzabsicherungen</h2>
@@ -2538,39 +2919,41 @@ button,.form-input,.form-select,.checkbox-container,.card,.nav-tab{transition:bo
 <!-- Dynamic insurance cards will be inserted here -->
 </div>
 <!-- Total Cost Summary -->
-<div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 2px solid #e2e8f0; border-radius: 16px; padding: 2rem; text-align: center; margin-top: 2rem;">
-<div style="display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
-<div style="width: 48px; height: 48px; background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">💰</div>
+<div class="insurance-summary-total">
+<div class="insurance-summary-total-header">
+<div class="insurance-summary-total-icon">💰</div>
 <div>
-<h3 style="font-size: 1.25rem; color: #1e293b; margin: 0; font-weight: 800;">Gesamtkosten aller Absicherungen</h3>
-<p style="color: #64748b; font-size: 0.875rem; margin: 0; font-weight: 500;">Monatlicher Gesamtbeitrag für alle gewählten Versicherungen</p>
+<h3>Gesamtkosten aller Absicherungen</h3>
+<p>Monatlicher Gesamtbeitrag für alle gewählten Versicherungen</p>
 </div>
 </div>
-<div id="summaryTotalInsuranceCost" style="font-size: 2.5rem; font-weight: 900; color: #0369a1; margin-bottom: 0.5rem;">-</div>
-<div style="color: #64748b; font-weight: 600; font-size: 1rem;">pro Monat</div>
+<div id="summaryTotalInsuranceCost" class="insurance-summary-total-value">-</div>
+<div class="insurance-summary-total-caption">pro Monat</div>
 </div>
 </div>
-<div class="card" style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border: 2px solid #e5e7eb; padding: 1.5rem;">
-<p style="text-align: center; font-size: 0.75rem; color: #6b7280; margin: 0; display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 500; line-height: 1.4;">
-<span style="font-size: 0.875rem;">⚠️</span>
-<strong>Wichtiger Hinweis:</strong> Alle Berechnungen basieren auf den eingegebenen Annahmen und erfolgen ohne Gewähr. 
+<div class="card summary-disclaimer-card">
+<p class="summary-disclaimer-text">
+<span class="summary-disclaimer-icon">⚠️</span>
+<strong>Wichtiger Hinweis:</strong> Alle Berechnungen basieren auf den eingegebenen Annahmen und erfolgen ohne Gewähr.
                     Die tatsächliche Entwicklung kann von den Prognosen abweichen. Vergangene Wertentwicklungen sind kein Indikator für zukünftige Ergebnisse.
                 </p>
 </div>
-<div class="text-center mt-8 space-x-4">
-<button class="btn-secondary" onclick="showPage('vorteile')">
-<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20">
-<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
-</svg>
-                    Zurück
-                </button>
-<button class="btn-primary" onclick="window.print()">
-<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20">
-<path d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"></path>
-</svg>
-                    Drucken / PDF
-                </button>
+</section>
 </div>
+        <div class="text-center mt-8 space-x-4">
+            <button class="btn-secondary" onclick="showPage('vorteile')">
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+                </svg>
+                Zurück
+            </button>
+            <button class="btn-primary" onclick="window.print()">
+                <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16">
+                    <path d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"></path>
+                </svg>
+                Drucken / PDF
+            </button>
+        </div>
 </div>
 </main>
 <script>
@@ -4367,6 +4750,9 @@ document.addEventListener('DOMContentLoaded', function(){
   var summaryPage = document.getElementById('page-zusammenfassung');
   if (!footer || !summaryPage || !footer.parentNode) return;
 
+  var closingPage = document.getElementById('print-page-closing');
+  var targetParent = closingPage || summaryPage;
+
   var homeParent = footer.parentNode;
   var placeholder = document.createElement('div');
   placeholder.className = 'print-footer-placeholder';
@@ -4374,9 +4760,9 @@ document.addEventListener('DOMContentLoaded', function(){
   homeParent.insertBefore(placeholder, footer.nextSibling);
 
   function moveFooterForPrint(){
-    if (summaryPage.contains(footer)) return;
+    if (footer.parentNode === targetParent) return;
     footer.classList.add('print-footer-inline');
-    summaryPage.appendChild(footer);
+    targetParent.appendChild(footer);
   }
 
   function restoreFooterAfterPrint(){
